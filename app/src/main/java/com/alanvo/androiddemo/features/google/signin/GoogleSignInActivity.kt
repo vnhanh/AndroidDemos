@@ -1,4 +1,4 @@
-package com.alanvo.androiddemo.features
+package com.alanvo.androiddemo.features.google.signin
 
 import android.app.Activity
 import android.content.Intent

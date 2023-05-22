@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.alanvo.androiddemo.adapter.FeatureModel
 import com.alanvo.androiddemo.adapter.FeaturesAdapter
 import com.alanvo.androiddemo.databinding.ActivityMainBinding
-import com.alanvo.androiddemo.features.GoogleSignInActivity
+import com.alanvo.androiddemo.features.google.signin.GoogleSignInActivity
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding

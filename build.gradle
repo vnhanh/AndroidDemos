@@ -12,7 +12,14 @@ buildscript {
         googleMaterial = "1.9.0"
         googlePlayServiceAuth = "20.5.0"
         composeKotlinCompilerVersion = "1.4.7"
+        composeBoomVersion = "2023.04.01"
         activityComposeVersion = "1.7.2"
+        viewmodelComposeVersion = "2.6.1"
+
+        // Test
+        junitVersion = "4.13.2"
+        extJUnitVersion = "1.1.5"
+        espressoCoreVersion = "3.5.1"
     }
 }
 

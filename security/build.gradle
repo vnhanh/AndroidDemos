@@ -1,22 +1,24 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 }
 
 android {
-    namespace 'com.alanvo.androiddemo'
+    namespace 'com.alanvo.androiddemo.security'
     compileSdk rootProject.ext.compileSdkVersion
 
     defaultConfig {
-        applicationId "com.alanvo.androiddemo"
-
+        applicationId "com.alanvo.androiddemo.security"
         minSdk rootProject.ext.minSdkVersion
         targetSdk rootProject.ext.targetSdkVersion
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
 
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary true
+        }
     }
 
     buildTypes {
@@ -29,10 +31,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    buildFeatures {
-        viewBinding = true
-        compose = true
-    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
@@ -40,20 +38,24 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_11
     }
+    buildFeatures {
+        compose true
+    }
     composeOptions {
         kotlinCompilerExtensionVersion rootProject.ext.composeKotlinCompilerVersion
+    }
+    packagingOptions {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
     }
 }
 
 dependencies {
-    implementation project(path: ':google_authentication')
 
     implementation "androidx.core:core-ktx:${rootProject.ext.coreKtx}"
-    implementation "androidx.appcompat:appcompat:${rootProject.ext.appCompat}"
-    implementation "com.google.android.material:material:${rootProject.ext.googleMaterial}"
-    implementation "androidx.constraintlayout:constraintlayout:${rootProject.ext.constraintLayout}"
-    implementation 'com.google.android.gms:play-services-maps:18.1.0'
-
+    implementation platform("org.jetbrains.kotlin:kotlin-bom:${rootProject.ext.kotlinBoomVersion}")
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleRuntimeKtxVersion"
     // Compose
     def composeBom = platform("androidx.compose:compose-bom:${rootProject.ext.composeBoomVersion}")
     implementation composeBom
@@ -72,6 +74,7 @@ dependencies {
     // Compose - UI Test
     androidTestImplementation 'androidx.compose.ui:ui-test-junit4'
     debugImplementation 'androidx.compose.ui:ui-test-manifest'
+    debugImplementation 'androidx.compose.ui:ui-tooling'
 
     // Test
     testImplementation "junit:junit:${rootProject.ext.junitVersion}"

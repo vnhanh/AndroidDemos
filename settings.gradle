@@ -16,3 +16,4 @@ rootProject.name = "AndroidDemo"
 include ':app'
 include ':contentprovider'
 include ':google_authentication'
+include ':security'

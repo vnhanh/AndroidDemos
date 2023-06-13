@@ -7,7 +7,9 @@ buildscript {
         versionName = "1.0"
 
         coreKtx = "1.10.1"
+        kotlinBoomVersion = "1.8.0"
         appCompat = "1.6.1"
+        lifecycleRuntimeKtxVersion = "2.6.1"
         constraintLayout = "2.1.4"
         googleMaterial = "1.9.0"
         googlePlayServiceAuth = "20.5.0"

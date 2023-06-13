@@ -13,10 +13,15 @@ buildscript {
         constraintLayout = "2.1.4"
         googleMaterial = "1.9.0"
         googlePlayServiceAuth = "20.5.0"
+        // Compose
         composeKotlinCompilerVersion = "1.4.7"
         composeBoomVersion = "2023.04.01"
         activityComposeVersion = "1.7.2"
         viewmodelComposeVersion = "2.6.1"
+        // Security
+        securityCryptoVersion = "1.0.0"
+        securityIdentityVersion = "1.0.0-alpha03"
+        securityAppAuthenticatorVersion = "1.0.0-alpha02"
 
         // Test
         junitVersion = "4.13.2"

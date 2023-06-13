@@ -56,7 +56,8 @@ dependencies {
     implementation "androidx.core:core-ktx:${rootProject.ext.coreKtx}"
     implementation platform("org.jetbrains.kotlin:kotlin-bom:${rootProject.ext.kotlinBoomVersion}")
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleRuntimeKtxVersion"
-    // Compose
+
+    /** Compose **/
     def composeBom = platform("androidx.compose:compose-bom:${rootProject.ext.composeBoomVersion}")
     implementation composeBom
     androidTestImplementation composeBom
@@ -70,11 +71,19 @@ dependencies {
     implementation "androidx.activity:activity-compose:${rootProject.ext.activityComposeVersion}"
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:${rootProject.ext.viewmodelComposeVersion}"
     implementation 'androidx.compose.runtime:runtime-livedata'
-
     // Compose - UI Test
     androidTestImplementation 'androidx.compose.ui:ui-test-junit4'
     debugImplementation 'androidx.compose.ui:ui-test-manifest'
     debugImplementation 'androidx.compose.ui:ui-tooling'
+
+    /** Security **/
+    implementation "androidx.security:security-crypto:${rootProject.ext.securityCryptoVersion}"
+    // For Identity Credential APIs
+    implementation "androidx.security:security-identity-credential:${rootProject.ext.securityIdentityVersion}"
+    // For App Authentication APIs
+    implementation "androidx.security:security-app-authenticator:${rootProject.ext.securityAppAuthenticatorVersion}"
+    // For App Authentication API testing
+    androidTestImplementation "androidx.security:security-app-authenticator:${rootProject.ext.securityAppAuthenticatorVersion}"
 
     // Test
     testImplementation "junit:junit:${rootProject.ext.junitVersion}"

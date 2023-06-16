@@ -18,6 +18,7 @@ buildscript {
         composeBoomVersion = "2023.04.01"
         activityComposeVersion = "1.7.2"
         viewmodelComposeVersion = "2.6.1"
+        coilVersion = "2.4.0"
         // Retrofit
         retrofit = "2.9.0"
         okhttp = "4.11.0"

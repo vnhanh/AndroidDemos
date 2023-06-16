@@ -1,4 +1,4 @@
-package com.alanvo.androiddemo.security.ui.theme
+package com.alanvo.androiddemo.security.presentation.practiceDataStore.view
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

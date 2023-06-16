@@ -53,12 +53,12 @@ android {
 
 dependencies {
 
-    implementation "androidx.core:core-ktx:${rootProject.ext.coreKtx}"
-    implementation platform("org.jetbrains.kotlin:kotlin-bom:${rootProject.ext.kotlinBoomVersion}")
+    implementation "androidx.core:core-ktx:$coreKtx"
+    implementation platform("org.jetbrains.kotlin:kotlin-bom:$kotlinBoomVersion")
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleRuntimeKtxVersion"
 
     /** Compose **/
-    def composeBom = platform("androidx.compose:compose-bom:${rootProject.ext.composeBoomVersion}")
+    def composeBom = platform("androidx.compose:compose-bom:$composeBoomVersion")
     implementation composeBom
     androidTestImplementation composeBom
     implementation 'androidx.compose.ui:ui'
@@ -68,25 +68,34 @@ dependencies {
     implementation 'androidx.compose.ui:ui-tooling-preview'
     debugImplementation 'androidx.compose.ui:ui-tooling'
     // Compose - Integration with activities
-    implementation "androidx.activity:activity-compose:${rootProject.ext.activityComposeVersion}"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:${rootProject.ext.viewmodelComposeVersion}"
+    implementation "androidx.activity:activity-compose:$activityComposeVersion"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:$viewmodelComposeVersion"
     implementation 'androidx.compose.runtime:runtime-livedata'
     // Compose - UI Test
     androidTestImplementation 'androidx.compose.ui:ui-test-junit4'
     debugImplementation 'androidx.compose.ui:ui-test-manifest'
     debugImplementation 'androidx.compose.ui:ui-tooling'
 
+    /*Retrofit*/
+    implementation "com.squareup.retrofit2:retrofit:$retrofit"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp"
+    implementation "com.squareup.okhttp3:okhttp:$okhttp"
+
+    // Gson
+    implementation "com.google.code.gson:gson:$retrofit"
+
     /** Security **/
-    implementation "androidx.security:security-crypto:${rootProject.ext.securityCryptoVersion}"
+    implementation "androidx.security:security-crypto:$securityCryptoVersion"
     // For Identity Credential APIs
-    implementation "androidx.security:security-identity-credential:${rootProject.ext.securityIdentityVersion}"
+    implementation "androidx.security:security-identity-credential:$securityIdentityVersion"
     // For App Authentication APIs
-    implementation "androidx.security:security-app-authenticator:${rootProject.ext.securityAppAuthenticatorVersion}"
+    implementation "androidx.security:security-app-authenticator:$securityAppAuthenticatorVersion"
     // For App Authentication API testing
-    androidTestImplementation "androidx.security:security-app-authenticator:${rootProject.ext.securityAppAuthenticatorVersion}"
+    androidTestImplementation "androidx.security:security-app-authenticator:$securityAppAuthenticatorVersion"
 
     // Test
-    testImplementation "junit:junit:${rootProject.ext.junitVersion}"
-    androidTestImplementation "androidx.test.ext:junit:${rootProject.ext.extJUnitVersion}"
-    androidTestImplementation "androidx.test.espresso:espresso-core:${rootProject.ext.espressoCoreVersion}"
+    testImplementation "junit:junit:$junitVersion"
+    androidTestImplementation "androidx.test.ext:junit:$extJUnitVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espressoCoreVersion"
 }

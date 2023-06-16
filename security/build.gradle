@@ -85,6 +85,9 @@ dependencies {
     // Gson
     implementation "com.google.code.gson:gson:$retrofit"
 
+    // Data Store
+    implementation "androidx.datastore:datastore-preferences:$data_store"
+
     /** Security **/
     implementation "androidx.security:security-crypto:$securityCryptoVersion"
     // For Identity Credential APIs

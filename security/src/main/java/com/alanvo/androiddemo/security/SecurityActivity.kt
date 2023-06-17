@@ -10,9 +10,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -42,6 +39,12 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
         modifier = modifier.padding(8.dp),
     ) {
         Text(
+            text = "Hello $name!",
+            fontSize = 32.sp,
+            lineHeight = 36.sp,
+            modifier = modifier,
+        )
+        Text(
             text = "From Emma",
             fontSize = 24.sp,
             lineHeight = 28.sp,
@@ -52,9 +55,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
         Image(
             painter = painterResource(id = R.drawable.androidparty),
             contentDescription = "Birthday",
-            modifier = Modifier
-                .padding(8.dp)
-                .align(Alignment.CenterHorizontally)
+            modifier = Modifier.padding(8.dp).align(Alignment.CenterHorizontally)
         )
     }
 }

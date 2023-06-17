@@ -42,14 +42,6 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             lineHeight = 36.sp,
             modifier = modifier,
         )
-        Text(
-            text = "From Emma",
-            fontSize = 24.sp,
-            lineHeight = 28.sp,
-            textAlign = TextAlign.Center,
-            modifier = Modifier
-                .padding(16.dp)
-        )
         Image(
             painter = painterResource(id = R.drawable.androidparty),
             contentDescription = "Birthday",

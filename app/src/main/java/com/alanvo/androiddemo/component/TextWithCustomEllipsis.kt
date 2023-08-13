@@ -1,10 +1,9 @@
-
-package com.s3.structor.gurulof.presentation.components.text
+package com.alanvo.androiddemo.component
 
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.material.Text
 import androidx.compose.material3.LocalTextStyle
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -26,9 +25,8 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
-import com.s3.structor.gurulof.theme.LGAppTypography
 
-enum class LGAppEllipsisPosition {
+enum class AppEllipsisPosition {
     START,
     END
 }
@@ -37,7 +35,7 @@ enum class LGAppEllipsisPosition {
  * Caution: only use if the default composable can not show ok
  */
 @Composable
-fun LGAppTextCustomEllipse(
+fun AppTextCustomEllipse(
     text: String,
     modifier: Modifier = Modifier,
     color: Color = Color.Unspecified,
@@ -50,7 +48,7 @@ fun LGAppTextCustomEllipse(
     textAlign: TextAlign? = null,
     lineHeight: TextUnit = TextUnit.Unspecified,
     softWrap: Boolean = true,
-    ellipsisAt: LGAppEllipsisPosition = LGAppEllipsisPosition.END,
+    ellipsisAt: AppEllipsisPosition = AppEllipsisPosition.END,
     maxLines: Int = 1,
     onTextLayout: (TextLayoutResult) -> Unit = {},
     style: TextStyle = LocalTextStyle.current,
@@ -113,7 +111,7 @@ fun LGAppTextCustomEllipse(
                     }
 
                 when (ellipsisAt) {
-                    LGAppEllipsisPosition.START -> {
+                    AppEllipsisPosition.START -> {
                         calculateTextForEllipsisAtStart(
                             text = text,
                             eachLineWidth = constraints.maxWidth * 1f,
@@ -124,7 +122,7 @@ fun LGAppTextCustomEllipse(
                         )
                     }
 
-                    LGAppEllipsisPosition.END -> {
+                    AppEllipsisPosition.END -> {
                         calculateTextForEllipsisAtEnd(
                             text = text,
                             eachLineWidth = constraints.maxWidth * 1f,
@@ -305,13 +303,13 @@ private class BoundCounter(
         nextCharWidth: Float,
         isGoToNextLine: Boolean
     ) : Float {
-        var widthWillBeAdded = 0f
+        val widthWillBeAdded: Float
 
         if (nextChar.isWhitespace()) {
-            if (isGoToNextLine) {
-                widthWillBeAdded = 0f
+            widthWillBeAdded = if (isGoToNextLine) {
+                0f
             } else {
-                widthWillBeAdded = nextCharWidth
+                nextCharWidth
             }
             currentWordWidth = 0f
             availableCalculatWidthInCaseNextLine = true
@@ -346,14 +344,11 @@ private class BoundCounter(
 private fun LGPreviewTextCustomEllipsis(
     @PreviewParameter(LGPreviewProviderParamTextCustomEllipsis::class) input: LGPreviewDataTextCustomEllipsis
 ) {
-    LGAppTextCustomEllipse(
+    AppTextCustomEllipse(
         modifier = Modifier
             .width(300.dp)
             .wrapContentHeight(),
         text = input.text,
-        style = LGAppTypography.mobileBodyLargeM.copy(
-            color = Color.Black,
-        ),
         ellipsisAt = input.ellipsisAt,
         maxLines = input.maxLines,
     )
@@ -362,7 +357,7 @@ private fun LGPreviewTextCustomEllipsis(
 data class LGPreviewDataTextCustomEllipsis(
     val text: String,
     val maxLines: Int,
-    val ellipsisAt: LGAppEllipsisPosition,
+    val ellipsisAt: AppEllipsisPosition,
 )
 
 class LGPreviewProviderParamTextCustomEllipsis : PreviewParameterProvider<LGPreviewDataTextCustomEllipsis> {
@@ -370,12 +365,12 @@ class LGPreviewProviderParamTextCustomEllipsis : PreviewParameterProvider<LGPrev
         LGPreviewDataTextCustomEllipsis(
             text = "Bộ trưởng Nông nghiệp & Phát triển nông thôn ước tính ngoài lượng tiêu thụ nội địa, cả nước còn khoảng 13,5 triệu tấn thóc, tương đương 7-8 triệu tấn gạo cho xuất khẩu. Số liệu này được Bộ trưởng Nông nghiệp & Phát triển nông thôn Lê Minh Hoan nêu trong báo cáo giải trình các vấn đề chất vấn gửi các đại biểu Quốc hội ngày 10/8. Theo kế hoạch, Bộ trưởng Lê Minh Hoan sẽ đăng đàn trả lời chất vấn các vấn đề của ngành nông nghiệp tại phiên họp thứ 25 Ủy ban Thường vụ Quốc hội, chiều 15/8.",
             maxLines = 1,
-            ellipsisAt = LGAppEllipsisPosition.START
+            ellipsisAt = AppEllipsisPosition.START
         ),
         LGPreviewDataTextCustomEllipsis(
             text = "Bộ trưởng Nông nghiệp & Phát triển nông thôn ước tính ngoài lượng tiêu thụ nội địa, cả nước còn khoảng 13,5 triệu tấn thóc, tương đương 7-8 triệu tấn gạo cho xuất khẩu. Số liệu này được Bộ trưởng Nông nghiệp & Phát triển nông thôn Lê Minh Hoan nêu trong báo cáo giải trình các vấn đề chất vấn gửi các đại biểu Quốc hội ngày 10/8. Theo kế hoạch, Bộ trưởng Lê Minh Hoan sẽ đăng đàn trả lời chất vấn các vấn đề của ngành nông nghiệp tại phiên họp thứ 25 Ủy ban Thường vụ Quốc hội, chiều 15/8.",
             maxLines = 1,
-            ellipsisAt = LGAppEllipsisPosition.END
+            ellipsisAt = AppEllipsisPosition.END
         ),
     )
 }

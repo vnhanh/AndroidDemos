@@ -12,7 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidDemo"
         tools:targetApi="31">
-
+        <activity
+            android:name=".practice.transition.TargetOneActivity"
+            android:exported="false" />
+        <activity
+            android:name=".practice.transition.TransitionTargetActivity"
+            android:exported="false" />
         <!--
              TODO: Before you run your application, you need a Google Maps API key.
 

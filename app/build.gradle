@@ -52,7 +52,9 @@ dependencies {
     implementation "androidx.appcompat:appcompat:${rootProject.ext.appCompat}"
     implementation "com.google.android.material:material:${rootProject.ext.googleMaterial}"
     implementation "androidx.constraintlayout:constraintlayout:${rootProject.ext.constraintLayout}"
-    implementation 'com.google.android.gms:play-services-maps:18.1.0'
+    implementation "com.google.android.gms:play-services-maps:$goolePlayServicesMap"
+
+    implementation "androidx.fragment:fragment-ktx:1.6.2"
 
     // Compose
     def composeBom = platform("androidx.compose:compose-bom:${rootProject.ext.composeBoomVersion}")

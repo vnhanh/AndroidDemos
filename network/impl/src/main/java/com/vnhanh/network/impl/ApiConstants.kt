@@ -1,6 +1,10 @@
 package com.vnhanh.network.impl
 
 object ApiConstant {
+    const val CONNECTION_TIMEOUT = 60L
+    const val OKHTTP_READ_TIMEOUT = 60L
+    const val OKHTTP_WRITE_TIMEOUT = 60L
+
     const val ERROR_API_CODE_UPGRADING_SERVER = -2
     const val ERROR_HANDLED_CODE_EXCEPTION_OR_DEFAULT_FAILURE = -6
 

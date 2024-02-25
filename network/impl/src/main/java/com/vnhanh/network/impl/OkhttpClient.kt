@@ -1,5 +1,8 @@
 package com.vnhanh.network.impl
 
+import com.vnhanh.network.impl.ApiConstant.CONNECTION_TIMEOUT
+import com.vnhanh.network.impl.ApiConstant.OKHTTP_READ_TIMEOUT
+import com.vnhanh.network.impl.ApiConstant.OKHTTP_WRITE_TIMEOUT
 import com.vnhanh.network.impl.responseLog.Logger
 import com.vnhanh.network.impl.responseLog.LoggingInterceptor
 import okhttp3.Interceptor
@@ -16,9 +19,9 @@ object OkhttpClient {
         isDebugMode: Boolean,
     ): OkHttpClient {
         val clientBuilder: OkHttpClient.Builder = OkHttpClient.Builder()
-            .connectTimeout(60, TimeUnit.SECONDS)
-            .readTimeout(30, TimeUnit.SECONDS)
-            .writeTimeout(30, TimeUnit.SECONDS)
+            .connectTimeout(CONNECTION_TIMEOUT, TimeUnit.SECONDS)
+            .readTimeout(OKHTTP_READ_TIMEOUT, TimeUnit.SECONDS)
+            .writeTimeout(OKHTTP_WRITE_TIMEOUT, TimeUnit.SECONDS)
 
         interceptors.forEach { interceptor ->
             clientBuilder.addInterceptor(interceptor)

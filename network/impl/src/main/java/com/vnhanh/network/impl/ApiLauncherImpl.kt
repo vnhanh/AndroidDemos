@@ -1,5 +1,6 @@
 package com.vnhanh.network.impl
 
+import com.vnhanh.common.datahelper.extensions.ifNullOrBlank
 import com.vnhanh.common.log.printDebugStackTrace
 import com.vnhanh.demo.network.base.IApiLauncher
 import com.vnhanh.demo.network.base.IApiResponse
@@ -18,6 +19,7 @@ import java.net.UnknownHostException
 
 open class ApiLauncherImpl<ApiResponse : IApiResponse> :
     IApiLauncher<Response<ApiResponse>, ApiHandledResponse<ApiResponse>> {
+
     private val upgradingServerErrMsg = "We are upgrading our server and will be online shortly"
 
     open fun handleAfterOnSuccess(successResponse: Response<ApiResponse>) {}
@@ -29,13 +31,13 @@ open class ApiLauncherImpl<ApiResponse : IApiResponse> :
         try {
             val response: Response<ApiResponse> = apiCall()
             val responseBody: ApiResponse? = response.body()
+
             when {
                 // upgrading server case
                 responseBody != null && responseBody.isErrorUpgradingServer -> {
-                    var message: String? = responseBody.message
-                    if (message.isNullOrBlank()) {
-                        message = upgradingServerErrMsg
-                    }
+                    val message: String =
+                        responseBody.message.ifNullOrBlank { upgradingServerErrMsg }
+
                     ApiHandledResponse(
                         failedHandedResponse = FailedHandedResponse(
                             code = ERROR_API_CODE_UPGRADING_SERVER,
@@ -47,7 +49,7 @@ open class ApiLauncherImpl<ApiResponse : IApiResponse> :
                 // success cases
                 responseBody != null && responseBody.isSuccess -> {
                     onComplete(
-                        ApiHandledResponse<ApiResponse>(successHandledResponse = responseBody)
+                        ApiHandledResponse(successHandledResponse = responseBody)
                     )
                     handleAfterOnSuccess(response)
                 }
@@ -70,7 +72,7 @@ open class ApiLauncherImpl<ApiResponse : IApiResponse> :
                         onComplete(
                             defaultHandledResponse(
                                 defaultCode = responseBody?.failedCode,
-                                defaultErrMsg = responseBody?.message,
+                                defaultErrMsg = responseBody?.message.ifNullOrBlank { somethingWentWrongMsg },
                                 responseBody = responseBody
                             )
                         )
@@ -94,7 +96,7 @@ open class ApiLauncherImpl<ApiResponse : IApiResponse> :
                 else -> {
                     defaultHandledResponse(
                         defaultCode = ERROR_HANDLED_CODE_DEFAULT_API_EXCEPTION_,
-                        defaultErrMsg = e.message ?: somethingWentWrongMsg,
+                        defaultErrMsg = e.message.ifNullOrBlank { somethingWentWrongMsg },
                     )
                 }
             }
@@ -109,15 +111,14 @@ open class ApiLauncherImpl<ApiResponse : IApiResponse> :
             defaultCode: Int? = null,
             defaultErrMsg: String? = null,
             responseBody: T? = null,
-        ): ApiHandledResponse<T> {
-            return ApiHandledResponse(
+        ): ApiHandledResponse<T> =
+            ApiHandledResponse(
                 failedHandedResponse = defaultFailedHandledResponse(
                     defaultCode = defaultCode,
                     defaultErrMsg = defaultErrMsg,
                     responseBody = responseBody
                 )
             )
-        }
 
         fun <T : IApiResponse> defaultFailedHandledResponse(
             defaultCode: Int? = null,

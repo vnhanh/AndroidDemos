@@ -7,8 +7,8 @@ import timber.log.Timber
 class DemoApplication : Application() {
     override fun onCreate() {
         super.onCreate()
-//        if (BuildConfig.DEBUG) {
-//            Timber.plant(AppDebugTree())
-//        }
+        if (BuildConfig.DEBUG) {
+            Timber.plant(AppDebugTree())
+        }
     }
 }

@@ -1,5 +1,10 @@
-import dependencies.basicAndroidComponent
+import dependencies.AndroidXDependencies
+import dependencies.GoogleDependencies
+import dependencies.RetrofitDependencies
 import dependencies.test
+import modules.common.CommonDataHelperModule
+import modules.common.CommonLogModule
+import modules.network.NetworkBaseModule
 import modules.network.NetworkImplModule
 
 plugins {
@@ -42,7 +47,15 @@ android {
 }
 
 dependencies {
-    basicAndroidComponent()
+    implementation(project(NetworkBaseModule.projectName))
+    implementation(project(CommonDataHelperModule.projectName))
+    implementation(project(CommonLogModule.projectName))
+
+    api(RetrofitDependencies.retrofit)
+    api(RetrofitDependencies.gsonConverter)
+    api(RetrofitDependencies.loggingInterceptor)
+    implementation(GoogleDependencies.gson)
+    implementation(AndroidXDependencies.annotationJvm)
 
     test()
 }

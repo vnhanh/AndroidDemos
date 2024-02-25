@@ -14,13 +14,18 @@ object AndroidXDependencies {
     const val fragmentKtx = "androidx.fragment:fragment-ktx:$fragmentKtxVersion"
 
     private const val navFragmentKtxVersion = "2.7.7"
-    const val navigationFragmentKtx = "androidx.navigation:navigation-fragment-ktx:$navFragmentKtxVersion"
+    const val navigationFragmentKtx =
+        "androidx.navigation:navigation-fragment-ktx:$navFragmentKtxVersion"
 
     private const val navigationUiKtxVersion = "2.7.7"
     const val navigationUiKtx = "androidx.navigation:navigation-ui-ktx:$navigationUiKtxVersion"
 
     private const val constraintLayoutVersion = "2.1.4"
-    const val constraintLayout = "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
+    const val constraintLayout =
+        "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
+
+    private const val annotationJvmVersion = "1.7.1"
+    const val annotationJvm = "androidx.annotation:annotation-jvm:$annotationJvmVersion"
 }
 
 object GoogleDependencies {

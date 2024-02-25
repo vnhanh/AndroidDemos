@@ -1,3 +1,4 @@
+import dependencies.GoogleDependencies
 import dependencies.test
 import modules.network.NetworkBaseModule
 
@@ -41,6 +42,7 @@ android {
 }
 
 dependencies {
+    implementation(GoogleDependencies.gson)
 
     test()
 }

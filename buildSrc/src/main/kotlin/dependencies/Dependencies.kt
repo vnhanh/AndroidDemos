@@ -69,7 +69,17 @@ object RetrofitDependencies {
     const val gsonConverter = "com.squareup.retrofit2:converter-gson:$gsonConverterVersion"
 
     private const val loggingInterceptorVersion = "4.10.0"
-    const val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:$loggingInterceptorVersion"
+    const val loggingInterceptor =
+        "com.squareup.okhttp3:logging-interceptor:$loggingInterceptorVersion"
+}
+
+object LGKoinDependencies {
+    private const val koinVersion = "3.5.0"
+
+    const val koinCore = "io.insert-koin:koin-core:$koinVersion"
+    const val koinTest = "io.insert-koin:koin-test:$koinVersion"
+    const val koinAndroid = "io.insert-koin:koin-android:$koinVersion"
+    const val koinCompose = "io.insert-koin:koin-androidx-compose:$koinVersion"
 }
 
 object HiltDependency {

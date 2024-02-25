@@ -1,3 +1,4 @@
+import dependencies.test
 import modules.common.CommonAndroidHelperModule
 
 plugins {
@@ -36,4 +37,9 @@ android {
     kotlinOptions {
         jvmTarget = KotlinConfiguration.jvmTarget
     }
+}
+
+dependencies {
+
+    test()
 }

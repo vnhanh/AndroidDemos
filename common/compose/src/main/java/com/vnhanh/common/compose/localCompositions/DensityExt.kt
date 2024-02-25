@@ -1,4 +1,4 @@
-package com.vnhanh.common.compose.localCompositionals
+package com.vnhanh.common.compose.localCompositions
 
 import androidx.compose.ui.unit.Density
 

@@ -9,6 +9,13 @@ fun DependencyHandler.room() {
     annotationProcessor(RoomDependencies.annotationProcessorRoomCompiler)
 }
 
+fun DependencyHandler.koin() {
+    implementation(LGKoinDependencies.koinCore)
+    implementation(LGKoinDependencies.koinTest)
+    implementation(LGKoinDependencies.koinAndroid)
+    implementation(LGKoinDependencies.koinCompose)
+}
+
 fun DependencyHandler.hilt() {
     implementation(HiltDependency.hilt)
     implementation(HiltDependency.hiltNavigation)

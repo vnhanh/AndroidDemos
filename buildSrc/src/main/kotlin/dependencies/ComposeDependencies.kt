@@ -9,6 +9,7 @@ object ComposeDependencies {
     private const val activityComposeVersion = "1.8.1"
     private const val lifecycleComposeVersion = "2.6.2"
     private const val material3Version = "1.2.0-alpha11"
+    private const val navigationVersion = "2.7.4"
 
     const val composeBom = "androidx.compose:compose-bom:$bomVersion"
     const val material = "androidx.compose.material:material"
@@ -23,7 +24,9 @@ object ComposeDependencies {
     const val runtimeLiveData = "androidx.compose.runtime:runtime-livedata"
     const val activityCompose = "androidx.activity:activity-compose:$activityComposeVersion"
     const val lifeCycleViewModel = "androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycleComposeVersion"
-    const val lifeCycleRuntime = "androidx.lifecycle:lifecycle-runtime-compose:$lifecycleComposeVersion"
+    const val lifeCycleRuntime =
+        "androidx.lifecycle:lifecycle-runtime-compose:$lifecycleComposeVersion"
+    const val composeNavigation = "androidx.navigation:navigation-compose:$navigationVersion"
 }
 
 object GlideDependencies {

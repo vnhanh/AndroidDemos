@@ -2,8 +2,10 @@ import dependencies.AndroidXDependencies
 import dependencies.GoogleDependencies
 import dependencies.basicAndroidComponent
 import dependencies.implementation
+import dependencies.koin
 import dependencies.test
 import modules.AppModule
+import modules.common.CommonAndroidHelperModule
 import modules.common.CommonComposeModule
 import modules.common.CommonDataHelperModule
 import modules.common.CommonLogModule
@@ -62,6 +64,7 @@ dependencies {
      * Implement modules
      */
     implementation(project(NetworkImplModule.projectName))
+    implementation(project(CommonAndroidHelperModule.projectName))
     implementation(project(CommonComposeModule.projectName))
     implementation(project(CommonDataHelperModule.projectName))
     implementation(project(CommonLogModule.projectName))
@@ -77,6 +80,8 @@ dependencies {
     implementation(AndroidXDependencies.navigationUiKtx)
     implementation(AndroidXDependencies.constraintLayout)
     implementation(GoogleDependencies.material)
+
+    koin()
 
     test()
 }

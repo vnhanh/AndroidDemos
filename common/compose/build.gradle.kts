@@ -63,6 +63,7 @@ dependencies {
     api(ComposeDependencies.material3WindowSizeClass)
     debugApi(ComposeDependencies.debugUiTooling)
     api(ComposeDependencies.uiToolingPreview)
+    api(ComposeDependencies.composeNavigation)
 
     test()
 }

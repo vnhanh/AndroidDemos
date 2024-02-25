@@ -1,7 +1,7 @@
 package dependencies
 
 object ComposeConfiguration {
-    const val kotlinCompilerExtensionVersion = "1.5.1"
+    const val kotlinCompilerExtensionVersion = "1.5.10"
 }
 
 object ComposeDependencies {

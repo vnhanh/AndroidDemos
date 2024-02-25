@@ -1,3 +1,4 @@
+import dependencies.ComposeConfiguration
 import dependencies.ComposeDependencies
 import dependencies.test
 import modules.common.CommonComposeModule
@@ -32,12 +33,18 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = KotlinConfiguration.sourceCompatibility
         targetCompatibility = KotlinConfiguration.targetCompatibility
     }
+
     kotlinOptions {
         jvmTarget = KotlinConfiguration.jvmTarget
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = ComposeConfiguration.kotlinCompilerExtensionVersion
     }
 }
 

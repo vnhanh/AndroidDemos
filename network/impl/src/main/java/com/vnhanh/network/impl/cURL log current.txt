@@ -1,0 +1,38 @@
+cURL -g -X POST -H "Authorization: Basic Z2FuYmFydUV1Z2VuZU1ldGhvZDpnYW5iYXJ1RXVnZW5lTWV0aG9k" -H "tokencofox: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvZ2FuYmFydW1ldGhvZC5jb20iLCJpYXQiOjE3MDg4ODgyNzYsIm5iZiI6MTcwODg4ODI3NiwiZXhwIjoxNzQwNDI0Mjc2LCJkYXRhIjp7InVzZXIiOnsiaWQiOjUzNzg2fX19.Gz7l2Kdpjngl1T-1M2IEAP0ZYr2hG0JBfE60BK6K8QQ" -H "Content-Type: multipart/form-data; boundary=455a3dd3-3895-43f1-91db-4d9c22b66a23"  -d '--455a3dd3-3895-43f1-91db-4d9c22b66a23
+
+Content-Disposition: form-data; name="tab"
+Content-Transfer-Encoding: binary
+Content-Type: text/plain; charset=utf-8
+Content-Length: 7
+
+profile
+--455a3dd3-3895-43f1-91db-4d9c22b66a23
+Content-Disposition: form-data; name="edit"
+Content-Transfer-Encoding: binary
+Content-Type: text/plain; charset=utf-8
+Content-Length: 7
+
+profile
+--455a3dd3-3895-43f1-91db-4d9c22b66a23
+Content-Disposition: form-data; name="action"
+Content-Transfer-Encoding: binary
+Content-Type: text/plain; charset=utf-8
+Content-Length: 12
+
+user_profile
+--455a3dd3-3895-43f1-91db-4d9c22b66a23
+Content-Disposition: form-data; name="auth_key"
+Content-Transfer-Encoding: binary
+Content-Type: text/plain; charset=utf-8
+Content-Length: 237
+
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvZ2FuYmFydW1ldGhvZC5jb20iLCJpYXQiOjE3MDg4ODgyNzYsIm5iZiI6MTcwODg4ODI3NiwiZXhwIjoxNzQwNDI0Mjc2LCJkYXRhIjp7InVzZXIiOnsiaWQiOjUzNzg2fX19.Gz7l2Kdpjngl1T-1M2IEAP0ZYr2hG0JBfE60BK6K8QQ
+--455a3dd3-3895-43f1-91db-4d9c22b66a23
+Content-Disposition: form-data; name="device"
+Content-Transfer-Encoding: binary
+Content-Type: text/plain; charset=utf-8
+Content-Length: 7
+
+android
+--455a3dd3-3895-43f1-91db-4d9c22b66a23--
+' "https://ganbarumethod.com/api/v3/index.php" -L

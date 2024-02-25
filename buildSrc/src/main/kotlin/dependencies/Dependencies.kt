@@ -83,12 +83,6 @@ object HiltDependency {
 }
 
 object ImageDependencies {
-    private const val frescoVersion = "1.11.0"
-    const val fresco = "com.facebook.fresco:fresco:$frescoVersion"
-
-    private const val frescoImageViewerVersion = "0.5.0"
-    const val frescoImageViewer = "com.github.stfalcon:frescoimageviewer:$frescoImageViewerVersion"
-
     private const val imagePickerVersion = "2.1"
     const val imagePicker = "com.github.dhaval2404:imagepicker:$imagePickerVersion"
 }

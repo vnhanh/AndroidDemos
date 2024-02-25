@@ -1,0 +1,9 @@
+curl --location 'https://ganbarumethod.com/api/v3/index.php' \
+--header 'Authorization: Basic Z2FuYmFydUV1Z2VuZU1ldGhvZDpnYW5iYXJ1RXVnZW5lTWV0aG9k' \
+--header 'tokencofox: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvZ2FuYmFydW1ldGhvZC5jb20iLCJpYXQiOjE3MDg4ODgyNzYsIm5iZiI6MTcwODg4ODI3NiwiZXhwIjoxNzQwNDI0Mjc2LCJkYXRhIjp7InVzZXIiOnsiaWQiOjUzNzg2fX19.Gz7l2Kdpjngl1T-1M2IEAP0ZYr2hG0JBfE60BK6K8QQ' \
+--header 'Content-Type: multipart/form-data' \
+--form 'tab="profile"' \
+--form 'edit="profile"' \
+--form 'action="user_profile"' \
+--form 'auth_key="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvZ2FuYmFydW1ldGhvZC5jb20iLCJpYXQiOjE3MDg4ODgyNzYsIm5iZiI6MTcwODg4ODI3NiwiZXhwIjoxNzQwNDI0Mjc2LCJkYXRhIjp7InVzZXIiOnsiaWQiOjUzNzg2fX19.Gz7l2Kdpjngl1T-1M2IEAP0ZYr2hG0JBfE60BK6K8QQ"' \
+--form 'device="android"'

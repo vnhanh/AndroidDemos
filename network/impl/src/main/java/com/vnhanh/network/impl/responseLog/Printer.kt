@@ -22,7 +22,7 @@ internal object Printer {
     private val OOM_OMITTED: String =
         LINE_SEPARATOR + "${LINE_SEPARATOR}Output omitted because of Object size."
 
-    private const val MAXIMUM_LENGTH_LOG_A_TAG = 2000
+    internal const val MAXIMUM_LENGTH_LOG_A_TAG = 2000
 
     private fun isEmpty(line: String): Boolean {
         return TextUtils.isEmpty(line) || "\n" == line || "\t" == line || TextUtils.isEmpty(line.trim { it <= ' ' })
@@ -152,115 +152,116 @@ internal object Printer {
         responseUrl: String
     ) {
         val responseBody = getRequestBodyStr(getJsonString(bodyString))
-        val tag = builder.getTag(false)
-        val urlLine = arrayOf("URL: $responseUrl", "\n")
-        val response = getResponse(
-            headers,
-            chainMs,
-            code,
-            isSuccessful,
-            builder.getLevel(),
-            segments,
-            message
+        val tag: String = builder.getTag(false)
+        val urlLine: Array<String> = arrayOf("URL: $responseUrl", "\n")
+        val response: Array<String> = getResponse(
+            header = headers,
+            tookMs = chainMs,
+            code = code,
+            isSuccessful = isSuccessful,
+            segments = segments,
+            message = message
         )
         builder.getLogger().log(
-            builder.type,
-            tag,
-            "┌────── Response ───────────────────────────────────────────────────────────────────────",
-            builder.isLogHackEnable
+            typeLog = builder.type,
+            tag = tag,
+            message = "┌────── Response ───────────────────────────────────────────────────────────────────────",
+            useLogHack = builder.isLogHackEnable
         )
         logLines(
-            builder.type,
-            tag,
-            urlLine,
-            builder.getLogger(),
-            true,
-            builder.isLogHackEnable
+            type = builder.type,
+            tag = tag,
+            lines = urlLine,
+            logger = builder.getLogger(),
+            withLineSize = true,
+            useLogHack = builder.isLogHackEnable
         )
         logLines(
-            builder.type,
-            tag,
-            response,
-            builder.getLogger(),
-            true,
-            builder.isLogHackEnable
+            type = builder.type,
+            tag = tag,
+            lines = response,
+            logger = builder.getLogger(),
+            withLineSize = true,
+            useLogHack = builder.isLogHackEnable
         )
         if (builder.getLevel() === Logger.Level.BASIC || builder.getLevel() === Logger.Level.BODY) {
-            if (code >= 500) { //TODO: create a function allow enable / disable print response of server error
+            if (code >= 500) {
                 builder.getLogger().log(
-                    builder.type, tag,
-                    "│ Server Error - Error Code: $code", builder.isLogHackEnable
+                    typeLog = builder.type,
+                    tag = tag,
+                    message = "│ Server Error - Error Code: $code",
+                    useLogHack = builder.isLogHackEnable
                 )
             } else {
                 if (builder.isAllowCopy) {
                     logLinesForCopy(
-                        builder.type,
-                        tag,
-                        responseBody,
-                        builder.getLogger(),
-                        true,
-                        builder.isLogHackEnable
+                        type = builder.type,
+                        tag = tag,
+                        line = responseBody,
+                        logger = builder.getLogger(),
+                        withLineSize = true,
+                        useLogHack = builder.isLogHackEnable
                     )
                 } else {
                     logLines(
-                        builder.type,
-                        tag,
-                        responseBody.split(LINE_SEPARATOR.toRegex())
+                        type = builder.type,
+                        tag = tag,
+                        lines = responseBody.split(LINE_SEPARATOR.toRegex())
                             .dropLastWhile { it.isEmpty() }
                             .toTypedArray(),
-                        builder.getLogger(),
-                        true,
-                        builder.isLogHackEnable)
+                        logger = builder.getLogger(),
+                        withLineSize = true,
+                        useLogHack = builder.isLogHackEnable)
                 }
             }
         }
         builder.getLogger().log(
-            builder.type,
-            tag,
-            "└───────────────────────────────────────────────────────────────────────────────────────",
-            builder.isLogHackEnable
+            typeLog = builder.type,
+            tag = tag,
+            message = "└───────────────────────────────────────────────────────────────────────────────────────",
+            useLogHack = builder.isLogHackEnable
         )
     }
 
     fun printFileRequest(builder: LoggingInterceptor.Builder, request: Request) {
-        val tag = builder.getTag(true)
+        val tag: String = builder.getTag(true)
         builder.getLogger().log(
-            builder.type,
-            tag,
-            "┌────── Request ────────────────────────────────────────────────────────────────────────",
-            builder.isLogHackEnable
+            typeLog = builder.type,
+            tag = tag,
+            message = "┌────── Request ────────────────────────────────────────────────────────────────────────",
+            useLogHack = builder.isLogHackEnable
         )
         logLines(
-            builder.type,
-            tag,
-            arrayOf<String>("URL: " + request.url),
-            builder.getLogger(),
-            false,
-            builder.isLogHackEnable
+            type = builder.type,
+            tag = tag,
+            lines = arrayOf("URL: " + request.url),
+            logger = builder.getLogger(),
+            withLineSize = false,
+            useLogHack = builder.isLogHackEnable
         )
         logLines(
-            builder.type,
-            tag,
-            getRequest(request, builder.getLevel()),
-            builder.getLogger(),
-            true,
-            builder.isLogHackEnable
+            type = builder.type,
+            tag = tag,
+            lines = getRequest(request, builder.getLevel()),
+            logger = builder.getLogger(),
+            withLineSize = true,
+            useLogHack = builder.isLogHackEnable
         )
         if (builder.getLevel() === Logger.Level.BASIC || builder.getLevel() === Logger.Level.BODY) {
             logLines(
-                builder.type,
-                tag,
-                OMITTED_REQUEST,
-                builder.getLogger(),
-                true,
-                builder.isLogHackEnable
+                type = builder.type,
+                tag = tag,
+                lines = OMITTED_REQUEST,
+                logger = builder.getLogger(),
+                withLineSize = true,
+                useLogHack = builder.isLogHackEnable
             )
         }
         builder.getLogger().log(
-            builder.type,
-            tag,
-            "└───────────────────────────────────────────────────────────────────────────────────────",
-            builder.isLogHackEnable
+            typeLog = builder.type,
+            tag = tag,
+            message = "└───────────────────────────────────────────────────────────────────────────────────────",
+            useLogHack = builder.isLogHackEnable
         )
     }
 
@@ -273,50 +274,49 @@ internal object Printer {
         segments: List<String>,
         message: String
     ) {
-        val tag = builder.getTag(false)
+        val tag: String = builder.getTag(false)
         builder.getLogger().log(
-            builder.type,
-            tag,
-            "┌────── Response ───────────────────────────────────────────────────────────────────────",
-            builder.isLogHackEnable
+            typeLog = builder.type,
+            tag = tag,
+            message = "┌────── Response ───────────────────────────────────────────────────────────────────────",
+            useLogHack = builder.isLogHackEnable
         )
         logLines(
-            builder.type,
-            tag,
-            getResponse(
-                headers,
-                chainMs,
-                code,
-                isSuccessful,
-                builder.getLevel(),
-                segments,
-                message
+            type = builder.type,
+            tag = tag,
+            lines = getResponse(
+                header = headers,
+                tookMs = chainMs,
+                code = code,
+                isSuccessful = isSuccessful,
+                segments = segments,
+                message = message
             ),
-            builder.getLogger(),
-            true,
-            builder.isLogHackEnable
+            logger = builder.getLogger(),
+            withLineSize = true,
+            useLogHack = builder.isLogHackEnable
         )
         logLines(
-            builder.type,
-            tag,
-            OMITTED_RESPONSE,
-            builder.getLogger(),
-            true,
-            builder.isLogHackEnable
+            type = builder.type,
+            tag = tag,
+            lines = OMITTED_RESPONSE,
+            logger = builder.getLogger(),
+            withLineSize = true,
+            useLogHack = builder.isLogHackEnable
         )
         builder.getLogger().log(
-            builder.type,
-            tag,
-            "└───────────────────────────────────────────────────────────────────────────────────────",
-            builder.isLogHackEnable
+            typeLog = builder.type,
+            tag = tag,
+            message = "└───────────────────────────────────────────────────────────────────────────────────────",
+            useLogHack = builder.isLogHackEnable
         )
     }
 
     private fun getRequest(request: Request, level: Logger.Level): Array<String> {
-        val header = request.headers.toString()
-        val loggableHeader = level === Logger.Level.HEADERS || level === Logger.Level.BASIC
-        val log =
-            "Method: @" + request.method + DOUBLE_SEPARATOR + if (isEmpty(header)) "" else if (loggableHeader) "Headers:" + LINE_SEPARATOR + dotHeaders(
+        val header: String = request.headers.toString()
+        val loggableHeader: Boolean = level === Logger.Level.HEADERS || level === Logger.Level.BASIC
+        val log: String =
+            "Method: @" + request.method + DOUBLE_SEPARATOR + if (isEmpty(header)) "" else if (loggableHeader) "Headers:$LINE_SEPARATOR" + dotHeaders(
                 header
             ) else ""
         return log.split(LINE_SEPARATOR.toRegex()).dropLastWhile { it.isEmpty() }
@@ -328,26 +328,23 @@ internal object Printer {
         tookMs: Long,
         code: Int,
         isSuccessful: Boolean,
-        level: Logger.Level,
         segments: List<String>,
         message: String
     ): Array<String> {
-//        boolean loggableHeader = level == Logger.Level.HEADERS || level == Logger.Level.BASIC;
-        val loggableHeader =
-            false //TODO: create a function enable / disable log header of response
-        val segmentString = slashSegments(segments)
-        val log =
+        val loggableHeader = false
+        val segmentString: String = slashSegments(segments)
+        val log: String =
             (if (!TextUtils.isEmpty(segmentString)) "$segmentString - " else "") + "is success : " + isSuccessful + " - " + "Received in: " + tookMs + "ms" + DOUBLE_SEPARATOR + "Status Code: " + code + " / " + message + DOUBLE_SEPARATOR + if (isEmpty(
                     header
                 )
             ) "" else if (loggableHeader) "Headers:" + LINE_SEPARATOR + dotHeaders(header) else ""
-        return log.split(LINE_SEPARATOR.toRegex()).dropLastWhile { it.isEmpty() }
-            .toTypedArray()
+
+        return log.split(LINE_SEPARATOR.toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
     }
 
     private fun slashSegments(segments: List<String>): String {
         val segmentString = StringBuilder()
-        for (segment in segments) segmentString.append("/").append(segment)
+        for (segment: String in segments) segmentString.append("/").append(segment)
         return segmentString.toString()
     }
 
@@ -357,18 +354,24 @@ internal object Printer {
         val builder = StringBuilder()
         var tag = "─ "
         if (headers.size > 1) {
-            for (i in headers.indices) {
-                tag = if (i == 0) {
-                    "┌ "
-                } else if (i == headers.size - 1) {
-                    "└ "
-                } else {
-                    "├ "
+            for (i: Int in headers.indices) {
+                tag = when (i) {
+                    0 -> {
+                        "┌ "
+                    }
+
+                    headers.size - 1 -> {
+                        "└ "
+                    }
+
+                    else -> {
+                        "├ "
+                    }
                 }
                 builder.append(tag).append(headers[i]).append("\n")
             }
         } else {
-            for (item in headers) {
+            for (item: String in headers) {
                 builder.append(tag).append(item).append("\n")
             }
         }
@@ -400,10 +403,10 @@ internal object Printer {
         tag: String,
         line: String,
         logger: Logger,
-        withLineSize: Boolean,
+        withLineSize: Boolean = true,
         useLogHack: Boolean
     ) {
-        val lineLength = line.length
+        val lineLength: Int = line.length
         val maxLongNumber: Int = if (withLineSize) MAXIMUM_LENGTH_LOG_A_TAG else lineLength
         for (i in 0..lineLength / maxLongNumber) {
             val start = i * maxLongNumber
@@ -514,6 +517,7 @@ internal object Printer {
         } catch (var4: OutOfMemoryError) {
             OOM_OMITTED
         }
+
         return message
     }
 }

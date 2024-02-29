@@ -31,6 +31,7 @@ rootProject.name = ("AndroidDemo")
 
 include (
     ":app",
+    ":base:android",
     ":network:base",
     ":network:impl",
     ":common:dataHelper",

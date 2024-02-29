@@ -1,10 +1,13 @@
+import com.android.builder.model.SourceProvider
 import dependencies.AndroidXDependencies
 import dependencies.ComposeConfiguration
 import dependencies.GoogleDependencies
+import dependencies.KoinDependencies
 import dependencies.KotlinDependencies
 import dependencies.basicAndroidComponent
 import dependencies.implementation
 import dependencies.koin
+import dependencies.ksp
 import dependencies.test
 import modules.AppModule
 import modules.common.CommonAndroidHelperModule
@@ -16,6 +19,7 @@ import modules.network.NetworkImplModule
 plugins {
     id(ModulePlugins.androidApplication)
     id(ModulePlugins.kotlinAndroid)
+    id(ModulePlugins.ksp)
 }
 
 android {
@@ -69,6 +73,23 @@ android {
 
     buildFeatures {
         viewBinding = AppModule.viewBinding
+        buildConfig = AppModule.buildConfig
+    }
+
+//    applicationVariants.all { variant ->
+//
+//        variant.sourceSets.forEach {
+//            it.kotlinDirectories.forEach { kotlinDir ->
+//            }
+//        }
+//    }
+}
+
+kotlin {
+    sourceSets {
+        main {
+            kotlin.srcDir("build/generated/ksp/main/kotlin")
+        }
     }
 }
 
@@ -96,6 +117,8 @@ dependencies {
 
     // Kotlin
     implementation(KotlinDependencies.stdLib)
+    ksp(KoinDependencies.ksp)
+    ksp(KoinDependencies.kspAnnotation)
 
     koin()
 

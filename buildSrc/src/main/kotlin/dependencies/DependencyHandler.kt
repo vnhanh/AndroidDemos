@@ -6,16 +6,16 @@ fun DependencyHandler.implementation(dependency: String) {
     add("implementation", dependency)
 }
 
+fun DependencyHandler.ksp(dependency: String) {
+    add("ksp", dependency)
+}
+
 fun DependencyHandler.api(dependency: String) {
     add("api", dependency)
 }
 
 fun DependencyHandler.kapt(dependency: String) {
     add("kapt", dependency)
-}
-
-fun DependencyHandler.test(dependency: String) {
-    add("test", dependency)
 }
 
 fun DependencyHandler.testImplementation(dependency: String) {

@@ -10,10 +10,10 @@ fun DependencyHandler.room() {
 }
 
 fun DependencyHandler.koin() {
-    implementation(LGKoinDependencies.koinCore)
-    implementation(LGKoinDependencies.koinTest)
-    implementation(LGKoinDependencies.koinAndroid)
-    implementation(LGKoinDependencies.koinCompose)
+    implementation(KoinDependencies.koinCore)
+    implementation(KoinDependencies.koinAndroid)
+    implementation(KoinDependencies.koinCompose)
+    testImplementation(KoinDependencies.koinTest)
 }
 
 fun DependencyHandler.hilt() {

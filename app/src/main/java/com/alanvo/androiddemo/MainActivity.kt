@@ -12,11 +12,13 @@ import androidx.navigation.compose.rememberNavController
 import com.vnhanh.common.compose.toast.AppToast
 import org.koin.androidx.compose.KoinAndroidContext
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.annotation.KoinExperimentalAPI
 
 class MainActivity : FragmentActivity() {
 
     private val mainViewModel: MainViewModel by viewModel()
 
+    @OptIn(KoinExperimentalAPI::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)

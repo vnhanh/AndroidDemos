@@ -77,13 +77,17 @@ object RetrofitDependencies {
         "com.squareup.okhttp3:logging-interceptor:$loggingInterceptorVersion"
 }
 
-object LGKoinDependencies {
+object KoinDependencies {
     private const val koinVersion = "3.5.0"
 
     const val koinCore = "io.insert-koin:koin-core:$koinVersion"
     const val koinAndroid = "io.insert-koin:koin-android:$koinVersion"
     const val koinCompose = "io.insert-koin:koin-androidx-compose:$koinVersion"
     const val koinTest = "io.insert-koin:koin-test:$koinVersion"
+
+    private const val kspVersion = "1.8.21-1.0.11"
+    const val ksp = "io.insert-koin:koin-ksp-compiler:$kspVersion"
+    const val kspAnnotation = "io.insert-koin:koin-annotations:$kspVersion"
 }
 
 object HiltDependency {

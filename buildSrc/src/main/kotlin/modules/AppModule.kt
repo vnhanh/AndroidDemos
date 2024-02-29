@@ -15,4 +15,5 @@ object AppModule {
     }
 
     const val viewBinding = true
+    const val buildConfig = true
 }

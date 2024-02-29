@@ -5,7 +5,7 @@ object ProjectPlugins {
     const val androidApplication = "com.android.application"
     const val androidLibrary = "com.android.library"
 
-    const val kotlinAndroidVersion = "1.9.20"
+    const val kotlinAndroidVersion = "1.9.22"
     const val kotlinAndroid = "org.jetbrains.kotlin.android"
 
     const val mapsPlatformSecretGradleVersion = "2.0.1"

@@ -1,5 +1,7 @@
 import dependencies.AndroidXDependencies
+import dependencies.ComposeConfiguration
 import dependencies.GoogleDependencies
+import dependencies.KotlinDependencies
 import dependencies.basicAndroidComponent
 import dependencies.implementation
 import dependencies.koin
@@ -47,13 +49,24 @@ android {
             )
         }
     }
+
+    buildFeatures {
+        compose = true
+    }
+
     compileOptions {
         sourceCompatibility = KotlinConfiguration.sourceCompatibility
         targetCompatibility = KotlinConfiguration.targetCompatibility
     }
+
     kotlinOptions {
         jvmTarget = KotlinConfiguration.jvmTarget
     }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = ComposeConfiguration.kotlinCompilerExtensionVersion
+    }
+
     buildFeatures {
         viewBinding = AppModule.viewBinding
     }
@@ -80,6 +93,9 @@ dependencies {
     implementation(AndroidXDependencies.navigationUiKtx)
     implementation(AndroidXDependencies.constraintLayout)
     implementation(GoogleDependencies.material)
+
+    // Kotlin
+    implementation(KotlinDependencies.stdLib)
 
     koin()
 

@@ -28,6 +28,10 @@ object AndroidXDependencies {
     const val annotationJvm = "androidx.annotation:annotation-jvm:$annotationJvmVersion"
 }
 
+object KotlinDependencies {
+    const val stdLib = "org.jetbrains.kotlin:kotlin-stdlib:${ProjectPlugins.kotlinAndroidVersion}"
+}
+
 object GoogleDependencies {
     private const val materialVersion = "1.11.0"
     const val material = "com.google.android.material:material:$materialVersion"
@@ -77,9 +81,9 @@ object LGKoinDependencies {
     private const val koinVersion = "3.5.0"
 
     const val koinCore = "io.insert-koin:koin-core:$koinVersion"
-    const val koinTest = "io.insert-koin:koin-test:$koinVersion"
     const val koinAndroid = "io.insert-koin:koin-android:$koinVersion"
     const val koinCompose = "io.insert-koin:koin-androidx-compose:$koinVersion"
+    const val koinTest = "io.insert-koin:koin-test:$koinVersion"
 }
 
 object HiltDependency {

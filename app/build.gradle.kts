@@ -6,7 +6,7 @@ import dependencies.basicAndroidComponent
 import dependencies.implementation
 import dependencies.koin
 import dependencies.test
-import modules.AppModule
+import modules.app.AppModule
 import modules.common.CommonAndroidHelperModule
 import modules.common.CommonComposeModule
 import modules.common.CommonDataHelperModule
@@ -53,6 +53,7 @@ android {
 
     buildFeatures {
         compose = true
+        buildConfig = AppModule.buildConfig
     }
 
     compileOptions {

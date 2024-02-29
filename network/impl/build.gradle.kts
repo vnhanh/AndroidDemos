@@ -37,10 +37,16 @@ android {
             )
         }
     }
+
+    buildFeatures {
+        buildConfig = NetworkImplModule.buildConfig
+    }
+
     compileOptions {
         sourceCompatibility = KotlinConfiguration.sourceCompatibility
         targetCompatibility = KotlinConfiguration.targetCompatibility
     }
+
     kotlinOptions {
         jvmTarget = KotlinConfiguration.jvmTarget
     }

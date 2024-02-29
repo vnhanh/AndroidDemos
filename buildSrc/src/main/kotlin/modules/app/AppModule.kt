@@ -1,4 +1,4 @@
-package modules
+package modules.app
 
 object AppModule {
     const val nameSpace = "com.alanvo.androiddemo"

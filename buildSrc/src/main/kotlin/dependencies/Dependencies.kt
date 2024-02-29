@@ -85,9 +85,9 @@ object KoinDependencies {
     const val koinCompose = "io.insert-koin:koin-androidx-compose:$koinVersion"
     const val koinTest = "io.insert-koin:koin-test:$koinVersion"
 
-    private const val kspVersion = "1.8.21-1.0.11"
+    private const val kspVersion = "1.3.1"
     const val ksp = "io.insert-koin:koin-ksp-compiler:$kspVersion"
-    const val kspAnnotation = "io.insert-koin:koin-annotations:$kspVersion"
+    const val koinAnnotation = "io.insert-koin:koin-annotations:$kspVersion"
 }
 
 object HiltDependency {

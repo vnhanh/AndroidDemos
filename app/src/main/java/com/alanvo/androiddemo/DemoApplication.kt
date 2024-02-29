@@ -1,10 +1,7 @@
 package com.alanvo.androiddemo
 
 import android.app.Application
-import com.alanvo.androiddemo.di.apisModule
-import com.alanvo.androiddemo.di.repositoriesModule
-import com.alanvo.androiddemo.di.useCasesModule
-import com.alanvo.androiddemo.di.viewModelsModule
+import com.alanvo.androiddemo.di.appModules
 import com.vnhanh.common.log.AppDebugTree
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidFileProperties
@@ -17,14 +14,11 @@ class DemoApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         startKoin {
-            androidLogger(Level.ERROR)
             androidContext(this@DemoApplication)
+            androidLogger(Level.ERROR)
             // TODO: should study it later
             androidFileProperties()
-            viewModelsModule
-            useCasesModule
-            repositoriesModule
-            apisModule
+            modules(appModules)
         }
 
         if (BuildConfig.DEBUG) {

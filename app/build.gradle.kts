@@ -1,13 +1,10 @@
-import com.android.builder.model.SourceProvider
 import dependencies.AndroidXDependencies
 import dependencies.ComposeConfiguration
 import dependencies.GoogleDependencies
-import dependencies.KoinDependencies
 import dependencies.KotlinDependencies
 import dependencies.basicAndroidComponent
 import dependencies.implementation
 import dependencies.koin
-import dependencies.ksp
 import dependencies.test
 import modules.AppModule
 import modules.common.CommonAndroidHelperModule
@@ -117,8 +114,6 @@ dependencies {
 
     // Kotlin
     implementation(KotlinDependencies.stdLib)
-    ksp(KoinDependencies.ksp)
-    ksp(KoinDependencies.kspAnnotation)
 
     koin()
 

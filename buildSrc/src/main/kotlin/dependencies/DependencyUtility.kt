@@ -13,6 +13,9 @@ fun DependencyHandler.koin() {
     implementation(KoinDependencies.koinCore)
     implementation(KoinDependencies.koinAndroid)
     implementation(KoinDependencies.koinCompose)
+    implementation(KoinDependencies.koinAnnotation)
+    ksp(KoinDependencies.ksp)
+
     testImplementation(KoinDependencies.koinTest)
 }
 

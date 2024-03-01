@@ -22,6 +22,8 @@ object ProjectPlugins {
 
     const val navigationSafeArgsGradleVersion = "2.7.5"
     const val navigationSafeArgsGradle = "androidx.navigation:navigation-safe-args-gradle-plugin"
+
+    const val customPluginIdCreateFile = "com.gradle.plugin.custom-plugin"
 }
 
 // Used for Module level build

@@ -1,11 +1,3 @@
-gradlePlugin {
-    plugins {
-        create("create-my-file") {
-            id = "com.gradle.plugin.create-file-plugin"
-            implementationClass = "tasks.MyPlugin"
-        }
-    }
-}
 
 plugins {
     `kotlin-dsl`
@@ -14,4 +6,13 @@ plugins {
 repositories {
     google()
     mavenCentral()
+}
+
+gradlePlugin {
+    plugins {
+        create("custom-plugin") {
+            id = "com.gradle.plugin.custom-plugin"
+            implementationClass = "plugins.CustomPlugin"
+        }
+    }
 }

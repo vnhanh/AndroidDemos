@@ -1,10 +1,12 @@
 import dependencies.AndroidXDependencies
+import dependencies.ComposeConfiguration
 import dependencies.GoogleDependencies
+import dependencies.KotlinDependencies
 import dependencies.basicAndroidComponent
 import dependencies.implementation
 import dependencies.koin
 import dependencies.test
-import modules.AppModule
+import modules.app.AppModule
 import modules.common.CommonAndroidHelperModule
 import modules.common.CommonComposeModule
 import modules.common.CommonDataHelperModule
@@ -14,6 +16,7 @@ import modules.network.NetworkImplModule
 plugins {
     id(ModulePlugins.androidApplication)
     id(ModulePlugins.kotlinAndroid)
+    id(ModulePlugins.ksp)
 }
 
 android {
@@ -47,15 +50,44 @@ android {
             )
         }
     }
+
+    buildFeatures {
+        compose = true
+        buildConfig = AppModule.buildConfig
+    }
+
     compileOptions {
         sourceCompatibility = KotlinConfiguration.sourceCompatibility
         targetCompatibility = KotlinConfiguration.targetCompatibility
     }
+
     kotlinOptions {
         jvmTarget = KotlinConfiguration.jvmTarget
     }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = ComposeConfiguration.kotlinCompilerExtensionVersion
+    }
+
     buildFeatures {
         viewBinding = AppModule.viewBinding
+        buildConfig = AppModule.buildConfig
+    }
+
+//    applicationVariants.all { variant ->
+//
+//        variant.sourceSets.forEach {
+//            it.kotlinDirectories.forEach { kotlinDir ->
+//            }
+//        }
+//    }
+}
+
+kotlin {
+    sourceSets {
+        main {
+            kotlin.srcDir("build/generated/ksp/main/kotlin")
+        }
     }
 }
 
@@ -80,6 +112,9 @@ dependencies {
     implementation(AndroidXDependencies.navigationUiKtx)
     implementation(AndroidXDependencies.constraintLayout)
     implementation(GoogleDependencies.material)
+
+    // Kotlin
+    implementation(KotlinDependencies.stdLib)
 
     koin()
 

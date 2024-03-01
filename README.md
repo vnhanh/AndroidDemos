@@ -1,8 +1,12 @@
-Demo for features in Android native code
+This project implements:
+1. Multi modules.
+2. In update...
 
-1. Google authentications.
+This project uses:
+1. Jetpack Compose.
+2. In update...
 
-Extra Information:
-1. Google API Console:
-    1.1 Credentials:
-        1.1.1 OAuth 2.0 Client IDs - Android type: 261436338707-76c9q1ofa1h3mrrk1b3tm71fl7as2gts.apps.googleusercontent.com
+This project contains:
+1. Custom compose components.
+2. Log http requests, responses and cURL.
+3. In update...

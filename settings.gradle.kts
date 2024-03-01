@@ -31,12 +31,13 @@ rootProject.name = ("AndroidDemo")
 
 include (
     ":app",
-    ":network:base"
+    ":base:android",
+    ":network:base",
+    ":network:impl",
+    ":common:dataHelper",
+    ":common:androidHelper",
+    ":common:compose",
+    ":common:log",
+    ":data:note",
+    ":feature:note",
 )
-include(":common:log")
-include(":common:dataHelper")
-include(":common:compose")
-include(":common:androidHelper")
-include(":network:impl")
-include(":data:note")
-include(":feature:note")

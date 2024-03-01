@@ -1,18 +1,16 @@
-package modules
+package modules.base
 
-object AppModule {
-    const val nameSpace = "com.alanvo.androiddemo"
-    const val applicationId = "com.alanvo.androiddemo"
-    const val versionCode = 1
-    const val versionName = "0.0.1"
+object BaseAndroidModule {
+    const val nameSpace = "com.vnhanh.base.android"
+
+    const val projectName = ":base:android"
 
     const val testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     const val consumerProguardFiles = "consumer-rules.pro"
 
     object Release {
+        const val isMinifyEnabled = true
         const val proguardAndroidOptimize = "proguard-android-optimize.txt"
         const val proguardRules = "proguard-rules.pro"
     }
-
-    const val viewBinding = true
 }

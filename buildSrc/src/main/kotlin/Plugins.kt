@@ -5,7 +5,7 @@ object ProjectPlugins {
     const val androidApplication = "com.android.application"
     const val androidLibrary = "com.android.library"
 
-    const val kotlinAndroidVersion = "1.9.20"
+    const val kotlinAndroidVersion = "1.9.22"
     const val kotlinAndroid = "org.jetbrains.kotlin.android"
 
     const val mapsPlatformSecretGradleVersion = "2.0.1"
@@ -14,6 +14,7 @@ object ProjectPlugins {
     const val googleGmsServicesVersion = "4.4.1"
     const val googleGmsServices = "com.google.gms.google-services"
 
+    const val ksp_version = "1.9.22-1.0.17"
     const val kspDevTools = "com.google.devtools.ksp"
 
     const val hiltVersion = "2.46.1"
@@ -31,4 +32,5 @@ object ModulePlugins {
     const val kotlinAndroid = "kotlin-android"
     const val kotlinKapt = "kotlin-kapt"
     const val kotlinParcelize = "kotlin-parcelize"
+    const val ksp = "com.google.devtools.ksp"
 }

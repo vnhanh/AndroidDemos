@@ -1,6 +1,8 @@
 import dependencies.basicAndroidComponent
 import dependencies.test
-import modules.data.NoteDataModule
+import modules.common.CommonComposeModule
+import modules.common.CommonLogModule
+import modules.features.LoginFeatureModule
 
 plugins {
     id(ModulePlugins.androidLibrary)
@@ -8,14 +10,14 @@ plugins {
 }
 
 android {
-    namespace = NoteDataModule.nameSpace
+    namespace = LoginFeatureModule.nameSpace
     compileSdk = AndroidConfiguration.compileSdk
 
     defaultConfig {
         minSdk = AndroidConfiguration.minSdk
 
-        testInstrumentationRunner = NoteDataModule.testInstrumentationRunner
-        consumerProguardFiles(NoteDataModule.consumerProguardFiles)
+        testInstrumentationRunner = LoginFeatureModule.testInstrumentationRunner
+        consumerProguardFiles(LoginFeatureModule.consumerProguardFiles)
     }
 
     buildTypes {
@@ -27,21 +29,26 @@ android {
             isMinifyEnabled = BuildTypeConfiguration.Release.isMinifyEnabled
 
             proguardFiles(
-                getDefaultProguardFile(NoteDataModule.Release.proguardAndroidOptimize),
-                NoteDataModule.Release.proguardRules
+                getDefaultProguardFile(LoginFeatureModule.Release.proguardAndroidOptimize),
+                LoginFeatureModule.Release.proguardRules
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = KotlinConfiguration.sourceCompatibility
         targetCompatibility = KotlinConfiguration.targetCompatibility
     }
+
     kotlinOptions {
         jvmTarget = KotlinConfiguration.jvmTarget
     }
 }
 
 dependencies {
+    implementation(project(CommonComposeModule.projectName))
+    implementation(project(CommonLogModule.projectName))
+
     basicAndroidComponent()
 
     test()

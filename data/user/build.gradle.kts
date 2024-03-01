@@ -1,5 +1,5 @@
 import dependencies.test
-import modules.login.UserDataModule
+import modules.data.UserDataModule
 
 plugins {
     id(ModulePlugins.androidLibrary)

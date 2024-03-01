@@ -6,10 +6,10 @@ import modules.common.CommonAndroidHelperModule
 import modules.common.CommonComposeModule
 import modules.common.CommonDataHelperModule
 import modules.common.CommonLogModule
+import modules.data.NoteDataModule
+import modules.features.NoteFeatureModule
 import modules.network.NetworkBaseModule
 import modules.network.NetworkImplModule
-import modules.note.NoteDataModule
-import modules.note.NoteFeatureModule
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 

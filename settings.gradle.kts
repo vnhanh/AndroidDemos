@@ -41,4 +41,5 @@ include (
     ":data:note",
     ":feature:note",
     ":data:user",
+    ":feature:login",
 )

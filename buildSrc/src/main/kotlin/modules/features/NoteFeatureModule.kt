@@ -1,9 +1,9 @@
-package modules.login
+package modules.features
 
-object UserDataModule {
-    const val nameSpace = "com.vnhanh.demo.data.user"
+object NoteFeatureModule {
+    const val nameSpace = "com.vnhanh.demo.feature.note"
 
-    const val projectName = ":data:user"
+    const val projectName = ":feature:note"
 
     const val testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     const val consumerProguardFiles = "consumer-rules.pro"

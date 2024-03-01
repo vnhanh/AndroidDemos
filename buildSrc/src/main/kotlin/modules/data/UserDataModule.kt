@@ -1,9 +1,9 @@
-package modules.note
+package modules.data
 
-object NoteDataModule {
-    const val nameSpace = "com.vnhanh.demo.data.note"
+object UserDataModule {
+    const val nameSpace = "com.vnhanh.demo.data.user"
 
-    const val projectName = ":data:note"
+    const val projectName = ":data:user"
 
     const val testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     const val consumerProguardFiles = "consumer-rules.pro"

@@ -1,15 +1,13 @@
 package com.vnhanh.demo.network.base
 
-import com.google.gson.JsonElement
 
+/**
+ * used for handling response
+ */
 interface IApiResponse {
-    val success: Int?
-
-    val failedCode: Int?
+    val code: Int?
 
     val message : String?
-
-    val data: JsonElement?
 
     val isErrorUpgradingServer: Boolean
 

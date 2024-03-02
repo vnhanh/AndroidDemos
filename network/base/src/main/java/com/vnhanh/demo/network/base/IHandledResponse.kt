@@ -5,6 +5,7 @@ package com.vnhanh.demo.network.base
  */
 interface IHandledResponse<SuccessResponse, FailureResponse: IFailedHandledResponse> {
     val successHandledResponse: SuccessResponse?
+
     val failedHandedResponse: FailureResponse?
 
     operator fun component1(): SuccessResponse? = successHandledResponse

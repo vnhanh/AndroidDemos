@@ -71,7 +71,7 @@ open class ApiLauncherImpl<ApiResponse : IApiResponse> :
                         // other failed cases
                         onComplete(
                             defaultHandledResponse(
-                                defaultCode = responseBody?.failedCode,
+                                defaultCode = responseBody?.code,
                                 defaultErrMsg = responseBody?.message.ifNullOrBlank { somethingWentWrongMsg },
                                 responseBody = responseBody
                             )

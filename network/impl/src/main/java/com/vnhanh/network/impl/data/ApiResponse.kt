@@ -1,8 +1,8 @@
 package com.vnhanh.network.impl.data
 
 import com.google.gson.annotations.SerializedName
-import com.vnhanh.demo.network.base.IApiResponse
-import com.vnhanh.network.impl.ApiConstant
+import com.vnhanh.demo.network.base.data.IApiResponse
+import com.vnhanh.network.impl.common.ApiConstant
 
 data class ApiResponse<T>(
     @SerializedName("code")

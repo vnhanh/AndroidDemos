@@ -2,8 +2,8 @@ package com.vnhanh.network.impl.apiLauncher
 
 import com.vnhanh.common.datahelper.extensions.ifNullOrBlank
 import com.vnhanh.common.log.printDebugStackTrace
-import com.vnhanh.demo.network.base.IApiLauncher
-import com.vnhanh.demo.network.base.IApiResponse
+import com.vnhanh.demo.network.base.apiLauncher.IApiLauncher
+import com.vnhanh.demo.network.base.data.IApiResponse
 import com.vnhanh.network.impl.common.ApiConstant
 import com.vnhanh.network.impl.common.ApiConstant.ERROR_API_CODE_UPGRADING_SERVER
 import com.vnhanh.network.impl.common.ApiConstant.ERROR_HANDLED_CODE_DEFAULT_API_EXCEPTION_

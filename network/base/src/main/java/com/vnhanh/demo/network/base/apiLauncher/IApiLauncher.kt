@@ -1,4 +1,4 @@
-package com.vnhanh.demo.network.base
+package com.vnhanh.demo.network.base.apiLauncher
 
 interface IApiLauncher<ApiResponse, HandledResult> {
     suspend operator fun invoke(

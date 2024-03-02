@@ -5,7 +5,7 @@ import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkCapabilities
 import androidx.annotation.RequiresPermission
-import com.vnhanh.demo.network.base.INetworkChecker
+import com.vnhanh.demo.network.base.common.INetworkChecker
 
 open class InternetChecker constructor(private val context: Context) : INetworkChecker {
 

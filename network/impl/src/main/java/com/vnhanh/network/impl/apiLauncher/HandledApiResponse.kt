@@ -1,10 +1,10 @@
 package com.vnhanh.network.impl.apiLauncher
 
 import androidx.annotation.StringRes
-import com.vnhanh.demo.network.base.IApiLauncher
-import com.vnhanh.demo.network.base.IApiResponse
-import com.vnhanh.demo.network.base.IFailedHandledResponse
-import com.vnhanh.demo.network.base.IHandledResponse
+import com.vnhanh.demo.network.base.apiLauncher.IApiLauncher
+import com.vnhanh.demo.network.base.data.IApiResponse
+import com.vnhanh.demo.network.base.data.IFailedHandledResponse
+import com.vnhanh.demo.network.base.data.IHandledResponse
 import com.vnhanh.network.impl.common.ApiConstant.loginAgainErrMsg
 
 /**

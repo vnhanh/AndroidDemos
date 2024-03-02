@@ -1,14 +1,14 @@
 package com.vnhanh.network.impl.httpClient
 
 import com.google.gson.GsonBuilder
-import com.vnhanh.demo.network.base.IApiServiceCreator
+import com.vnhanh.demo.network.base.serviceCreator.IApiServiceCreator
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import kotlin.reflect.KClass
 
 
-class ApiServiceCreatorImpl constructor(private val okHttpClient: OkHttpClient) :
+class ApiServiceCreatorImpl(private val okHttpClient: OkHttpClient) :
     IApiServiceCreator {
 
     private val gson = GsonBuilder()

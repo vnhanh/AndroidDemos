@@ -1,3 +1,4 @@
+import dependencies.dataModuleDependencies
 import dependencies.test
 import modules.data.UserDataModule
 
@@ -43,5 +44,7 @@ android {
 }
 
 dependencies {
+    dataModuleDependencies()
+
     test()
 }

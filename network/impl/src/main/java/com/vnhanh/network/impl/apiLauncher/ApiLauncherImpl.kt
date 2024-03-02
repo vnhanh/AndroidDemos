@@ -1,17 +1,18 @@
-package com.vnhanh.network.impl
+package com.vnhanh.network.impl.apiLauncher
 
 import com.vnhanh.common.datahelper.extensions.ifNullOrBlank
 import com.vnhanh.common.log.printDebugStackTrace
 import com.vnhanh.demo.network.base.IApiLauncher
 import com.vnhanh.demo.network.base.IApiResponse
-import com.vnhanh.network.impl.ApiConstant.ERROR_API_CODE_UPGRADING_SERVER
-import com.vnhanh.network.impl.ApiConstant.ERROR_HANDLED_CODE_DEFAULT_API_EXCEPTION_
-import com.vnhanh.network.impl.ApiConstant.ERROR_HANDLED_CODE_NO_NETWORK_CONNECTION
-import com.vnhanh.network.impl.ApiConstant.ERROR_HANDLED_CODE_SHOULD_LOG_OUT
-import com.vnhanh.network.impl.ApiConstant.checkNetworkConnectionMgs
-import com.vnhanh.network.impl.ApiConstant.loginAgainErrMsg
-import com.vnhanh.network.impl.ApiConstant.somethingWentWrongMsg
-import com.vnhanh.network.impl.ApiConstant.somethingWentWrongPlsContactStrFormat
+import com.vnhanh.network.impl.common.ApiConstant
+import com.vnhanh.network.impl.common.ApiConstant.ERROR_API_CODE_UPGRADING_SERVER
+import com.vnhanh.network.impl.common.ApiConstant.ERROR_HANDLED_CODE_DEFAULT_API_EXCEPTION_
+import com.vnhanh.network.impl.common.ApiConstant.ERROR_HANDLED_CODE_NO_NETWORK_CONNECTION
+import com.vnhanh.network.impl.common.ApiConstant.ERROR_HANDLED_CODE_SHOULD_LOG_OUT
+import com.vnhanh.network.impl.common.ApiConstant.checkNetworkConnectionMgs
+import com.vnhanh.network.impl.common.ApiConstant.loginAgainErrMsg
+import com.vnhanh.network.impl.common.ApiConstant.somethingWentWrongMsg
+import com.vnhanh.network.impl.common.ApiConstant.somethingWentWrongPlsContactStrFormat
 import okhttp3.internal.http2.ConnectionShutdownException
 import retrofit2.Response
 import java.net.SocketTimeoutException

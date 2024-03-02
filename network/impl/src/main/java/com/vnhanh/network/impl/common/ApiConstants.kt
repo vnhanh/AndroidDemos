@@ -1,4 +1,4 @@
-package com.vnhanh.network.impl
+package com.vnhanh.network.impl.common
 
 object ApiConstant {
     const val CONNECTION_TIMEOUT = 60L

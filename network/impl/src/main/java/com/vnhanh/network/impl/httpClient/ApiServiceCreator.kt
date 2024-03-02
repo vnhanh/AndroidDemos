@@ -1,4 +1,4 @@
-package com.vnhanh.network.impl
+package com.vnhanh.network.impl.httpClient
 
 import com.google.gson.GsonBuilder
 import com.vnhanh.demo.network.base.IApiServiceCreator

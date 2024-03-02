@@ -1,10 +1,12 @@
-package com.vnhanh.network.impl
+package com.vnhanh.network.impl.httpClient
 
-import com.vnhanh.network.impl.ApiConstant.CONNECTION_TIMEOUT
-import com.vnhanh.network.impl.ApiConstant.OKHTTP_READ_TIMEOUT
-import com.vnhanh.network.impl.ApiConstant.OKHTTP_WRITE_TIMEOUT
-import com.vnhanh.network.impl.responseLog.Logger
-import com.vnhanh.network.impl.responseLog.LoggingInterceptor
+import com.vnhanh.network.impl.BuildConfig
+import com.vnhanh.network.impl.common.ApiConstant.CONNECTION_TIMEOUT
+import com.vnhanh.network.impl.common.ApiConstant.OKHTTP_READ_TIMEOUT
+import com.vnhanh.network.impl.common.ApiConstant.OKHTTP_WRITE_TIMEOUT
+import com.vnhanh.network.impl.log.curl.CurlLoggerInterceptor
+import com.vnhanh.network.impl.log.http.Logger
+import com.vnhanh.network.impl.log.http.LoggingInterceptor
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.internal.platform.Platform

@@ -1,4 +1,4 @@
-package com.vnhanh.network.impl.responseLog
+package com.vnhanh.network.impl.log.http
 
 import android.text.TextUtils
 import com.vnhanh.common.log.printDebugStackTrace

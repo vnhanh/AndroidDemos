@@ -1,6 +1,7 @@
 import dependencies.AndroidXDependencies
 import dependencies.GoogleDependencies
 import dependencies.RetrofitDependencies
+import dependencies.koin
 import dependencies.test
 import modules.common.CommonDataHelperModule
 import modules.common.CommonLogModule
@@ -10,6 +11,7 @@ import modules.network.NetworkImplModule
 plugins {
     id(ModulePlugins.androidLibrary)
     id(ModulePlugins.kotlinAndroid)
+    id(ModulePlugins.ksp)
 }
 
 android {
@@ -62,6 +64,9 @@ dependencies {
     api(RetrofitDependencies.loggingInterceptor)
     implementation(GoogleDependencies.gson)
     implementation(AndroidXDependencies.annotationJvm)
+
+    // di
+    koin()
 
     test()
 }

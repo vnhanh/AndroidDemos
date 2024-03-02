@@ -1,11 +1,11 @@
-package com.vnhanh.network.impl
+package com.vnhanh.network.impl.apiLauncher
 
 import androidx.annotation.StringRes
 import com.vnhanh.demo.network.base.IApiLauncher
 import com.vnhanh.demo.network.base.IApiResponse
 import com.vnhanh.demo.network.base.IFailedHandledResponse
 import com.vnhanh.demo.network.base.IHandledResponse
-import com.vnhanh.network.impl.ApiConstant.loginAgainErrMsg
+import com.vnhanh.network.impl.common.ApiConstant.loginAgainErrMsg
 
 /**
  * Handled result data after [IApiLauncher] implementation handle api response that implements [IApiResponse] interface

@@ -1,4 +1,4 @@
-package com.vnhanh.network.impl.responseLog
+package com.vnhanh.network.impl.log.http
 
 import okhttp3.internal.platform.Platform
 

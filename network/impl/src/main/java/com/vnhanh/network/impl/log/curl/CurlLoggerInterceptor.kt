@@ -1,6 +1,6 @@
-package com.vnhanh.network.impl
+package com.vnhanh.network.impl.log.curl
 
-import com.vnhanh.network.impl.responseLog.Printer.MAXIMUM_LENGTH_LOG_A_TAG
+import com.vnhanh.network.impl.log.http.Printer.MAXIMUM_LENGTH_LOG_A_TAG
 import okhttp3.Interceptor
 import okhttp3.MediaType
 import okhttp3.Request

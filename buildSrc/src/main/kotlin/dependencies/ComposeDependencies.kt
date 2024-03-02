@@ -28,15 +28,3 @@ object ComposeDependencies {
         "androidx.lifecycle:lifecycle-runtime-compose:$lifecycleComposeVersion"
     const val composeNavigation = "androidx.navigation:navigation-compose:$navigationVersion"
 }
-
-object GlideDependencies {
-    private const val composeVersion = "1.0.0-alpha.3"
-
-    const val glideCompose = "com.github.bumptech.glide:compose:$composeVersion"
-}
-
-object MarkdownDependencies {
-    private const val composeVersion = "0.3.6"
-
-    const val composeMarkdown = "com.github.jeziellago:compose-markdown:$composeVersion"
-}

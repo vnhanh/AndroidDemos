@@ -38,49 +38,47 @@ class CurlLoggerInterceptor(private val tag: String) : Interceptor {
                 val buffer = Buffer()
                 requestBody.writeTo(buffer)
 
-                request.body?.also { requestBody ->
-                    val buffer = Buffer()
-                    requestBody.writeTo(buffer)
+                requestBody.contentType()?.also { contentType: MediaType ->
+                    val utf8 = Charset.forName("UTF-8")
+                    if (contentType.toString().startsWith("multipart/form-data")) {
+                        addHeader(sb, "Content-Type", "multipart/form-data")
 
-                    requestBody.contentType()?.also { contentType: MediaType ->
-                        val utf8 = Charset.forName("UTF-8")
-                        if (contentType.toString().startsWith("multipart/form-data")) {
-                            addHeader(sb, "Content-Type", "multipart/form-data")
-
-                            contentType.charset(utf8)?.also { charset: Charset ->
-                                val temp = URLDecoder.decode(buffer.readString(charset), "UTF-8")
-                                val lines = temp.split("\n")
-                                lines.forEachIndexed { index, line: String ->
-                                    if (line.contains("Content-Disposition: form-data")) {
-                                        val index = line.indexOf("name")
-                                        if (index > -1) {
-                                            val name =
-                                                line.substring(startIndex = index + 6, line.length)
-                                                    .removeQuote()
-                                            sb.append("--form '$name=\"")
-                                        }
-                                    } else {
-                                        if (index > 0 && lines[index - 1].isBlank() && line.isNotBlank() && line.contains(
-                                                "Content"
-                                            ).not() && line.contains("--").not()
-                                        ) {
-                                            sb.append("$line\"' ")
-                                        }
+                        contentType.charset(utf8)?.also { charset: Charset ->
+                            val temp = URLDecoder.decode(buffer.readString(charset), "UTF-8")
+                            val lines = temp.split("\n")
+                            lines.forEachIndexed { lineIndex, line: String ->
+                                if (line.contains("Content-Disposition: form-data")) {
+                                    val indexOfName = line.indexOf("name")
+                                    if (indexOfName > -1) {
+                                        val name =
+                                            line.substring(
+                                                startIndex = indexOfName + 6,
+                                                line.length
+                                            )
+                                                .removeQuote()
+                                        sb.append("--form '$name=\"")
+                                    }
+                                } else {
+                                    if (lineIndex > 0 && lines[lineIndex - 1].isBlank() && line.isNotBlank() && line.contains(
+                                            "Content"
+                                        ).not() && line.contains("--").not()
+                                    ) {
+                                        sb.append("$line\"' ")
                                     }
                                 }
                             }
-                        } else {
-                            addHeader(
-                                sb,
-                                "Content-Type",
-                                request.body?.contentType()?.toString().orEmpty()
-                            )
+                        }
+                    } else {
+                        addHeader(
+                            sb,
+                            "Content-Type",
+                            request.body?.contentType()?.toString().orEmpty()
+                        )
 
-                            contentType.charset(utf8)?.also { charset: Charset ->
-                                sb.append(" -d '")
-                                    .append(URLDecoder.decode(buffer.readString(charset), "UTF-8"))
-                                    .append("'")
-                            }
+                        contentType.charset(utf8)?.also { charset: Charset ->
+                            sb.append(" -d '")
+                                .append(URLDecoder.decode(buffer.readString(charset), "UTF-8"))
+                                .append("'")
                         }
                     }
                 }

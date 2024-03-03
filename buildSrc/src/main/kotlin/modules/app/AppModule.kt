@@ -19,7 +19,6 @@ object AppModule {
     const val viewBinding = true
     const val buildConfig = true
 
-
     object Flavors {
         const val dimension = "app"
 

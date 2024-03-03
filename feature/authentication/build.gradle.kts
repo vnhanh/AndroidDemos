@@ -1,3 +1,4 @@
+import dependencies.ComposeConfiguration
 import dependencies.basicAndroidComponent
 import dependencies.koin
 import dependencies.room
@@ -49,6 +50,15 @@ android {
 
     kotlinOptions {
         jvmTarget = KotlinConfiguration.jvmTarget
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = ComposeConfiguration.kotlinCompilerExtensionVersion
+    }
+
+    buildFeatures {
+        compose = true
+        buildConfig = AuthenticationFeatureModule.buildConfig
     }
 }
 

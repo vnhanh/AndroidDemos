@@ -1,4 +1,4 @@
-package com.alanvo.androiddemo
+package com.alanvo.androiddemo.presentation
 
 import android.os.CountDownTimer
 import androidx.lifecycle.SavedStateHandle

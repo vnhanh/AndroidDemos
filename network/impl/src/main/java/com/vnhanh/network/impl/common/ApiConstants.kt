@@ -1,6 +1,8 @@
 package com.vnhanh.network.impl.common
 
 object ApiConstant {
+    const val DI_SCOPE_NAME_NETWORK = "network"
+
     const val CONNECTION_TIMEOUT = 60L
     const val OKHTTP_READ_TIMEOUT = 60L
     const val OKHTTP_WRITE_TIMEOUT = 60L

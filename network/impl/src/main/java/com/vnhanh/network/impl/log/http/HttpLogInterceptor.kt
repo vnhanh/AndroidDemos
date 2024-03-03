@@ -387,5 +387,22 @@ class LoggingInterceptor private constructor(private val builder: Builder) : Int
                 )
             }
         }
+
+        fun create(
+            logLevel: Logger.Level = Logger.Level.BASIC,
+            isDebug: Boolean = true,
+            requestTag: String = "Request",
+            responseTag: String = "Response",
+            isEnableLogModeForCopy: Boolean = true,
+        ) = Builder()
+            .loggable(isDebug)
+            .setLevel(logLevel)
+            .log(Platform.INFO)
+            .request(requestTag)
+            .response(responseTag)
+            .addHeader("Content-Type", "application/json")
+            .enablelogModeForCopy(isEnableLogModeForCopy)
+            .build()
+
     }
 }

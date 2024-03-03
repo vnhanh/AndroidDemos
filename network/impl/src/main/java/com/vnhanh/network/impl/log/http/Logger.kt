@@ -3,7 +3,7 @@ package com.vnhanh.network.impl.log.http
 import okhttp3.internal.platform.Platform
 
 
-internal interface Logger {
+interface Logger {
     enum class Level {
         NONE,
         BASIC,

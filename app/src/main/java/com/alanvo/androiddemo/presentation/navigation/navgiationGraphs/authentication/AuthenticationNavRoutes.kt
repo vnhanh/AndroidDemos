@@ -1,7 +1,7 @@
 package com.alanvo.androiddemo.presentation.navigation.navgiationGraphs.authentication
 
 sealed class AuthenticationNavRoutes(val route: String) {
-    data object Login : AuthenticationNavRoutes("login")
+    data object Authentication : AuthenticationNavRoutes("authentication")
 
-    data object Register : AuthenticationNavRoutes("register")
+    data object ForgotPassword : AuthenticationNavRoutes("forgot-password")
 }

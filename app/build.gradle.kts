@@ -23,6 +23,8 @@ plugins {
     id(ModulePlugins.ksp)
 }
 
+// https://pranaypatel.medium.com/using-lint-pre-commit-hook-in-android-project-31e2b9baff5d
+
 android {
     namespace = AppModule.nameSpace
     compileSdk = AndroidConfiguration.compileSdk

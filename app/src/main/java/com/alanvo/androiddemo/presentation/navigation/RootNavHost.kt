@@ -19,8 +19,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.alanvo.androiddemo.presentation.MainViewModel
 import com.alanvo.androiddemo.presentation.navigation.graphRoutes.Graph
-import com.alanvo.androiddemo.presentation.navigation.navgiationGraphs.authentication.authenticationNavGraph
 import com.vnhanh.common.compose.toast.AppToast
+import com.vnhanh.demo.feature.authentication.navigation.AuthenticationNavGraph
+import com.vnhanh.demo.feature.authentication.navigation.authenticationGraph
 
 @Composable
 fun RootNavHost(
@@ -39,14 +40,18 @@ fun RootNavHost(
                 .fillMaxSize()
                 .padding(paddingContent),
         ) {
+
+            /**
+             * Ref best practice navigation with multi modules: https://www.youtube.com/watch?v=goFpG25uoc8
+             */
             NavHost(
                 navController = navHostController,
                 route = Graph.Root.route,
-                startDestination = Graph.Authentication.route,
+                startDestination = AuthenticationNavGraph.GRAPH_ROUTE,
                 enterTransition = { slideInHorizontally(tween(700)) { it } + fadeIn(tween(700)) },
                 exitTransition = { slideOutHorizontally(tween(700)) { it } + fadeOut(tween(700)) },
             ) {
-                authenticationNavGraph(navHostController)
+                authenticationGraph()
             }
 
             AppToast(

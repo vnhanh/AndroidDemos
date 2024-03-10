@@ -3,6 +3,7 @@ package com.alanvo.androiddemo
 import android.app.Application
 import com.alanvo.androiddemo.di.appModules
 import com.vnhanh.common.log.AppDebugTree
+import com.vnhanh.demo.feature.authentication.di.injectAuthKoinModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidFileProperties
 import org.koin.android.ext.koin.androidLogger
@@ -20,6 +21,7 @@ class DemoApplication : Application() {
             androidFileProperties()
             modules(appModules)
         }
+        injectAuthKoinModule()
 
         if (BuildConfig.DEBUG) {
             Timber.plant(AppDebugTree())

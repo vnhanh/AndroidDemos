@@ -15,6 +15,7 @@ import modules.common.CommonComposeModule
 import modules.common.CommonDataHelperModule
 import modules.common.CommonLogModule
 import modules.features.AuthenticationFeatureModule
+import modules.network.NetworkBaseModule
 import modules.network.NetworkImplModule
 
 plugins {
@@ -187,6 +188,7 @@ dependencies {
     /**
      * Implement modules
      */
+    implementation(project(NetworkBaseModule.projectName))
     implementation(project(NetworkImplModule.projectName))
     implementation(project(CommonAndroidHelperModule.projectName))
     implementation(project(CommonComposeModule.projectName))

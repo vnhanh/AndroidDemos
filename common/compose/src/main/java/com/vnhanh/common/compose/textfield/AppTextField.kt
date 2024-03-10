@@ -41,7 +41,7 @@ fun AppTextField(
     placeHolderText: String? = null,
     placeHolderColor: Color,
     placeHolderTextAlign: TextAlign = TextAlign.Start,
-    shape: Shape = RoundedCornerShape(8.dp),
+    containerBoxShape: Shape = RoundedCornerShape(8.dp),
     paddingValues: PaddingValues = PaddingValues(vertical = 8.dp, horizontal = 16.dp),
     onValueChanged: (TextFieldValue) -> Unit,
     keyboardType: KeyboardType = KeyboardType.Number,
@@ -135,7 +135,7 @@ fun AppTextField(
                                 focusedBorderColor = focusColor,
                                 cursorColor = cursorColor,
                             ),
-                            shape = shape,
+                            shape = containerBoxShape,
                         )
                     }
                 )

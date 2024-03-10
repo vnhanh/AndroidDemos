@@ -1,23 +1,33 @@
 package com.vnhanh.demo.feature.authentication.presentation.authentication
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.vnhanh.common.compose.modifier.fillMaxWidthLayoutResponsive
-import org.koin.androidx.compose.koinViewModel
+import com.vnhanh.demo.feature.authentication.presentation.login.LoginComposable
+import com.vnhanh.demo.feature.authentication.presentation.login.LoginViewModel
+import com.vnhanh.demo.feature.authentication.presentation.register.RegisterComposable
+import com.vnhanh.demo.feature.authentication.presentation.register.RegisterViewModel
 
+
+/**
+ * TODO: make viewModel tight to lifecycle of screen
+ */
 @Composable
-fun AuthenticationScreen(
-    viewModel: AuthenticationViewModel = koinViewModel(),
+internal fun AuthenticationScreen(
+    authenticationViewModel: AuthenticationViewModel,
+    loginViewModel: LoginViewModel,
+    registerViewModel: RegisterViewModel,
 ) {
     Column(
         modifier = Modifier.fillMaxSize()
@@ -32,6 +42,8 @@ fun AuthenticationScreen(
                 .fillMaxWidth()
                 .weight(3f)
                 .verticalScroll(rememberScrollState()),
+            loginViewModel = loginViewModel,
+            registerViewModel = registerViewModel,
         )
         Spacer(
             modifier = Modifier
@@ -41,26 +53,40 @@ fun AuthenticationScreen(
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun Form(
     modifier: Modifier = Modifier,
+    loginViewModel: LoginViewModel,
+    registerViewModel: RegisterViewModel,
 ) {
-
+    val pageState = rememberPagerState(pageCount = { 2 })
     Column(
         modifier = modifier
     ) {
         Spacer(modifier = Modifier.height(24.dp))
-        LoginAndSignupButtons(modifier = Modifier.fillMaxWidthLayoutResponsive())
+        HorizontalPager(
+            state = pageState,
+            beyondBoundsPageCount = 1,
+        ) { pageIndex: Int ->
+            when (pageIndex) {
+                0 -> {
+                    LoginComposable(
+                        modifier = Modifier.fillMaxWidthLayoutResponsive(),
+                        loginViewModel = loginViewModel,
+                    )
+                }
+
+                1 -> {
+                    RegisterComposable(
+                        modifier = Modifier.fillMaxWidthLayoutResponsive(),
+                        registerViewModel = registerViewModel,
+                    )
+                }
+            }
+        }
+
         Spacer(modifier = Modifier.height(24.dp))
-
-    }
-}
-
-@Composable
-private fun LoginAndSignupButtons(
-    modifier: Modifier = Modifier,
-) {
-    Row(modifier.padding(horizontal = 16.dp)) {
 
     }
 }

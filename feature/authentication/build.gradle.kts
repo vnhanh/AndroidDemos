@@ -70,6 +70,7 @@ dependencies {
     implementation(project(NetworkImplModule.projectName))
     implementation(project(CommonComposeModule.projectName))
     implementation(project(CommonLogModule.projectName))
+    implementation("androidx.compose.animation:animation-graphics-android:1.6.3")
 
     basicAndroidComponent()
 

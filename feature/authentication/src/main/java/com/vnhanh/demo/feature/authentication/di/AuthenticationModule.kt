@@ -4,8 +4,8 @@ import com.google.gson.Gson
 import com.vnhanh.demo.feature.authentication.data.api.AuthenticationApi
 import com.vnhanh.demo.feature.authentication.domain.validation.AuthenticationFieldValidationUseCase
 import com.vnhanh.demo.feature.authentication.presentation.authentication.AuthenticationViewModel
-import com.vnhanh.demo.feature.authentication.presentation.login.LoginViewModel
-import com.vnhanh.demo.feature.authentication.presentation.register.RegisterViewModel
+import com.vnhanh.demo.feature.authentication.presentation.authentication.formUi.login.SignInViewModel
+import com.vnhanh.demo.feature.authentication.presentation.authentication.formUi.register.SignUpViewModel
 import com.vnhanh.demo.network.base.serviceCreator.IApiServiceCreator
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.core.context.loadKoinModules
@@ -39,9 +39,9 @@ val authenticationModule = module {
      */
     viewModelOf(::AuthenticationViewModel)
 
-    viewModelOf(::LoginViewModel)
+    viewModelOf(::SignInViewModel)
 
-    viewModelOf(::RegisterViewModel)
+    viewModelOf(::SignUpViewModel)
 }
 
 private val loadAuthKoinModules by lazy { loadKoinModules(authenticationModule) }

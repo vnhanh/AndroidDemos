@@ -23,8 +23,12 @@ object ComposeDependencies {
     const val debugUiTooling = "androidx.compose.ui:ui-tooling"
     const val runtimeLiveData = "androidx.compose.runtime:runtime-livedata"
     const val activityCompose = "androidx.activity:activity-compose:$activityComposeVersion"
-    const val lifeCycleViewModel = "androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycleComposeVersion"
+    const val lifeCycleViewModel =
+        "androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycleComposeVersion"
     const val lifeCycleRuntime =
         "androidx.lifecycle:lifecycle-runtime-compose:$lifecycleComposeVersion"
     const val composeNavigation = "androidx.navigation:navigation-compose:$navigationVersion"
+
+    private const val ANIMATION_VERSION = "1.6.3"
+    const val ANIMATION = "androidx.compose.animation:animation:$ANIMATION_VERSION"
 }

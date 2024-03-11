@@ -68,6 +68,7 @@ dependencies {
     debugApi(ComposeDependencies.debugUiTooling)
     api(ComposeDependencies.uiToolingPreview)
     api(ComposeDependencies.composeNavigation)
+    api(ComposeDependencies.ANIMATION)
 
     test()
 }

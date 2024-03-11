@@ -3,11 +3,10 @@ package com.vnhanh.common.compose.theme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 
 object AppTypography {
-    val m3HeadlineSmallSemiBold
+    val fontSize22LineHeight32SemiBold
         @Composable
         get() = TextStyle(
             fontSize = 22.sp,
@@ -15,7 +14,7 @@ object AppTypography {
             fontWeight = FontWeight.SemiBold,
         )
 
-    val m3BodyMedium
+    val fontSize14LineHeight20Normal
         @Composable
         get() = TextStyle(
             fontSize = 14.sp,
@@ -24,7 +23,7 @@ object AppTypography {
             letterSpacing = 0.25.sp,
         )
 
-    val m3LabelLarge
+    val fontSize14LineHeight20Medium
         @Composable
         get() = TextStyle(
             fontSize = 14.sp,
@@ -33,24 +32,7 @@ object AppTypography {
             letterSpacing = 0.1.sp,
         )
 
-    val headerTitle
-        @Composable
-        get() = TextStyle(
-            fontSize = 15.sp,
-            lineHeight = 22.sp,
-            fontWeight = FontWeight.Medium,
-            textAlign = TextAlign.Center,
-        )
-
-    val headerButton
-        @Composable
-        get() = TextStyle(
-            fontSize = 14.sp,
-            lineHeight = 20.sp,
-            fontWeight = FontWeight.Medium,
-        )
-
-    val fontSize11LineHeight13FontWeight400
+    val fontSize11LineHeight13Normal
         @Composable
         get() = TextStyle(
             fontSize = 11.sp,
@@ -58,7 +40,7 @@ object AppTypography {
             fontWeight = FontWeight.Normal,
         )
 
-    val fontSize11LineHeight20FontWeight400
+    val fontSize11LineHeight20Normal
         @Composable
         get() = TextStyle(
             fontSize = 11.sp,
@@ -66,7 +48,7 @@ object AppTypography {
             fontWeight = FontWeight.Normal,
         )
 
-    val fontSize12LineHeight16FontWeight400
+    val fontSize12LineHeight16Normal
         @Composable
         get() = TextStyle(
             fontSize = 12.sp,
@@ -74,7 +56,7 @@ object AppTypography {
             fontWeight = FontWeight.Normal,
         )
 
-    val fontSize12LineHeight16FontWeight600
+    val fontSize12LineHeight16SemiBold
         @Composable
         get() = TextStyle(
             fontSize = 12.sp,
@@ -82,7 +64,7 @@ object AppTypography {
             fontWeight = FontWeight.SemiBold,
         )
 
-    val fontSize12LineHeight20FontWeight500
+    val fontSize12LineHeight20Medium
         @Composable
         get() = TextStyle(
             fontSize = 12.sp,
@@ -90,7 +72,7 @@ object AppTypography {
             fontWeight = FontWeight.Medium,
         )
 
-    val fontSize13LineHeight18FontWeight400
+    val fontSize13LineHeight18Normal
         @Composable
         get() = TextStyle(
             fontSize = 13.sp,
@@ -98,7 +80,7 @@ object AppTypography {
             fontWeight = FontWeight.Normal,
         )
 
-    val fontSize13LineHeight18FontWeight500
+    val fontSize13LineHeight18Medium
         @Composable
         get() = TextStyle(
             fontSize = 13.sp,
@@ -106,7 +88,7 @@ object AppTypography {
             fontWeight = FontWeight.Medium,
         )
 
-    val fontSize13LineHeight18FontWeight600
+    val fontSize13LineHeight18SemiBold
         @Composable
         get() = TextStyle(
             fontSize = 13.sp,
@@ -114,7 +96,7 @@ object AppTypography {
             fontWeight = FontWeight.SemiBold,
         )
 
-    val fontSize14LineHeight20FontWeight600
+    val fontSize14LineHeight20SemiBold
         @Composable
         get() = TextStyle(
             fontSize = 14.sp,
@@ -122,11 +104,19 @@ object AppTypography {
             fontWeight = FontWeight.SemiBold,
         )
 
-    val fontSize15LineHeight20FontWeight500
+    val fontSize15LineHeight20Medium
         @Composable
         get() = TextStyle(
             fontSize = 15.sp,
             lineHeight = 20.sp,
             fontWeight = FontWeight.Medium,
+        )
+
+    val fontSize16LineHeight22Bold
+        @Composable
+        get() = TextStyle(
+            fontSize = 16.sp,
+            lineHeight = 22.sp,
+            fontWeight = FontWeight.Bold,
         )
 }

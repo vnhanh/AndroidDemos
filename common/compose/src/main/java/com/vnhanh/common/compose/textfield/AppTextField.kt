@@ -31,7 +31,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.vnhanh.common.compose.theme.AppTypography.fontSize13LineHeight18FontWeight500
+import com.vnhanh.common.compose.theme.AppTypography.fontSize13LineHeight18Normal
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -44,15 +44,16 @@ fun AppTextField(
     containerBoxShape: Shape = RoundedCornerShape(8.dp),
     paddingValues: PaddingValues = PaddingValues(vertical = 8.dp, horizontal = 16.dp),
     onValueChanged: (TextFieldValue) -> Unit,
-    keyboardType: KeyboardType = KeyboardType.Number,
+    keyboardType: KeyboardType = KeyboardType.Text,
     imeAction: ImeAction = ImeAction.Next,
+    visualTransformation: VisualTransformation = VisualTransformation.None,
     onKeyBoardNextAction: (KeyboardActionScope.() -> Unit)? = null,
     onKeyBoardDoneAction: (KeyboardActionScope.() -> Unit)? = null,
     focusColor: Color,
     unFocusColor: Color,
     cursorColor: Color,
     textColor: Color,
-    textStyle: TextStyle = fontSize13LineHeight18FontWeight500,
+    textStyle: TextStyle = fontSize13LineHeight18Normal,
     textAlign: TextAlign? = null,
     trailingComposable: (@Composable () -> Unit)? = null,
 ) {
@@ -74,21 +75,30 @@ fun AppTextField(
                 shouldShowPlaceHolder = !focusState.isFocused
             },
             value = value,
-            textStyle = textStyle.merge(
-                color = textColor,
-                textAlign = textAlign ?: TextAlign.Unspecified,
-            ),
+            textStyle = remember {
+                textStyle.merge(
+                    color = textColor,
+                    textAlign = textAlign ?: TextAlign.Unspecified,
+                )
+            },
             onValueChange = onValueChanged,
             maxLines = 1,
-            keyboardOptions = KeyboardOptions(
-                keyboardType = keyboardType,
-                imeAction = imeAction,
-            ),
-            keyboardActions = KeyboardActions(
-                onNext = onKeyBoardNextAction,
-                onDone = onKeyBoardDoneAction
-            ),
-            cursorBrush = SolidColor(cursorColor),
+            keyboardOptions = remember {
+                KeyboardOptions(
+                    keyboardType = keyboardType,
+                    imeAction = imeAction,
+                )
+            },
+            keyboardActions = remember {
+                KeyboardActions(
+                    onNext = onKeyBoardNextAction,
+                    onDone = onKeyBoardDoneAction
+                )
+            },
+            cursorBrush = remember {
+                SolidColor(cursorColor)
+            },
+            visualTransformation = visualTransformation,
             decorationBox = { innerTextField ->
                 TextFieldDefaults.DecorationBox(
                     innerTextField = innerTextField,
@@ -110,7 +120,7 @@ fun AppTextField(
                     enabled = true,
                     singleLine = true,
                     value = value.text,
-                    visualTransformation = VisualTransformation.None,
+                    visualTransformation = visualTransformation,
                     contentPadding = paddingValues,
                     colors = OutlinedTextFieldDefaults.colors(
                         unfocusedBorderColor = unFocusColor,

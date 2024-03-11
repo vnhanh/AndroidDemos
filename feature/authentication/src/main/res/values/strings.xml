@@ -4,4 +4,7 @@
     <string name="email_field_error_invalid">Email is invalid</string>
     <string name="password_field_placeholder">Password</string>
     <string name="password_field_error_invalid">Password length must be from 4 to 20 characters and must contains lowercase, uppercase, number and special character</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="remember_me">Remember me</string>
 </resources>

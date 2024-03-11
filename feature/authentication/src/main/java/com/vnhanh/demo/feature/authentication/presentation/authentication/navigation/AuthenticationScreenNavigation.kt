@@ -5,8 +5,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import com.vnhanh.demo.feature.authentication.presentation.authentication.AuthenticationScreen
 import com.vnhanh.demo.feature.authentication.presentation.authentication.AuthenticationViewModel
-import com.vnhanh.demo.feature.authentication.presentation.login.LoginViewModel
-import com.vnhanh.demo.feature.authentication.presentation.register.RegisterViewModel
+import com.vnhanh.demo.feature.authentication.presentation.authentication.formUi.login.SignInViewModel
+import com.vnhanh.demo.feature.authentication.presentation.authentication.formUi.register.SignUpViewModel
 import org.koin.androidx.compose.koinViewModel
 
 
@@ -19,8 +19,8 @@ fun NavGraphBuilder.authenticationScreen() {
         route = AuthenticationScreenNav.DESTINATION,
     ) {
         val viewModel = koinViewModel<AuthenticationViewModel>()
-        val loginViewModel = koinViewModel<LoginViewModel>()
-        val registerViewModel = koinViewModel<RegisterViewModel>()
+        val loginViewModel = koinViewModel<SignInViewModel>()
+        val registerViewModel = koinViewModel<SignUpViewModel>()
 
         AuthenticationScreen(
             authenticationViewModel = viewModel,

@@ -1,18 +1,21 @@
-package com.vnhanh.demo.feature.authentication.presentation.login
+package com.vnhanh.demo.feature.authentication.presentation.authentication.formUi.login
 
 import android.content.Context
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.lifecycle.viewModelScope
 import com.vnhanh.base.android.BaseViewModel
 import com.vnhanh.demo.feature.authentication.R
 import com.vnhanh.demo.feature.authentication.domain.validation.AuthenticationFieldValidationUseCase
-import com.vnhanh.demo.feature.authentication.presentation.login.model.LoginEmailFieldUiModel
-import com.vnhanh.demo.feature.authentication.presentation.login.model.LoginPasswordFieldUiModel
+import com.vnhanh.demo.feature.authentication.presentation.authentication.formUi.login.model.LoginEmailFieldUiModel
+import com.vnhanh.demo.feature.authentication.presentation.authentication.formUi.login.model.LoginPasswordFieldUiModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
-class LoginViewModel(
+class SignInViewModel(
     private val appContext: Context,
     private val validationUseCase: AuthenticationFieldValidationUseCase,
 ) : BaseViewModel() {
@@ -42,11 +45,21 @@ class LoginViewModel(
 
     fun updatePasswordField(fieldValue: TextFieldValue) {
         val isInValid: Boolean = !validationUseCase.isPasswordValid(fieldValue.text)
-        _emailFieldData.update { data ->
+        _passwordFieldData.update { data ->
             data.copy(
                 fieldValue = fieldValue,
                 error = if (isInValid) appContext.getString(R.string.password_field_error_invalid) else null,
             )
         }
+    }
+
+    fun signIn() {
+        viewModelScope.launch(Dispatchers.Default) {
+            // TODO:
+        }
+    }
+
+    fun rememberEmail(isRemember: Boolean) {
+
     }
 }

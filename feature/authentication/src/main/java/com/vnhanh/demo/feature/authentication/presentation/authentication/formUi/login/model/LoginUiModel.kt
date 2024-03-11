@@ -1,4 +1,4 @@
-package com.vnhanh.demo.feature.authentication.presentation.login.model
+package com.vnhanh.demo.feature.authentication.presentation.authentication.formUi.login.model
 
 import androidx.annotation.DrawableRes
 import androidx.compose.ui.graphics.Color

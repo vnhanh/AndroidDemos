@@ -90,7 +90,7 @@ private fun Form(
                 1 -> {
                     RegisterComposable(
                         modifier = Modifier.fillMaxWidth(),
-                        registerViewModel = registerViewModel,
+                        signUpViewModel = registerViewModel,
                     )
                 }
             }

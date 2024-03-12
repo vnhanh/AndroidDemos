@@ -19,6 +19,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -55,6 +56,7 @@ import com.vnhanh.common.compose.modifier.singleClick.singleClick
 import com.vnhanh.common.compose.textfield.AppTextField
 import com.vnhanh.common.compose.textfield.TrailIcon
 import com.vnhanh.common.compose.theme.AppTypography.fontSize13LineHeight18Medium
+import com.vnhanh.common.compose.theme.AppTypography.fontSize13LineHeight18SemiBold
 import com.vnhanh.common.compose.theme.AppTypography.fontSize16LineHeight22Bold
 import com.vnhanh.demo.feature.authentication.R
 import com.vnhanh.demo.feature.authentication.presentation.authentication.formUi.login.model.LoginEmailFieldUiModel
@@ -133,48 +135,63 @@ private fun PasswordField(
     var atEnd by remember { mutableStateOf(false) }
     val passwordTransformation = remember { PasswordVisualTransformation() }
 
-    AnimatedContent(
-        modifier = modifier,
-        targetState = atEnd,
-        transitionSpec = { fadeIn(tween(400)) togetherWith fadeOut(tween(400)) },
-        label = "transform_show_hide_password",
-    ) { passwordVisible ->
-        AppTextField(
-            modifier = modifier,
-            value = passwordFieldData.fieldValue,
-            textColor = passwordFieldData.textColorValue,
-            placeHolderText = passwordFieldData.placeHolderText,
-            placeHolderColor = passwordFieldData.placeHolderColorValue,
-            focusColor = passwordFieldData.focusColorValue,
-            unFocusColor = passwordFieldData.unFocusColorValue,
-            cursorColor = passwordFieldData.cursorColorValue,
-            keyboardType = KeyboardType.Password,
-            visualTransformation = if (passwordVisible) VisualTransformation.None else passwordTransformation,
-            trailingComposable = {
-                TrailIcon(
-                    modifier = Modifier
-                        .clip(CircleShape)
-                        .singleClick {
-                            atEnd = !atEnd
-                        },
-                    painter = rememberAnimatedVectorPainter(
-                        animatedImageVector = animShowHide,
-                        atEnd = passwordVisible,
-                    ),
-                    tintColor = colorResource(id = R.color.authentication_secondary),
-                    contentDescription = "Email Icon",
-                )
-            },
-            onValueChanged = { textFieldValue -> loginViewModel.updatePasswordField(textFieldValue) },
+    Box(modifier = modifier) {
+        AnimatedContent(
+            targetState = atEnd,
+            transitionSpec = { fadeIn(tween(400)) togetherWith fadeOut(tween(400)) },
+            label = "transform_show_hide_password",
+        ) { passwordVisible ->
+            AppTextField(
+                modifier = Modifier.fillMaxWidth(),
+                value = passwordFieldData.fieldValue,
+                textColor = passwordFieldData.textColorValue,
+                placeHolderText = passwordFieldData.placeHolderText,
+                placeHolderColor = passwordFieldData.placeHolderColorValue,
+                focusColor = passwordFieldData.focusColorValue,
+                unFocusColor = passwordFieldData.unFocusColorValue,
+                cursorColor = passwordFieldData.cursorColorValue,
+                keyboardType = KeyboardType.Password,
+                visualTransformation = if (passwordVisible) VisualTransformation.None else passwordTransformation,
+                onValueChanged = { textFieldValue ->
+                    loginViewModel.updatePasswordField(
+                        textFieldValue
+                    )
+                },
+            )
+        }
+        TrailIcon(
+            modifier = Modifier
+                .align(Alignment.CenterEnd)
+                .padding(end = 8.dp)
+                .clip(CircleShape)
+                .singleClick {
+                    atEnd = !atEnd
+                },
+            painter = rememberAnimatedVectorPainter(
+                animatedImageVector = animShowHide,
+                atEnd = atEnd,
+            ),
+            tintColor = colorResource(id = R.color.authentication_secondary),
+            contentDescription = "Email Icon",
         )
+    }
+}
+
+@Composable
+private fun RememberAndForgotPassword(
+    viewModel: SignInViewModel,
+) {
+
+    Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+        RememberMeCheckBox(rowScope = this, viewModel = viewModel)
+        Spacer(modifier = Modifier.width(4.dp))
+        ForgotPasswordButtonLink()
     }
 }
 
 @OptIn(ExperimentalAnimationGraphicsApi::class)
 @Composable
-private fun RememberAndForgotPassword(
-    viewModel: SignInViewModel,
-) {
+private fun RememberMeCheckBox(rowScope: RowScope, viewModel: SignInViewModel) {
     var isRemember: Boolean by remember { mutableStateOf(false) }
     val animCheck: AnimatedImageVector =
         AnimatedImageVector.animatedVectorResource(id = R.drawable.anim_check)
@@ -188,7 +205,7 @@ private fun RememberAndForgotPassword(
         label = "animate_change_checkbox_border_color"
     )
 
-    Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+    with(rowScope) {
         Row(
             modifier = Modifier
                 .weight(1f)
@@ -231,6 +248,19 @@ private fun RememberAndForgotPassword(
             )
         }
     }
+}
+
+@Composable
+private fun ForgotPasswordButtonLink() {
+    Text(
+        text = stringResource(id = R.string.forgot_password),
+        style = fontSize13LineHeight18SemiBold.copy(
+            color = colorResource(id = R.color.authentication_secondary),
+            textAlign = TextAlign.Start,
+        ),
+        maxLines = 1,
+        overflow = TextOverflow.Ellipsis,
+    )
 }
 
 @Composable

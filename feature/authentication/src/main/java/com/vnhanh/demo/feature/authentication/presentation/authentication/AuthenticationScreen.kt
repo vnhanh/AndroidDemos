@@ -74,7 +74,7 @@ private fun Form(
                 .border(
                     width = 1.dp,
                     color = colorResource(id = R.color.authentication_secondary),
-                    shape = RoundedCornerShape(8.dp)
+                    shape = RoundedCornerShape(24.dp)
                 ),
             state = pageState,
             beyondBoundsPageCount = 1,

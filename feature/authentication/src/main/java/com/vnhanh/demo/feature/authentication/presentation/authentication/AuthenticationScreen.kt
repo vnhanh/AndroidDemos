@@ -10,9 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
@@ -37,13 +35,12 @@ internal fun AuthenticationScreen(
         Spacer(
             modifier = Modifier
                 .fillMaxWidth()
-                .weight(2f)
+                .weight(1.2f)
         )
         Form(
             modifier = Modifier
                 .fillMaxWidth()
-                .weight(3f)
-                .verticalScroll(rememberScrollState()),
+                .weight(3f),
             loginViewModel = loginViewModel,
             registerViewModel = registerViewModel,
         )

@@ -6,7 +6,9 @@ import androidx.compose.animation.graphics.ExperimentalAnimationGraphicsApi
 import androidx.compose.animation.graphics.res.animatedVectorResource
 import androidx.compose.animation.graphics.res.rememberAnimatedVectorPainter
 import androidx.compose.animation.graphics.vector.AnimatedImageVector
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -17,8 +19,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -31,6 +35,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -58,7 +63,8 @@ internal fun LoginComposable(
 ) {
     Column(
         modifier = modifier
-            .padding(horizontal = 16.dp, vertical = 32.dp),
+            .padding(horizontal = 16.dp, vertical = 32.dp)
+            .verticalScroll(rememberScrollState()),
     ) {
         EmailField(
             modifier = Modifier.fillMaxWidthLayoutResponsive(),
@@ -75,7 +81,9 @@ internal fun LoginComposable(
         RememberAndForgotPassword(signInViewModel)
         Spacer(modifier = Modifier.height(36.dp))
         AuthenticationButton(buttonLabel = stringResource(id = R.string.sign_in)) { signInViewModel.signIn() }
-        Spacer(modifier = Modifier.height(36.dp))
+        Spacer(modifier = Modifier.height(16.dp))
+        OrText()
+        Spacer(modifier = Modifier.height(20.dp))
         SocialLoginButtons()
         Spacer(modifier = Modifier.height(16.dp))
     }
@@ -168,6 +176,44 @@ private fun ForgotPasswordButtonLink() {
 }
 
 @Composable
-private fun SocialLoginButtons() {
+private fun OrText() {
+    Text(
+        modifier = Modifier.fillMaxWidth(),
+        text = stringResource(id = R.string.or_uppercase),
+        style = fontSize13LineHeight18SemiBold.copy(
+            color = colorResource(id = R.color.authentication_secondary),
+            textAlign = TextAlign.Center,
+        ),
+        maxLines = 1,
+        overflow = TextOverflow.Ellipsis,
+    )
+}
 
+@Composable
+private fun SocialLoginButtons() {
+    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
+        Image(
+            modifier = Modifier
+                .singleClick {
+                    // TODO
+                }
+                .clip(CircleShape)
+                .padding(8.dp)
+                .size(32.dp),
+            painter = painterResource(id = R.drawable.ic_google_64),
+            contentDescription = "Google Sign In Button"
+        )
+        Spacer(modifier = Modifier.width(16.dp))
+        Image(
+            modifier = Modifier
+                .singleClick {
+                    // TODO
+                }
+                .clip(CircleShape)
+                .padding(8.dp)
+                .size(32.dp),
+            painter = painterResource(id = R.drawable.ic_facebook_64),
+            contentDescription = "Google Sign In Button"
+        )
+    }
 }

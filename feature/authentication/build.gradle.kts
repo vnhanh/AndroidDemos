@@ -4,6 +4,7 @@ import dependencies.koin
 import dependencies.room
 import dependencies.test
 import modules.base.BaseAndroidModule
+import modules.common.CommonAndroidHelperModule
 import modules.common.CommonComposeModule
 import modules.common.CommonLogModule
 import modules.data.UserDataModule
@@ -64,13 +65,13 @@ android {
 
 dependencies {
     // import modules
-    implementation(project(BaseAndroidModule.projectName))
-    implementation(project(UserDataModule.projectName))
-    implementation(project(NetworkBaseModule.projectName))
-    implementation(project(NetworkImplModule.projectName))
-    implementation(project(CommonComposeModule.projectName))
-    implementation(project(CommonLogModule.projectName))
-    implementation("androidx.compose.animation:animation-graphics-android:1.6.3")
+    implementation(project(BaseAndroidModule.PROJECT_NAME))
+    implementation(project(UserDataModule.PROJECT_NAME))
+    implementation(project(NetworkBaseModule.PROJECT_NAME))
+    implementation(project(NetworkImplModule.PROJECT_NAME))
+    implementation(project(CommonAndroidHelperModule.PROJECT_NAME))
+    implementation(project(CommonComposeModule.PROJECT_NAME))
+    implementation(project(CommonLogModule.PROJECT_NAME))
 
     basicAndroidComponent()
 

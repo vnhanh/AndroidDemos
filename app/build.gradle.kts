@@ -188,12 +188,12 @@ dependencies {
     /**
      * Implement modules
      */
-    implementation(project(NetworkBaseModule.projectName))
-    implementation(project(NetworkImplModule.projectName))
-    implementation(project(CommonAndroidHelperModule.projectName))
-    implementation(project(CommonComposeModule.projectName))
+    implementation(project(NetworkBaseModule.PROJECT_NAME))
+    implementation(project(NetworkImplModule.PROJECT_NAME))
+    implementation(project(CommonAndroidHelperModule.PROJECT_NAME))
+    implementation(project(CommonComposeModule.PROJECT_NAME))
     implementation(project(CommonDataHelperModule.projectName))
-    implementation(project(CommonLogModule.projectName))
+    implementation(project(CommonLogModule.PROJECT_NAME))
     implementation(project(AuthenticationFeatureModule.projectName))
 
     /**

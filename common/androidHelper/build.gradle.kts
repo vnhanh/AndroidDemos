@@ -9,7 +9,7 @@ plugins {
 }
 
 android {
-    namespace = CommonAndroidHelperModule.nameSpace
+    namespace = CommonAndroidHelperModule.NAME_SPACE
     compileSdk = AndroidConfiguration.compileSdk
 
     defaultConfig {
@@ -40,6 +40,10 @@ android {
 
     kotlinOptions {
         jvmTarget = KotlinConfiguration.jvmTarget
+    }
+
+    buildFeatures {
+        buildConfig = CommonAndroidHelperModule.BUILD_CONFIG
     }
 }
 

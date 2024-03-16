@@ -3,7 +3,7 @@ package modules.network
 object NetworkImplModule {
     const val nameSpace = "com.vnhanh.network.impl"
 
-    const val projectName = ":network:impl"
+    const val PROJECT_NAME = ":network:impl"
 
     const val testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     const val consumerProguardFiles = "consumer-rules.pro"

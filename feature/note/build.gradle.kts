@@ -46,8 +46,8 @@ android {
 }
 
 dependencies {
-    implementation(project(CommonComposeModule.projectName))
-    implementation(project(CommonLogModule.projectName))
+    implementation(project(CommonComposeModule.PROJECT_NAME))
+    implementation(project(CommonLogModule.PROJECT_NAME))
 
     basicAndroidComponent()
 

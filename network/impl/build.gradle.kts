@@ -55,9 +55,9 @@ android {
 }
 
 dependencies {
-    implementation(project(NetworkBaseModule.projectName))
+    implementation(project(NetworkBaseModule.PROJECT_NAME))
     implementation(project(CommonDataHelperModule.projectName))
-    implementation(project(CommonLogModule.projectName))
+    implementation(project(CommonLogModule.PROJECT_NAME))
 
     api(RetrofitDependencies.retrofit)
     api(RetrofitDependencies.gsonConverter)

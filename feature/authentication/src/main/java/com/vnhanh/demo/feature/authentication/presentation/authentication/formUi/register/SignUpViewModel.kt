@@ -2,10 +2,14 @@ package com.vnhanh.demo.feature.authentication.presentation.authentication.formU
 
 import android.content.Context
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.style.TextAlign
 import androidx.lifecycle.viewModelScope
 import com.vnhanh.base.android.BaseViewModel
+import com.vnhanh.common.compose.context.getColorResource
+import com.vnhanh.common.compose.theme.AppTypography
 import com.vnhanh.demo.feature.authentication.R
 import com.vnhanh.demo.feature.authentication.domain.validation.AuthenticationFieldValidationUseCase
+import com.vnhanh.demo.feature.authentication.presentation.authentication.formUi.login.model.FieldErrorUiModel
 import com.vnhanh.demo.feature.authentication.presentation.authentication.formUi.login.model.LoginEmailFieldUiModel
 import com.vnhanh.demo.feature.authentication.presentation.authentication.formUi.login.model.LoginPasswordFieldUiModel
 import kotlinx.coroutines.Dispatchers
@@ -21,14 +25,16 @@ class SignUpViewModel(
 ) : BaseViewModel() {
     private val _emailFieldData: MutableStateFlow<LoginEmailFieldUiModel> = MutableStateFlow(
         LoginEmailFieldUiModel(
-            placeHolderText = appContext.getString(R.string.email_field_placeholder)
+            placeHolderText = appContext.getString(R.string.email_field_placeholder),
+            errorData = getDefaultFieldErrorData(),
         )
     )
     val emailFieldData: StateFlow<LoginEmailFieldUiModel> = _emailFieldData.asStateFlow()
 
     private val _passwordFieldData: MutableStateFlow<LoginPasswordFieldUiModel> = MutableStateFlow(
         LoginPasswordFieldUiModel(
-            placeHolderText = appContext.getString(R.string.password_field_placeholder)
+            placeHolderText = appContext.getString(R.string.password_field_placeholder),
+            errorData = getDefaultFieldErrorData(),
         )
     )
     val passwordFieldData: StateFlow<LoginPasswordFieldUiModel> = _passwordFieldData.asStateFlow()
@@ -47,7 +53,9 @@ class SignUpViewModel(
         _emailFieldData.update { data ->
             data.copy(
                 fieldValue = fieldValue,
-                error = if (isInValid) appContext.getString(R.string.email_field_error_invalid) else null,
+                errorData = data.errorData.copy(
+                    error = if (isInValid) appContext.getString(R.string.email_field_error_invalid) else ""
+                ),
             )
         }
     }
@@ -57,7 +65,9 @@ class SignUpViewModel(
         _passwordFieldData.update { data ->
             data.copy(
                 fieldValue = fieldValue,
-                error = if (isInValid) appContext.getString(R.string.password_field_error_invalid) else null,
+                errorData = data.errorData.copy(
+                    error = if (isInValid) appContext.getString(R.string.password_field_error_invalid) else "",
+                ),
             )
         }
     }
@@ -68,4 +78,12 @@ class SignUpViewModel(
         }
     }
 
+
+    /*----------------------------------COMMON----------------------------------*/
+    private fun getDefaultFieldErrorData() = FieldErrorUiModel(
+        errorTextStyle = AppTypography.fontSize12LineHeight16Normal.copy(
+            textAlign = TextAlign.Start,
+            color = appContext.getColorResource(R.color.error),
+        ),
+    )
 }

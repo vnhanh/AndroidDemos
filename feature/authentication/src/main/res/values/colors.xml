@@ -5,4 +5,5 @@
     <color name="sign_in_bg">#FF2C46</color>
     <color name="sign_in_loading_circular_track">#FFBDC5</color>
     <color name="sign_in_loading_circular_bg">#ababab</color>
+    <color name="error">#E91E63</color>
 </resources>

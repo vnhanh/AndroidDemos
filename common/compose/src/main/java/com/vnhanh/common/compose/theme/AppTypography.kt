@@ -49,7 +49,6 @@ object AppTypography {
         )
 
     val fontSize12LineHeight16Normal
-        @Composable
         get() = TextStyle(
             fontSize = 12.sp,
             lineHeight = 16.sp,

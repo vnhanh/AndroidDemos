@@ -1,7 +1,7 @@
 import dependencies.LogDependencies
-import dependencies.basicAndroidComponent
 import dependencies.test
 import modules.common.CommonLogModule
+import modules.log.LogModule
 
 plugins {
     id(ModulePlugins.androidLibrary)
@@ -39,6 +39,10 @@ android {
     }
     kotlinOptions {
         jvmTarget = KotlinConfiguration.jvmTarget
+    }
+
+    buildFeatures {
+        buildConfig = LogModule.BUILD_CONFIG
     }
 }
 

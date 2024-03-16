@@ -96,7 +96,9 @@ class SignInViewModel(
     }
 
     fun rememberEmail(isRemember: Boolean) {
+        viewModelScope.launch(Dispatchers.Default) {
 
+        }
     }
 
     private fun getDefaultFieldErrorData() = FieldErrorUiModel(

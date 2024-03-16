@@ -9,3 +9,10 @@ object RoomDependencies {
     const val annotationProcessorRoomCompiler = "androidx.room:room-compiler:$roomVersion"
     const val kspRoomCompiler = "androidx.room:room-compiler:$roomVersion"
 }
+
+object DataStoreDependencies {
+    private const val DATA_STORE_VERSION = "1.0.0"
+
+    const val DATA_STORE = "androidx.datastore:datastore-preferences:$DATA_STORE_VERSION"
+    const val PROTO_DATA_STORE = "androidx.datastore:datastore:$DATA_STORE_VERSION"
+}

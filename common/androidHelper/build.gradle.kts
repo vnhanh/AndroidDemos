@@ -1,5 +1,7 @@
+import dependencies.DataStoreDependencies
 import dependencies.test
 import modules.common.CommonAndroidHelperModule
+import modules.log.LogModule
 
 plugins {
     id(ModulePlugins.androidLibrary)
@@ -30,16 +32,22 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = KotlinConfiguration.sourceCompatibility
         targetCompatibility = KotlinConfiguration.targetCompatibility
     }
+
     kotlinOptions {
         jvmTarget = KotlinConfiguration.jvmTarget
     }
 }
 
 dependencies {
+    implementation(project(LogModule.PROJECT_NAME))
+
+    implementation(DataStoreDependencies.DATA_STORE)
+    implementation(DataStoreDependencies.PROTO_DATA_STORE)
 
     test()
 }

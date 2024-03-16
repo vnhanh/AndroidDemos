@@ -12,7 +12,7 @@ import com.vnhanh.demo.feature.authentication.domain.validation.AuthenticationFi
 import com.vnhanh.demo.feature.authentication.presentation.authentication.formUi.login.model.FieldErrorUiModel
 import com.vnhanh.demo.feature.authentication.presentation.authentication.formUi.login.model.LoginEmailFieldUiModel
 import com.vnhanh.demo.feature.authentication.presentation.authentication.formUi.login.model.LoginPasswordFieldUiModel
-import com.vnhanh.demo.feature.authentication.presentation.authentication.formUi.login.model.SubmitSignInUiModel
+import com.vnhanh.demo.feature.authentication.presentation.authentication.formUi.login.model.SubmitAuthUiModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -45,8 +45,8 @@ class SignInViewModel(
     // true when submitting login at least once
     private var shouldCheckValid = false
 
-    private val _submitSignInState: MutableStateFlow<SubmitSignInUiModel?> = MutableStateFlow(null)
-    val submitSignInState: StateFlow<SubmitSignInUiModel?> = _submitSignInState.asStateFlow()
+    private val _submitSignInState: MutableStateFlow<SubmitAuthUiModel?> = MutableStateFlow(null)
+    val submitSignInState: StateFlow<SubmitAuthUiModel?> = _submitSignInState.asStateFlow()
 
     fun updateEmailField(fieldValue: TextFieldValue) {
         val isInValid: Boolean =
@@ -79,19 +79,20 @@ class SignInViewModel(
     fun signIn() {
         viewModelScope.launch(Dispatchers.Default) {
             shouldCheckValid = true
-            _emailFieldData.update { data ->
-                data.copy(
-                    isEnabled = false,
-                )
-            }
-            delay(2000)
-            _submitSignInState.update { data ->
-                data?.copy(
-                    isSuccess = false,
-                    error = appContext.getString(R.string.sign_in_failed)
-                )
+            disableFields()
+            _submitSignInState.update { SubmitAuthUiModel.setSubmitting() }
+
+            delay(1500)
+
+            _submitSignInState.update {
+                SubmitAuthUiModel.setFailed(error = appContext.getString(R.string.sign_in_failed))
             }
         }
+    }
+
+    private fun disableFields() {
+        _emailFieldData.update { data -> data.copy(isEnabled = false) }
+        _passwordFieldData.update { data -> data.copy(isEnabled = false) }
     }
 
     fun rememberEmail(isRemember: Boolean) {

@@ -29,18 +29,23 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.vnhanh.common.compose.modifier.singleClick.singleClick
 import com.vnhanh.common.compose.theme.AppTypography
 import com.vnhanh.demo.feature.authentication.R
+import com.vnhanh.demo.feature.authentication.presentation.authentication.formUi.login.model.SubmitAuthUiModel
+import kotlinx.coroutines.flow.StateFlow
 
 
 @Composable
 internal fun AuthenticationButton(
     buttonLabel: String,
-    onTap: () -> Unit
+    stateProvider: () -> StateFlow<SubmitAuthUiModel?>,
+    onTap: () -> Unit,
 ) {
+    val submitValue by stateProvider().collectAsStateWithLifecycle()
     val configuration = LocalConfiguration.current
-    var isIdle by remember { mutableStateOf(true) }
+    var isIdle by remember(submitValue) { mutableStateOf(submitValue?.isLoading != true) }
     val transform: Transition<Boolean> =
         updateTransition(targetState = isIdle, label = "transform_submit_sign_in")
     val buttonWidth: Dp by transform.animateDp(

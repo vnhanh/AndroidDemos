@@ -40,13 +40,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.vnhanh.common.compose.modifier.fillMaxWidthLayoutResponsive
 import com.vnhanh.common.compose.modifier.singleClick.singleClick
 import com.vnhanh.common.compose.theme.AppTypography.fontSize13LineHeight18Medium
 import com.vnhanh.common.compose.theme.AppTypography.fontSize13LineHeight18SemiBold
 import com.vnhanh.demo.feature.authentication.R
-import com.vnhanh.demo.feature.authentication.presentation.authentication.formUi.login.model.SubmitSignInUiModel
 import com.vnhanh.demo.feature.authentication.presentation.components.AuthenticationButton
 import com.vnhanh.demo.feature.authentication.presentation.components.EmailField
 import com.vnhanh.demo.feature.authentication.presentation.components.PasswordField
@@ -63,8 +61,6 @@ internal fun LoginComposable(
     modifier: Modifier = Modifier,
     signInViewModel: SignInViewModel,
 ) {
-    val signInState: SubmitSignInUiModel? by signInViewModel.submitSignInState.collectAsStateWithLifecycle()
-
     Column(
         modifier = modifier
             .padding(horizontal = 16.dp, vertical = 32.dp)
@@ -84,7 +80,13 @@ internal fun LoginComposable(
         Spacer(modifier = Modifier.height(8.dp))
         RememberAndForgotPassword(signInViewModel)
         Spacer(modifier = Modifier.height(36.dp))
-        AuthenticationButton(buttonLabel = stringResource(id = R.string.sign_in)) { signInViewModel.signIn() }
+        AuthenticationButton(
+            buttonLabel = stringResource(id = R.string.sign_in),
+            stateProvider = { signInViewModel.submitSignInState }
+        ) {
+            // onTap()
+            signInViewModel.signIn()
+        }
         Spacer(modifier = Modifier.height(16.dp))
         OrText()
         Spacer(modifier = Modifier.height(20.dp))

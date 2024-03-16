@@ -78,7 +78,13 @@ internal fun RegisterComposable(
             }
         )
         Spacer(modifier = Modifier.height(36.dp))
-        AuthenticationButton(buttonLabel = stringResource(id = R.string.sign_up)) { signUpViewModel.register() }
+        AuthenticationButton(
+            buttonLabel = stringResource(id = R.string.sign_up),
+            stateProvider = { signUpViewModel.submitSignUpInState },
+        ) {
+            // onTap
+            signUpViewModel.register()
+        }
         Spacer(modifier = Modifier.height(16.dp))
     }
 }

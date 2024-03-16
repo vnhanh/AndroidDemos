@@ -12,6 +12,7 @@ import com.vnhanh.demo.feature.authentication.domain.validation.AuthenticationFi
 import com.vnhanh.demo.feature.authentication.presentation.authentication.formUi.login.model.FieldErrorUiModel
 import com.vnhanh.demo.feature.authentication.presentation.authentication.formUi.login.model.LoginEmailFieldUiModel
 import com.vnhanh.demo.feature.authentication.presentation.authentication.formUi.login.model.LoginPasswordFieldUiModel
+import com.vnhanh.demo.feature.authentication.presentation.authentication.formUi.login.model.SubmitAuthUiModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -47,6 +48,9 @@ class SignUpViewModel(
         )
     val confirmPasswordFieldData: StateFlow<LoginPasswordFieldUiModel> =
         _confirmPasswordFieldData.asStateFlow()
+
+    private val _submitSignUpInState: MutableStateFlow<SubmitAuthUiModel?> = MutableStateFlow(null)
+    val submitSignUpInState: StateFlow<SubmitAuthUiModel?> = _submitSignUpInState.asStateFlow()
 
     fun updateEmailField(fieldValue: TextFieldValue) {
         val isInValid: Boolean = !validationUseCase.isEmailValid(fieldValue.text)

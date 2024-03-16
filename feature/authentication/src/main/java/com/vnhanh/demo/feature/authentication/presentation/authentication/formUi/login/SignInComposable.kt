@@ -19,10 +19,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -40,6 +38,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.vnhanh.common.compose.modifier.fillMaxWidthLayoutResponsive
 import com.vnhanh.common.compose.modifier.singleClick.singleClick
 import com.vnhanh.common.compose.theme.AppTypography.fontSize13LineHeight18Medium
@@ -63,8 +62,7 @@ internal fun LoginComposable(
 ) {
     Column(
         modifier = modifier
-            .padding(horizontal = 16.dp, vertical = 32.dp)
-            .verticalScroll(rememberScrollState()),
+            .padding(horizontal = 16.dp, vertical = 32.dp),
     ) {
         EmailField(
             modifier = Modifier.fillMaxWidthLayoutResponsive(),
@@ -110,7 +108,13 @@ private fun RememberAndForgotPassword(
 @OptIn(ExperimentalAnimationGraphicsApi::class)
 @Composable
 private fun RememberMeCheckBox(rowScope: RowScope, viewModel: SignInViewModel) {
-    var isRemember: Boolean by remember { mutableStateOf(false) }
+    val shouldRememberEmailState by viewModel.shouldRememberEmail.collectAsStateWithLifecycle()
+
+    var isRemember: Boolean by remember(shouldRememberEmailState) {
+        mutableStateOf(
+            shouldRememberEmailState
+        )
+    }
     val animCheck: AnimatedImageVector =
         AnimatedImageVector.animatedVectorResource(id = R.drawable.anim_check)
     val checkAnimPainter = rememberAnimatedVectorPainter(
@@ -128,8 +132,7 @@ private fun RememberMeCheckBox(rowScope: RowScope, viewModel: SignInViewModel) {
             modifier = Modifier
                 .weight(1f)
                 .singleClick(isShowClickEffect = false) {
-                    isRemember = !isRemember
-                    viewModel.rememberEmail(isRemember = isRemember)
+                    viewModel.rememberEmail(isRemember = !isRemember)
                 },
             verticalAlignment = Alignment.CenterVertically
         ) {

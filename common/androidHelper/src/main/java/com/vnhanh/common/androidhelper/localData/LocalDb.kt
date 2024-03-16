@@ -13,6 +13,7 @@ import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import com.vnhanh.common.androidhelper.BuildConfig
 import com.vnhanh.common.log.AppLog
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -40,7 +41,7 @@ object LocalDb {
         key: String,
         value: T,
         dispatcher: CoroutineDispatcher = Dispatchers.IO,
-        shouldThrowException: Boolean = false
+        shouldThrowException: Boolean = BuildConfig.DEBUG,
     ) {
         dataStoreInstanceForSave(shouldThrowException, dispatcher) { dataStore ->
             dataStore.edit { preferences: MutablePreferences ->
@@ -48,25 +49,6 @@ object LocalDb {
             }
         }
     }
-
-    fun <T> getData(
-        preferenceKey: Preferences.Key<T>,
-        dispatcher: CoroutineDispatcher = Dispatchers.IO,
-        shouldLog: Boolean = false,
-        shouldThrowException: Boolean = false
-    ): Flow<T?>? =
-        dateStoreInstanceForGet(shouldThrowException) { dataStore ->
-            dataStore.data
-                .catch { exception ->
-                    if (shouldLog) {
-                        AppLog.e("caught exception while get data from data store preference ${exception.message}")
-                    }
-                    emit(emptyPreferences())
-                }
-                .map { preferences: Preferences ->
-                    preferences[preferenceKey]
-                }.flowOn(dispatcher)
-        }
 
     private fun <T> savePreference(preferences: MutablePreferences, key: String, value: T) {
         when (value) {
@@ -97,6 +79,109 @@ object LocalDb {
         }
     }
 
+    fun getString(
+        key: String,
+        dispatcher: CoroutineDispatcher = Dispatchers.IO,
+        shouldLog: Boolean = BuildConfig.DEBUG,
+        shouldThrowException: Boolean = BuildConfig.DEBUG
+    ): Flow<String?>? =
+        handlePreferences(
+            dispatcher = dispatcher,
+            shouldLog = shouldLog,
+            shouldThrowException = shouldThrowException,
+        ) { preferences ->
+            preferences[stringPreferencesKey(key)]
+        }
+
+    fun getBoolean(
+        key: String,
+        dispatcher: CoroutineDispatcher = Dispatchers.IO,
+        shouldLog: Boolean = BuildConfig.DEBUG,
+        shouldThrowException: Boolean = BuildConfig.DEBUG
+    ): Flow<Boolean?>? =
+        handlePreferences(
+            dispatcher = dispatcher,
+            shouldLog = shouldLog,
+            shouldThrowException = shouldThrowException,
+        ) { preferences ->
+            preferences[booleanPreferencesKey(key)]
+        }
+
+    fun getInt(
+        key: String,
+        dispatcher: CoroutineDispatcher = Dispatchers.IO,
+        shouldLog: Boolean = BuildConfig.DEBUG,
+        shouldThrowException: Boolean = BuildConfig.DEBUG,
+    ): Flow<Int?>? =
+        handlePreferences(
+            dispatcher = dispatcher,
+            shouldLog = shouldLog,
+            shouldThrowException = shouldThrowException,
+        ) { preferences ->
+            preferences[intPreferencesKey(key)]
+        }
+
+    fun getLong(
+        key: String,
+        dispatcher: CoroutineDispatcher = Dispatchers.IO,
+        shouldLog: Boolean = BuildConfig.DEBUG,
+        shouldThrowException: Boolean = BuildConfig.DEBUG,
+    ): Flow<Long?>? =
+        handlePreferences(
+            dispatcher = dispatcher,
+            shouldLog = shouldLog,
+            shouldThrowException = shouldThrowException,
+        ) { preferences ->
+            preferences[longPreferencesKey(key)]
+        }
+
+    fun getFloat(
+        key: String,
+        dispatcher: CoroutineDispatcher = Dispatchers.IO,
+        shouldLog: Boolean = BuildConfig.DEBUG,
+        shouldThrowException: Boolean = BuildConfig.DEBUG,
+    ): Flow<Float?>? =
+        handlePreferences(
+            dispatcher = dispatcher,
+            shouldLog = shouldLog,
+            shouldThrowException = shouldThrowException,
+        ) { preferences ->
+            preferences[floatPreferencesKey(key)]
+        }
+
+    fun getDouble(
+        key: String,
+        dispatcher: CoroutineDispatcher = Dispatchers.IO,
+        shouldLog: Boolean = BuildConfig.DEBUG,
+        shouldThrowException: Boolean = BuildConfig.DEBUG,
+    ): Flow<Double?>? =
+        handlePreferences(
+            dispatcher = dispatcher,
+            shouldLog = shouldLog,
+            shouldThrowException = shouldThrowException,
+        ) { preferences ->
+            preferences[doublePreferencesKey(key)]
+        }
+
+    private fun <T> handlePreferences(
+        dispatcher: CoroutineDispatcher = Dispatchers.IO,
+        shouldLog: Boolean = BuildConfig.DEBUG,
+        shouldThrowException: Boolean = BuildConfig.DEBUG,
+        block: suspend (Preferences) -> T,
+    ) =
+        dateStoreInstanceForGet(shouldThrowException) { dataStore ->
+            dataStore.data
+                .catch { exception ->
+                    if (shouldLog) {
+                        AppLog.e("caught exception while get data from data store preference ${exception.message}")
+                    }
+                    emit(emptyPreferences())
+                }
+                .map { preferences: Preferences ->
+                    block(preferences)
+                }.flowOn(dispatcher)
+        }
+
     @Throws(LocalDbException::class)
     private inline fun <T> dateStoreInstanceForGet(
         shouldThrowException: Boolean,
@@ -111,4 +196,5 @@ object LocalDb {
 
         return block(dataStore)
     }
+
 }

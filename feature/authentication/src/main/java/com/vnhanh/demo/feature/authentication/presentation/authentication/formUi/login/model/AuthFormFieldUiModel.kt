@@ -9,7 +9,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 data class LoginEmailFieldUiModel(
-    val fieldValue: TextFieldValue = TextFieldValue(),
+    override val fieldValue: TextFieldValue = TextFieldValue(),
     val isEnabled: Boolean = true,
     val textColorValue: Color = Color.Black,
     val placeHolderText: String = "email",
@@ -19,10 +19,10 @@ data class LoginEmailFieldUiModel(
     val cursorColorValue: Color = Color.Black,
     @DrawableRes val trailingIconResId: Int? = null,
     override val errorData: FieldErrorUiModel = FieldErrorUiModel(),
-) : IFieldErrorData
+) : IFieldErrorData, IFieldValue
 
 data class LoginPasswordFieldUiModel(
-    val fieldValue: TextFieldValue = TextFieldValue(),
+    override val fieldValue: TextFieldValue = TextFieldValue(),
     val isEnabled: Boolean = true,
     val textColorValue: Color = Color.Black,
     val placeHolderText: String = "email",
@@ -33,7 +33,14 @@ data class LoginPasswordFieldUiModel(
     @DrawableRes val trailingIconResId: Int? = null,
     val isVisible: Boolean = false,
     override val errorData: FieldErrorUiModel = FieldErrorUiModel(),
-) : IFieldErrorData
+) : IFieldErrorData, IFieldValue
+
+interface IFieldValue {
+    val fieldValue: TextFieldValue
+
+    val text: String
+        get() = fieldValue.text
+}
 
 interface IFieldErrorData {
     val errorData: FieldErrorUiModel

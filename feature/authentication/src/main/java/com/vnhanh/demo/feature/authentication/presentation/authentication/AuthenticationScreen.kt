@@ -14,6 +14,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
@@ -31,6 +32,10 @@ internal fun AuthenticationScreen(
     loginViewModel: SignInViewModel,
     registerViewModel: SignUpViewModel,
 ) {
+    LaunchedEffect(Unit) {
+        loginViewModel.onStart()
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()

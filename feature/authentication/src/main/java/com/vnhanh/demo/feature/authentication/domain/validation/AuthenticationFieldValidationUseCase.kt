@@ -1,18 +1,16 @@
 package com.vnhanh.demo.feature.authentication.domain.validation
 
 import android.util.Patterns
-import com.google.gson.Gson
 
-class AuthenticationFieldValidationUseCase(
-    private val gson: Gson,
-) {
+class AuthenticationFieldValidationUseCase() {
     private val passwordRegex =
         Regex("""^(?=.*[0-9]) (?=.*[a-z]) (?=.*[A-Z]) (?=.*[!@#$%^&*(){}|\[\]\\;:'"<>,.?/]) .{4,20}$""")
 
     fun isEmailValid(email: String): Boolean =
-        email.isBlank() || Patterns.EMAIL_ADDRESS.matcher(email).matches()
+        Patterns.EMAIL_ADDRESS.matcher(email).matches()
 
-    fun isPasswordValid(password: String): Boolean {
-        return passwordRegex matches password
-    }
+    fun isPasswordValid(password: String): Boolean = passwordRegex matches password
+
+    fun areEmailAndPasswordValid(email: String, password: String): Boolean =
+        isEmailValid(email) && isPasswordValid(password)
 }

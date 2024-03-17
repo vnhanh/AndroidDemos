@@ -1,6 +1,7 @@
 import dependencies.basicAndroidComponent
 import dependencies.test
 import modules.base.BaseAndroidModule
+import modules.common.CommonAndroidHelperModule
 
 plugins {
     id(ModulePlugins.androidLibrary)
@@ -39,6 +40,9 @@ android {
 }
 
 dependencies {
+    // import modules
+    implementation(project(CommonAndroidHelperModule.PROJECT_NAME))
+
     basicAndroidComponent()
 
     test()

@@ -3,7 +3,6 @@ package com.vnhanh.demo.feature.authentication.presentation.authentication.formU
 
 data class SubmitAuthUiModel(
     val state: Int = STATE_IDLE,
-    val error: String = "",
 ) {
     val isLoading: Boolean
         get() = state == STATE_SUBMITTING
@@ -23,11 +22,9 @@ data class SubmitAuthUiModel(
         private const val STATE_SUCCESS = 2
         private const val STATE_FAILED = 3
 
-        fun setFailed(
-            error: String
-        ) = SubmitAuthUiModel(state = STATE_FAILED, error = error)
+        fun setFailed() = SubmitAuthUiModel(state = STATE_FAILED)
 
-        fun setSuccess() = SubmitAuthUiModel(state = STATE_FAILED, error = "")
+        fun setSuccess() = SubmitAuthUiModel(state = STATE_FAILED)
 
         fun setIdle() = SubmitAuthUiModel(state = STATE_IDLE)
 

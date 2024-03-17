@@ -41,21 +41,40 @@ import com.vnhanh.common.compose.theme.AppTypography
 
 object AppToast {
     const val TOP = 1
-    const val BOTTOM = 3
+    const val BOTTOM = 2
 }
 
 data class AppToastUiModel(
-    val title: String = "",
+    val title: String? = null,
     @ColorRes val titleColorRedId: Int = R.color.toast_title,
     val titleStyle: TextStyle = AppTypography.fontSize14LineHeight20SemiBold,
     val message: String? = null,
     val messageStyle: TextStyle = AppTypography.fontSize13LineHeight18Normal,
     @ColorRes val messageColorRedId: Int = R.color.toast_message,
     val leftIconData: AppToastIcon? = null,
-    val rightIconData: AppToastIcon? = null,
+    val rightIconData: AppToastIcon? = AppToastIcon(
+        iconResId = R.drawable.ic_close_rounded_24_18,
+        tintResId = R.color.toast_right_icon
+    ),
     @ColorRes val backgroundColorResId: Int = R.color.toast_bg,
     val positionType: Int = AppToast.BOTTOM,
-)
+) {
+    companion object {
+        fun getDefault(
+            title: String? = null,
+            message: String? = null,
+            positionType: Int = AppToast.BOTTOM
+        ) =
+            AppToastUiModel(
+                title = title,
+                message = message,
+                positionType = positionType,
+            )
+    }
+}
+
+fun AppToastUiModel?.isNotBlank() =
+    this != null && (title.isNullOrBlank().not() || message.isNullOrBlank().not())
 
 data class AppToastIcon(
     @DrawableRes val iconResId: Int,
@@ -70,7 +89,7 @@ fun BoxScope.AppToast(
     onClickCloseButton: () -> Unit,
 ) {
     AnimatedVisibility(
-        visible = dataProvider() != null,
+        visible = dataProvider() != null && dataProvider().isNotBlank(),
         enter = (
                 when (dataProvider()?.positionType) {
                     AppToast.TOP -> fadeIn(tween(300)) + slideInVertically(tween(300)) { -it }
@@ -99,7 +118,12 @@ fun BoxScope.AppToast(
                 }
             )
             .fillMaxWidth()
-            .padding(start = 16.dp, end = 16.dp, bottom = 24.dp),
+            .padding(
+                start = 16.dp,
+                end = 16.dp,
+                top = if (dataProvider()?.positionType == AppToast.TOP) 16.dp else 0.dp,
+                bottom = if (dataProvider()?.positionType == AppToast.BOTTOM) 24.dp else 0.dp
+            ),
     ) {
         dataProvider()?.also { toastData ->
             Row(
@@ -131,18 +155,24 @@ fun BoxScope.AppToast(
                         .weight(1f)
                         .padding(end = 8.dp),
                 ) {
-                    Text(
-                        text = toastData.title,
-                        style = toastData.messageStyle.copy(
-                            textAlign = TextAlign.Start,
-                        ),
-                        maxLines = 2,
-                        overflow = TextOverflow.Ellipsis,
-                        modifier = Modifier.fillMaxWidth(),
-                    )
+                    if (!toastData.title.isNullOrBlank()) {
+                        println("TestAlan - toast title ${toastData.title}")
+                        Text(
+                            text = toastData.title,
+                            style = toastData.messageStyle.copy(
+                                textAlign = TextAlign.Start,
+                            ),
+                            maxLines = 2,
+                            overflow = TextOverflow.Ellipsis,
+                            modifier = Modifier.fillMaxWidth(),
+                        )
+                    }
+
                     toastData.message?.also { message ->
                         if (message.isNotBlank()) {
-                            Spacer(Modifier.height(8.dp))
+                            if (toastData.title.isNullOrBlank().not()) {
+                                Spacer(Modifier.height(8.dp))
+                            }
                             Text(
                                 text = message,
                                 style = toastData.messageStyle.copy(
@@ -169,7 +199,6 @@ fun BoxScope.AppToast(
                         tint = colorResource(id = rightIconData.tintResId)
                     )
                 }
-                Spacer(modifier = Modifier.width(8.dp))
             }
         }
     }

@@ -10,6 +10,7 @@ import dependencies.test
 import flavors.BuildConfigField
 import flavors.FireBaseConfigField
 import modules.app.AppModule
+import modules.base.BaseAndroidModule
 import modules.common.CommonAndroidHelperModule
 import modules.common.CommonComposeModule
 import modules.common.CommonDataHelperModule
@@ -194,6 +195,7 @@ dependencies {
     implementation(project(CommonComposeModule.PROJECT_NAME))
     implementation(project(CommonDataHelperModule.projectName))
     implementation(project(CommonLogModule.PROJECT_NAME))
+    implementation(project(BaseAndroidModule.PROJECT_NAME))
     implementation(project(AuthenticationFeatureModule.projectName))
 
     /**

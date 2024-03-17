@@ -6,6 +6,7 @@ import modules.common.CommonAndroidHelperModule
 plugins {
     id(ModulePlugins.androidLibrary)
     id(ModulePlugins.kotlinAndroid)
+    id(ModulePlugins.kotlinParcelize)
 }
 
 android {

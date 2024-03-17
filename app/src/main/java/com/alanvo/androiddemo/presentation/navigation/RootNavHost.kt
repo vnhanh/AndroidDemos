@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -28,7 +29,7 @@ fun RootNavHost(
     navHostController: NavHostController,
     mainViewModel: MainViewModel,
 ) {
-    val appToastState = mainViewModel.appToastState.collectAsStateWithLifecycle()
+    val appToastState by mainViewModel.appToastState.collectAsStateWithLifecycle()
 
     Scaffold(
         modifier = Modifier
@@ -55,8 +56,14 @@ fun RootNavHost(
             }
 
             AppToast(
-                modifier = Modifier.align(Alignment.BottomStart),
-                dataProvider = { appToastState.value },
+                modifier = Modifier.then(
+                    if (appToastState?.positionType == AppToast.TOP) {
+                        Modifier.align(Alignment.TopStart)
+                    } else {
+                        Modifier.align(Alignment.BottomStart)
+                    }
+                ),
+                dataProvider = { appToastState },
                 onClickCloseButton = { mainViewModel.hideBottomToast() }
             )
         }

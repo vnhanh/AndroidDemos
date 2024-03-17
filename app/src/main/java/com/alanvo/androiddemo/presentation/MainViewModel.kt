@@ -1,10 +1,15 @@
 package com.alanvo.androiddemo.presentation
 
+import android.content.Context
 import android.os.CountDownTimer
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.vnhanh.base.android.TOAST_POSITION_BOTTOM
+import com.vnhanh.base.android.TOAST_POSITION_TOP
+import com.vnhanh.base.android.ToastUiModel
 import com.vnhanh.common.androidhelper.AndroidConstants
+import com.vnhanh.common.compose.toast.AppToast
 import com.vnhanh.common.compose.toast.AppToastUiModel
 import com.vnhanh.common.log.printDebugStackTrace
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -16,21 +21,28 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
-import org.koin.java.KoinJavaComponent.inject
 import timber.log.Timber
 
-class MainViewModel : ViewModel() {
-    private val savedStateHandle: SavedStateHandle by inject(SavedStateHandle::class.java)
+class MainViewModel(
+    private val appContext: Context,
+    private val savedStateHandle: SavedStateHandle,
+) : ViewModel() {
 
     @OptIn(ExperimentalCoroutinesApi::class)
     val appToastState: StateFlow<AppToastUiModel?> =
         savedStateHandle.getStateFlow(AndroidConstants.keyEventAppToast, null)
-            .flatMapLatest { toastData: AppToastUiModel? ->
+            .flatMapLatest { toastData: ToastUiModel? ->
                 flow {
                     if (toastData != null) {
                         restartCountDownTimer()
                     }
-                    emit(toastData)
+                    val toastUiData =
+                        AppToastUiModel.getDefault(
+                            title = toastData?.title,
+                            message = toastData?.message,
+                            positionType = if (toastData?.position == TOAST_POSITION_TOP) AppToast.TOP else AppToast.BOTTOM
+                        )
+                    emit(toastUiData)
                 }
             }
             .catch {
@@ -54,7 +66,9 @@ class MainViewModel : ViewModel() {
 
     fun hideBottomToast() {
         viewModelScope.launch {
-            savedStateHandle[AndroidConstants.keyEventAppToast] = ""
+            savedStateHandle[AndroidConstants.keyEventAppToast] = ToastUiModel(
+                position = appToastState.value?.positionType ?: TOAST_POSITION_BOTTOM
+            )
         }
     }
 

@@ -4,7 +4,7 @@ import android.util.Patterns
 
 class AuthenticationFieldValidationUseCase() {
     private val passwordRegex =
-        Regex("""^(?=.*[0-9]) (?=.*[a-z]) (?=.*[A-Z]) (?=.*[!@#$%^&*(){}|\[\]\\;:'"<>,.?/]) .{4,20}$""")
+    Regex("(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])([a-zA-Z0-9]){4,20}")
 
     fun isEmailValid(email: String): Boolean =
         Patterns.EMAIL_ADDRESS.matcher(email).matches()

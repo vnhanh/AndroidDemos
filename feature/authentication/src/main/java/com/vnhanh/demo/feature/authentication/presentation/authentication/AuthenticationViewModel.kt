@@ -1,7 +1,7 @@
 package com.vnhanh.demo.feature.authentication.presentation.authentication
 
-import com.vnhanh.base.android.BaseViewModel
+import androidx.lifecycle.ViewModel
 
-class AuthenticationViewModel : BaseViewModel() {
+class AuthenticationViewModel : ViewModel() {
 
 }

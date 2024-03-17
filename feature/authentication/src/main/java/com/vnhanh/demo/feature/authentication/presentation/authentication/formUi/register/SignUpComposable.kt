@@ -110,7 +110,7 @@ private fun SignInButton(viewModel: SignInViewModel) {
         label = "change_button_bg_color",
     ) { state ->
         if (state) {
-            colorResource(id = R.color.sign_in_bg)
+            colorResource(id = R.color.sign_in_bg_enabled)
         } else {
             colorResource(id = R.color.sign_in_loading_circular_bg)
         }
@@ -154,7 +154,7 @@ private fun SignInButton(viewModel: SignInViewModel) {
                         modifier = Modifier
                             .align(Alignment.Center)
                             .size(32.dp),
-                        color = colorResource(id = R.color.sign_in_bg),
+                        color = colorResource(id = R.color.sign_in_bg_enabled),
                         trackColor = colorResource(id = R.color.sign_in_loading_circular_track)
                     )
                 }

@@ -11,6 +11,7 @@ import androidx.compose.ui.unit.dp
 data class LoginEmailFieldUiModel(
     override val fieldValue: TextFieldValue = TextFieldValue(),
     val isEnabled: Boolean = true,
+    val shouldFocus: Boolean = false,
     val textColorValue: Color = Color.Black,
     val placeHolderText: String = "email",
     val placeHolderColorValue: Color = Color.Gray,
@@ -24,6 +25,7 @@ data class LoginEmailFieldUiModel(
 data class LoginPasswordFieldUiModel(
     override val fieldValue: TextFieldValue = TextFieldValue(),
     val isEnabled: Boolean = true,
+    val shouldFocus: Boolean = false,
     val textColorValue: Color = Color.Black,
     val placeHolderText: String = "email",
     val placeHolderColorValue: Color = Color.Gray,

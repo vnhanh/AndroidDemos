@@ -23,12 +23,13 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class SignInViewModel(
-    appContext: Context,
+    private val appContext: Context,
     savedStateHandle: SavedStateHandle,
     private val validationUseCase: AuthenticationFieldValidationUseCase,
-) : BaseViewModel(appContext, savedStateHandle) {
+) : BaseViewModel(savedStateHandle) {
     private val emailLocalDataKey = "login_email_data_key"
 
     private val _emailFieldData: MutableStateFlow<LoginEmailFieldUiModel> = MutableStateFlow(
@@ -58,6 +59,7 @@ class SignInViewModel(
 
     fun onStart() {
         viewModelScope.launch(Dispatchers.Default) {
+            showTopToast(message = appContext.getString(R.string.sign_in_failed))
             val savedEmail: String =
                 LocalDb.getString(emailLocalDataKey, Dispatchers.IO)?.firstOrNull() ?: return@launch
             _emailFieldData.update { data ->
@@ -68,36 +70,73 @@ class SignInViewModel(
         }
     }
 
-    fun updateEmailField(fieldValue: TextFieldValue) {
-        val isInValid: Boolean =
-            shouldCheckValid && !validationUseCase.isEmailValid(fieldValue.text)
+    fun updateEmailField(fieldValue: TextFieldValue, shouldCheckValidOfSubmit: Boolean = true) {
+        viewModelScope.launch {
+            val shouldShowError: Boolean =
+                shouldCheckValid && !validationUseCase.isEmailValid(fieldValue.text)
 
-        _emailFieldData.update { data ->
-            data.copy(
-                fieldValue = fieldValue,
-                errorData = data.errorData.copy(
-                    error = if (isInValid) appContext.getString(R.string.email_field_error_invalid) else "",
-                ),
-            )
+            _emailFieldData.update { data ->
+                Timber.d("TestAlan - view model - update email field")
+                data.copy(
+                    fieldValue = fieldValue,
+                    errorData = data.errorData.copy(
+                        error = if (shouldShowError) appContext.getString(R.string.email_field_error_invalid) else "",
+                    ),
+                )
+            }
+
+            if (shouldCheckValidOfSubmit) checkValid()
         }
     }
 
-    fun updatePasswordField(fieldValue: TextFieldValue) {
-        val isInValid: Boolean =
-            shouldCheckValid && !validationUseCase.isPasswordValid(fieldValue.text)
+    private fun checkIfEmailValid() {
+        updateEmailField(
+            fieldValue = _emailFieldData.value.fieldValue,
+            shouldCheckValidOfSubmit = false
+        )
+    }
 
-        _passwordFieldData.update { data ->
-            data.copy(
-                fieldValue = fieldValue,
-                errorData = data.errorData.copy(
-                    error = if (isInValid) appContext.getString(R.string.password_field_error_invalid) else "",
-                ),
+    fun updatePasswordField(fieldValue: TextFieldValue, shouldCheckValidOfSubmit: Boolean = true) {
+        viewModelScope.launch {
+            val shouldShowError: Boolean =
+                shouldCheckValid && !validationUseCase.isPasswordValid(fieldValue.text)
+            _passwordFieldData.update { data ->
+                data.copy(
+                    fieldValue = fieldValue,
+                    errorData = data.errorData.copy(
+                        error = if (shouldShowError) appContext.getString(R.string.password_field_error_invalid) else "",
+                    ),
+                )
+            }
+
+            if (shouldCheckValidOfSubmit) checkValid()
+        }
+    }
+
+    private fun checkIfPassWordValid() {
+        updatePasswordField(
+            fieldValue = _passwordFieldData.value.fieldValue,
+            shouldCheckValidOfSubmit = false
+        )
+    }
+
+    private fun checkValid() {
+        viewModelScope.launch {
+            val areFieldValid = validationUseCase.areEmailAndPasswordValid(
+                email = _emailFieldData.value.text,
+                password = _passwordFieldData.value.text,
             )
+            _submitSignInState.update {
+                SubmitAuthUiModel.setIdle(enableSubmit = areFieldValid)
+            }
         }
     }
 
     fun signIn() {
         viewModelScope.launch(Dispatchers.Default) {
+            shouldCheckValid = true
+            checkIfEmailValid()
+            checkIfPassWordValid()
             if (!validationUseCase.areEmailAndPasswordValid(
                     email = _emailFieldData.value.text,
                     password = _passwordFieldData.value.text,
@@ -105,22 +144,28 @@ class SignInViewModel(
             ) {
                 // email or password is invalid
                 _submitSignInState.update {
-                    SubmitAuthUiModel.setFailed()
+                    SubmitAuthUiModel.failed()
                 }
                 return@launch
             }
-            _submitSignInState.update { SubmitAuthUiModel.setSubmitting() }
+            _submitSignInState.update {
+                SubmitAuthUiModel.loading()
+            }
             disableFields()
             saveEmailToLocalDb(_shouldRememberEmail.value)
-            shouldCheckValid = true
 
-            delay(1500)
-            showBottomToast(R.string.sign_in_failed)
+            delay(2000)
+
+            showTopToast(message = appContext.getString(R.string.sign_in_failed))
 
             // focus on email field
-
+            _emailFieldData.update { data ->
+                data.copy(
+                    shouldFocus = true,
+                )
+            }
             _submitSignInState.update {
-                SubmitAuthUiModel.setFailed()
+                SubmitAuthUiModel.failed()
             }
         }
     }
@@ -146,7 +191,8 @@ class SignInViewModel(
         LocalDb.saveData(key = emailLocalDataKey, value = value, dispatcher = Dispatchers.IO)
     }
 
-    private fun getDefaultFieldErrorData() = FieldErrorUiModel(
+    private fun getDefaultFieldErrorData(error: String = "") = FieldErrorUiModel(
+        error = error,
         errorTextStyle = AppTypography.fontSize12LineHeight16Normal.copy(
             textAlign = TextAlign.Start,
             color = appContext.getColorResource(R.color.error),

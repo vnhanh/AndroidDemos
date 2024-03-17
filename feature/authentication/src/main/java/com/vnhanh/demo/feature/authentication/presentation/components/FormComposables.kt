@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -25,6 +26,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -50,12 +53,20 @@ internal fun EmailField(
     fieldDataProvider: () -> StateFlow<LoginEmailFieldUiModel>,
     onFieldValueChanged: (TextFieldValue) -> Unit,
 ) {
-    val emailFieldData: LoginEmailFieldUiModel by fieldDataProvider().collectAsStateWithLifecycle()
+    val emailFieldData: LoginEmailFieldUiModel =
+        fieldDataProvider().collectAsStateWithLifecycle().value
+    val focusRequest = remember { FocusRequester() }
+
+    LaunchedEffect(emailFieldData.shouldFocus) {
+        if (emailFieldData.shouldFocus) {
+            focusRequest.requestFocus()
+        }
+    }
 
     Column(modifier = modifier) {
         AppTextField(
             value = emailFieldData.fieldValue,
-            modifier = modifier,
+            modifier = modifier.focusRequester(focusRequest),
             textStyle = fontSize13LineHeight18Normal,
             textColor = emailFieldData.textColorValue,
             placeHolderText = emailFieldData.placeHolderText,

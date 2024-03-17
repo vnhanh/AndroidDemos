@@ -3,6 +3,7 @@ package com.vnhanh.demo.feature.authentication.presentation.authentication.formU
 import android.content.Context
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.vnhanh.base.android.BaseViewModel
 import com.vnhanh.common.compose.context.getColorResource
@@ -21,9 +22,10 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class SignUpViewModel(
+    savedStateHandle: SavedStateHandle,
     private val appContext: Context,
     private val validationUseCase: AuthenticationFieldValidationUseCase,
-) : BaseViewModel() {
+) : BaseViewModel(savedStateHandle) {
     private val _emailFieldData: MutableStateFlow<LoginEmailFieldUiModel> = MutableStateFlow(
         LoginEmailFieldUiModel(
             placeHolderText = appContext.getString(R.string.email_field_placeholder),

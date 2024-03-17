@@ -31,7 +31,7 @@ val authenticationModule = module {
      * UseCases
      */
     factory {
-        AuthenticationFieldValidationUseCase(get())
+        AuthenticationFieldValidationUseCase()
     }
 
     /**

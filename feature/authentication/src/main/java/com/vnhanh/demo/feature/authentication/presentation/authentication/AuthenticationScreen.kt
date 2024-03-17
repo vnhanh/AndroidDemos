@@ -16,9 +16,11 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import com.vnhanh.common.compose.modifier.fillMaxWidthLayoutResponsive
+import com.vnhanh.common.compose.modifier.singleClick.singleClick
 import com.vnhanh.demo.feature.authentication.R
 import com.vnhanh.demo.feature.authentication.presentation.authentication.formUi.login.LoginComposable
 import com.vnhanh.demo.feature.authentication.presentation.authentication.formUi.login.SignInViewModel
@@ -32,6 +34,8 @@ internal fun AuthenticationScreen(
     loginViewModel: SignInViewModel,
     registerViewModel: SignUpViewModel,
 ) {
+    val focusManager = LocalFocusManager.current
+
     LaunchedEffect(Unit) {
         loginViewModel.onStart()
     }
@@ -39,6 +43,9 @@ internal fun AuthenticationScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .singleClick(isShowClickEffect = false) {
+                focusManager.clearFocus()
+            }
             .verticalScroll(rememberScrollState())
     ) {
         Spacer(

@@ -38,6 +38,7 @@ import com.vnhanh.common.compose.theme.AppTypography.fontSize13LineHeight18Norma
 fun AppTextField(
     modifier: Modifier = Modifier,
     value: TextFieldValue,
+    enabled: Boolean = true,
     placeHolderText: String? = null,
     placeHolderColor: Color,
     placeHolderTextAlign: TextAlign = TextAlign.Start,
@@ -98,6 +99,7 @@ fun AppTextField(
             cursorBrush = remember {
                 SolidColor(cursorColor)
             },
+            enabled = enabled,
             visualTransformation = visualTransformation,
             decorationBox = { innerTextField ->
                 TextFieldDefaults.DecorationBox(
@@ -117,7 +119,7 @@ fun AppTextField(
                         null
                     },
                     interactionSource = interactionSource,
-                    enabled = true,
+                    enabled = enabled,
                     singleLine = true,
                     value = value.text,
                     visualTransformation = visualTransformation,
@@ -137,7 +139,7 @@ fun AppTextField(
                     },
                     container = {
                         OutlinedTextFieldDefaults.ContainerBox(
-                            enabled = true,
+                            enabled = enabled,
                             isError = false,
                             interactionSource = interactionSource,
                             colors = OutlinedTextFieldDefaults.colors(

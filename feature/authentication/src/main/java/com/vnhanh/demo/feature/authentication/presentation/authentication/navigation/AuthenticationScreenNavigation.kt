@@ -14,7 +14,7 @@ internal object AuthenticationScreenNav {
     const val DESTINATION = "authentication_screen"
 }
 
-fun NavGraphBuilder.authenticationScreen() {
+fun NavGraphBuilder.authenticationScreen(navHostController: NavHostController) {
     composable(
         route = AuthenticationScreenNav.DESTINATION,
     ) {
@@ -25,7 +25,8 @@ fun NavGraphBuilder.authenticationScreen() {
         AuthenticationScreen(
             authenticationViewModel = viewModel,
             loginViewModel = loginViewModel,
-            registerViewModel = registerViewModel
+            registerViewModel = registerViewModel,
+            navHostController = navHostController,
         )
     }
 }

@@ -34,3 +34,8 @@ data class SubmitAuthUiModel(
         fun loading() = SubmitAuthUiModel(state = STATE_SUBMITTING, enableSubmit = false)
     }
 }
+
+data class LoginRememberEmailUiModel(
+    val shouldRemember: Boolean = false,
+    val enabled: Boolean = true,
+)

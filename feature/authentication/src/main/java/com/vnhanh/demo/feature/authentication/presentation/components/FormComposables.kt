@@ -67,6 +67,7 @@ internal fun EmailField(
         AppTextField(
             value = emailFieldData.fieldValue,
             modifier = modifier.focusRequester(focusRequest),
+            enabled = emailFieldData.isEnabled,
             textStyle = fontSize13LineHeight18Normal,
             textColor = emailFieldData.textColorValue,
             placeHolderText = emailFieldData.placeHolderText,
@@ -110,8 +111,9 @@ internal fun PasswordField(
                 label = "transform_show_hide_password",
             ) { passwordVisible ->
                 AppTextField(
-                    modifier = Modifier.fillMaxWidth(),
                     value = passwordFieldData.fieldValue,
+                    modifier = Modifier.fillMaxWidth(),
+                    enabled = passwordFieldData.isEnabled,
                     textColor = passwordFieldData.textColorValue,
                     placeHolderText = passwordFieldData.placeHolderText,
                     placeHolderColor = passwordFieldData.placeHolderColorValue,

@@ -25,9 +25,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -39,6 +36,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavHostController
 import com.vnhanh.common.compose.modifier.fillMaxWidthLayoutResponsive
 import com.vnhanh.common.compose.modifier.singleClick.singleClick
 import com.vnhanh.common.compose.theme.AppTypography.fontSize13LineHeight18Medium
@@ -47,6 +45,7 @@ import com.vnhanh.demo.feature.authentication.R
 import com.vnhanh.demo.feature.authentication.presentation.components.AuthenticationButton
 import com.vnhanh.demo.feature.authentication.presentation.components.EmailField
 import com.vnhanh.demo.feature.authentication.presentation.components.PasswordField
+import com.vnhanh.demo.feature.authentication.presentation.forgotPassword.navigation.navigateToForgotPasswordScreen
 
 /**
  * Enter email + password
@@ -59,6 +58,7 @@ import com.vnhanh.demo.feature.authentication.presentation.components.PasswordFi
 internal fun LoginComposable(
     modifier: Modifier = Modifier,
     signInViewModel: SignInViewModel,
+    navHostController: NavHostController,
 ) {
     Column(
         modifier = modifier
@@ -76,7 +76,7 @@ internal fun LoginComposable(
             onFieldValueChanged = { fieldValue -> signInViewModel.updatePasswordField(fieldValue) },
         )
         Spacer(modifier = Modifier.height(8.dp))
-        RememberAndForgotPassword(signInViewModel)
+        RememberAndForgotPassword(signInViewModel, navHostController)
         Spacer(modifier = Modifier.height(36.dp))
         AuthenticationButton(
             buttonLabel = stringResource(id = R.string.sign_in),
@@ -96,33 +96,28 @@ internal fun LoginComposable(
 @Composable
 private fun RememberAndForgotPassword(
     viewModel: SignInViewModel,
+    navHostController: NavHostController,
 ) {
-
     Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
         RememberMeCheckBox(rowScope = this, viewModel = viewModel)
         Spacer(modifier = Modifier.width(4.dp))
-        ForgotPasswordButtonLink()
+        ForgotPasswordButtonLink(navHostController)
     }
 }
 
 @OptIn(ExperimentalAnimationGraphicsApi::class)
 @Composable
 private fun RememberMeCheckBox(rowScope: RowScope, viewModel: SignInViewModel) {
-    val shouldRememberEmailState by viewModel.shouldRememberEmail.collectAsStateWithLifecycle()
+    val rememberEmailState by viewModel.shouldRememberEmail.collectAsStateWithLifecycle()
 
-    var isRemember: Boolean by remember(shouldRememberEmailState) {
-        mutableStateOf(
-            shouldRememberEmailState
-        )
-    }
     val animCheck: AnimatedImageVector =
         AnimatedImageVector.animatedVectorResource(id = R.drawable.anim_check)
     val checkAnimPainter = rememberAnimatedVectorPainter(
         animatedImageVector = animCheck,
-        atEnd = isRemember
+        atEnd = rememberEmailState.shouldRemember
     )
     val colorAnimate: Color by animateColorAsState(
-        targetValue = if (isRemember) Color.Black else colorResource(id = R.color.authentication_secondary),
+        targetValue = if (rememberEmailState.shouldRemember) Color.Black else colorResource(id = R.color.authentication_secondary),
         animationSpec = tween(400),
         label = "animate_change_checkbox_border_color"
     )
@@ -131,8 +126,11 @@ private fun RememberMeCheckBox(rowScope: RowScope, viewModel: SignInViewModel) {
         Row(
             modifier = Modifier
                 .weight(1f)
-                .singleClick(isShowClickEffect = false) {
-                    viewModel.rememberEmail(isRemember = !isRemember)
+                .singleClick(
+                    isShowClickEffect = false,
+                    enabled = rememberEmailState.enabled,
+                ) {
+                    viewModel.rememberEmail(shouldRemember = !rememberEmailState.shouldRemember)
                 },
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -147,7 +145,7 @@ private fun RememberMeCheckBox(rowScope: RowScope, viewModel: SignInViewModel) {
                         shape = RoundedCornerShape(4.dp)
                     )
             ) {
-                if (isRemember) {
+                if (rememberEmailState.shouldRemember) {
                     Icon(
                         modifier = Modifier
                             .align(Alignment.Center)
@@ -172,9 +170,13 @@ private fun RememberMeCheckBox(rowScope: RowScope, viewModel: SignInViewModel) {
 }
 
 @Composable
-private fun ForgotPasswordButtonLink() {
+private fun ForgotPasswordButtonLink(navHostController: NavHostController) {
+
     Text(
         text = stringResource(id = R.string.forgot_password),
+        modifier = Modifier.singleClick {
+            navHostController.navigateToForgotPasswordScreen()
+        },
         style = fontSize13LineHeight18SemiBold.copy(
             color = colorResource(id = R.color.authentication_secondary),
             textAlign = TextAlign.Start,

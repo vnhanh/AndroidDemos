@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.vnhanh.common.compose.modifier.fillMaxWidthLayoutResponsive
 import com.vnhanh.common.compose.modifier.singleClick.singleClick
 import com.vnhanh.demo.feature.authentication.R
@@ -33,6 +34,7 @@ internal fun AuthenticationScreen(
     authenticationViewModel: AuthenticationViewModel,
     loginViewModel: SignInViewModel,
     registerViewModel: SignUpViewModel,
+    navHostController: NavHostController,
 ) {
     val focusManager = LocalFocusManager.current
 
@@ -58,6 +60,7 @@ internal fun AuthenticationScreen(
                 .fillMaxWidth(),
             loginViewModel = loginViewModel,
             registerViewModel = registerViewModel,
+            navHostController = navHostController,
         )
     }
 }
@@ -68,8 +71,10 @@ private fun Form(
     modifier: Modifier = Modifier,
     loginViewModel: SignInViewModel,
     registerViewModel: SignUpViewModel,
+    navHostController: NavHostController,
 ) {
     val pageState = rememberPagerState(pageCount = { 2 })
+
     Column(
         modifier = modifier
     ) {
@@ -91,6 +96,7 @@ private fun Form(
                     LoginComposable(
                         modifier = Modifier.fillMaxWidth(),
                         signInViewModel = loginViewModel,
+                        navHostController = navHostController,
                     )
                 }
 

@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 abstract class BaseViewModel(
-    protected val savedStateHandle: SavedStateHandle,
+    private val savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
     open fun isInternetAvailable(): Boolean = true
@@ -19,7 +19,7 @@ abstract class BaseViewModel(
     private val _logoutState: MutableStateFlow<Boolean> = MutableStateFlow(false)
     val logoutState: StateFlow<Boolean> = _logoutState.asStateFlow()
 
-    fun showBottomToast(title: String = "", message: String) {
+    fun showBottomToast(title: String = "", message: String = "") {
         viewModelScope.launch(Dispatchers.Default) {
             savedStateHandle[AndroidConstants.keyEventAppToast] = ToastUiModel(
                 title = title,

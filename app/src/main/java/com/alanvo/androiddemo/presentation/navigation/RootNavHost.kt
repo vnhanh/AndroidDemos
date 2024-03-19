@@ -52,7 +52,7 @@ fun RootNavHost(
                 enterTransition = { slideInHorizontally(tween(700)) { it } + fadeIn(tween(700)) },
                 exitTransition = { slideOutHorizontally(tween(700)) { it } + fadeOut(tween(700)) },
             ) {
-                authenticationGraph()
+                authenticationGraph(navHostController)
             }
 
             AppToast(

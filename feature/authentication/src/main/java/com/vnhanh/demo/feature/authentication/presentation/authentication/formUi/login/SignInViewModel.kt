@@ -14,6 +14,7 @@ import com.vnhanh.demo.feature.authentication.domain.validation.AuthenticationFi
 import com.vnhanh.demo.feature.authentication.presentation.authentication.formUi.login.model.FieldErrorUiModel
 import com.vnhanh.demo.feature.authentication.presentation.authentication.formUi.login.model.LoginEmailFieldUiModel
 import com.vnhanh.demo.feature.authentication.presentation.authentication.formUi.login.model.LoginPasswordFieldUiModel
+import com.vnhanh.demo.feature.authentication.presentation.authentication.formUi.login.model.LoginRememberEmailUiModel
 import com.vnhanh.demo.feature.authentication.presentation.authentication.formUi.login.model.SubmitAuthUiModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -51,15 +52,16 @@ class SignInViewModel(
     // true when submitting login at least once
     private var shouldCheckValid = false
 
-    private val _shouldRememberEmail: MutableStateFlow<Boolean> = MutableStateFlow(false)
-    val shouldRememberEmail: StateFlow<Boolean> = _shouldRememberEmail.asStateFlow()
+    private val _shouldRememberEmail: MutableStateFlow<LoginRememberEmailUiModel> =
+        MutableStateFlow(LoginRememberEmailUiModel())
+    val shouldRememberEmail: StateFlow<LoginRememberEmailUiModel> =
+        _shouldRememberEmail.asStateFlow()
 
     private val _submitSignInState: MutableStateFlow<SubmitAuthUiModel?> = MutableStateFlow(null)
     val submitSignInState: StateFlow<SubmitAuthUiModel?> = _submitSignInState.asStateFlow()
 
     fun onStart() {
         viewModelScope.launch(Dispatchers.Default) {
-            showTopToast(message = appContext.getString(R.string.sign_in_failed))
             val savedEmail: String =
                 LocalDb.getString(emailLocalDataKey, Dispatchers.IO)?.firstOrNull() ?: return@launch
             _emailFieldData.update { data ->
@@ -152,9 +154,9 @@ class SignInViewModel(
                 SubmitAuthUiModel.loading()
             }
             disableFields()
-            saveEmailToLocalDb(_shouldRememberEmail.value)
+            saveEmailToLocalDbIfRemember(_shouldRememberEmail.value.shouldRemember)
 
-            delay(2000)
+            delay(10000)
 
             showTopToast(message = appContext.getString(R.string.sign_in_failed))
 
@@ -162,6 +164,12 @@ class SignInViewModel(
             _emailFieldData.update { data ->
                 data.copy(
                     shouldFocus = true,
+                    isEnabled = true
+                )
+            }
+            _passwordFieldData.update { data ->
+                data.copy(
+                    isEnabled = true,
                 )
             }
             _submitSignInState.update {
@@ -175,14 +183,16 @@ class SignInViewModel(
         _passwordFieldData.update { data -> data.copy(isEnabled = false) }
     }
 
-    fun rememberEmail(isRemember: Boolean) {
+    fun rememberEmail(shouldRemember: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
-            _shouldRememberEmail.update { isRemember }
-            saveEmailToLocalDb(isRemember)
+            _shouldRememberEmail.update { data ->
+                data.copy(shouldRemember = shouldRemember)
+            }
+            saveEmailToLocalDbIfRemember(shouldRemember)
         }
     }
 
-    private suspend fun saveEmailToLocalDb(shouldRememberEmail: Boolean) {
+    private suspend fun saveEmailToLocalDbIfRemember(shouldRememberEmail: Boolean) {
         val value: String = if (shouldRememberEmail) {
             _emailFieldData.value.fieldValue.text
         } else {

@@ -11,10 +11,10 @@ plugins {
 
 android {
     namespace = BaseAndroidModule.nameSpace
-    compileSdk = AndroidConfiguration.compileSdk
+    compileSdk = AndroidConfiguration.COMPILE_SDK
 
     defaultConfig {
-        minSdk = AndroidConfiguration.minSdk
+        minSdk = AndroidConfiguration.MIN_SDK
 
         testInstrumentationRunner = BaseAndroidModule.testInstrumentationRunner
         consumerProguardFiles(BaseAndroidModule.consumerProguardFiles)

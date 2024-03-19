@@ -10,10 +10,10 @@ plugins {
 
 android {
     namespace = CommonLogModule.nameSpace
-    compileSdk = AndroidConfiguration.compileSdk
+    compileSdk = AndroidConfiguration.COMPILE_SDK
 
     defaultConfig {
-        minSdk = AndroidConfiguration.minSdk
+        minSdk = AndroidConfiguration.MIN_SDK
 
         testInstrumentationRunner = CommonLogModule.testInstrumentationRunner
         consumerProguardFiles(CommonLogModule.consumerProguardFiles)
@@ -21,11 +21,11 @@ android {
 
     buildTypes {
         debug {
-            isMinifyEnabled = BuildTypeConfiguration.Debug.isMinifyEnabled
+            isMinifyEnabled = BuildTypeConfiguration.Debug.IS_MINIFY_ENABLED
         }
 
         release {
-            isMinifyEnabled = BuildTypeConfiguration.Release.isMinifyEnabled
+            isMinifyEnabled = BuildTypeConfiguration.Release.IS_MINIFY_ENABLED
 
             proguardFiles(
                 getDefaultProguardFile(CommonLogModule.Release.proguardAndroidOptimize),

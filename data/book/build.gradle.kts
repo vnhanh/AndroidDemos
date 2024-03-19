@@ -1,21 +1,21 @@
-import dependencies.basicAndroidComponent
 import dependencies.test
-import modules.data.NoteDataModule
+import modules.data.BookDataModule
 
 plugins {
     id(ModulePlugins.androidLibrary)
     id(ModulePlugins.kotlinAndroid)
+    id(ModulePlugins.ksp)
 }
 
 android {
-    namespace = NoteDataModule.NAME_SPACE
+    namespace = BookDataModule.NAME_SPACE
     compileSdk = AndroidConfiguration.COMPILE_SDK
 
     defaultConfig {
         minSdk = AndroidConfiguration.MIN_SDK
 
-        testInstrumentationRunner = NoteDataModule.TEST_INSTRUMENTATION_RUNNER
-        consumerProguardFiles(NoteDataModule.CONSUME_PROGUARD_FILES)
+        testInstrumentationRunner = BookDataModule.TEST_INSTRUMENTATION_RUNNER
+        consumerProguardFiles(BookDataModule.CONSUME_PROGUARD_FILES)
     }
 
     buildTypes {
@@ -27,22 +27,22 @@ android {
             isMinifyEnabled = BuildTypeConfiguration.Release.IS_MINIFY_ENABLED
 
             proguardFiles(
-                getDefaultProguardFile(NoteDataModule.Release.PROGUARD_ANDROID_OPTIMIZE),
-                NoteDataModule.Release.PROGUARD_RULES
+                getDefaultProguardFile(BookDataModule.Release.PROGUARD_ANDROID_OPTIMIZE),
+                BookDataModule.Release.PROGUARD_RULES
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = KotlinConfiguration.sourceCompatibility
         targetCompatibility = KotlinConfiguration.targetCompatibility
     }
+
     kotlinOptions {
         jvmTarget = KotlinConfiguration.jvmTarget
     }
 }
 
 dependencies {
-    basicAndroidComponent()
-
     test()
 }

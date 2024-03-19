@@ -11,10 +11,10 @@ plugins {
 
 android {
     namespace = NoteFeatureModule.nameSpace
-    compileSdk = AndroidConfiguration.compileSdk
+    compileSdk = AndroidConfiguration.COMPILE_SDK
 
     defaultConfig {
-        minSdk = AndroidConfiguration.minSdk
+        minSdk = AndroidConfiguration.MIN_SDK
 
         testInstrumentationRunner = NoteFeatureModule.testInstrumentationRunner
         consumerProguardFiles(NoteFeatureModule.consumerProguardFiles)
@@ -22,11 +22,11 @@ android {
 
     buildTypes {
         debug {
-            isMinifyEnabled = BuildTypeConfiguration.Debug.isMinifyEnabled
+            isMinifyEnabled = BuildTypeConfiguration.Debug.IS_MINIFY_ENABLED
         }
 
         release {
-            isMinifyEnabled = BuildTypeConfiguration.Release.isMinifyEnabled
+            isMinifyEnabled = BuildTypeConfiguration.Release.IS_MINIFY_ENABLED
 
             proguardFiles(
                 getDefaultProguardFile(NoteFeatureModule.Release.proguardAndroidOptimize),

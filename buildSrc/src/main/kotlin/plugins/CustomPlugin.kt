@@ -42,7 +42,7 @@ abstract class CustomPlugin : Plugin<Project> {
             dependsOn("${CommonLogModule.PROJECT_NAME}:clean")
             dependsOn("${NetworkBaseModule.PROJECT_NAME}:clean")
             dependsOn("${NetworkImplModule.PROJECT_NAME}:clean")
-            dependsOn("${NoteDataModule.projectName}:clean")
+            dependsOn("${NoteDataModule.PROJECT_NAME}:clean")
             dependsOn("${NoteFeatureModule.projectName}:clean")
 
             doLast {

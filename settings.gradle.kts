@@ -43,3 +43,4 @@ include (
     ":data:user",
     ":feature:authentication",
 )
+include(":data:book")

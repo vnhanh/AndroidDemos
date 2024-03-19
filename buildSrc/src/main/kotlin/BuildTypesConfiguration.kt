@@ -6,7 +6,7 @@ object BuildTypeConfiguration {
     object Debug {
         const val name = "debug"
         const val isDebuggable = true
-        const val isMinifyEnabled = false
+        const val IS_MINIFY_ENABLED = false
         const val isShrinkResources = false
         const val crashlytics = "false"
     }
@@ -14,7 +14,7 @@ object BuildTypeConfiguration {
     object Release {
         const val name = "release"
         const val isDebuggable = false
-        const val isMinifyEnabled = true
+        const val IS_MINIFY_ENABLED = true
         const val isShrinkResources = true
         const val proguardAndroidOptimize = "proguard-android-optimize.txt"
         const val proguardRules = "proguard-rules.pro"

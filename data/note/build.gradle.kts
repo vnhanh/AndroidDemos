@@ -1,6 +1,6 @@
 import dependencies.basicAndroidComponent
 import dependencies.test
-import modules.note.NoteDataModule
+import modules.data.NoteDataModule
 
 plugins {
     id(ModulePlugins.androidLibrary)

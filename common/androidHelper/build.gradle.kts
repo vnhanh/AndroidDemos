@@ -1,5 +1,7 @@
+import dependencies.DataStoreDependencies
 import dependencies.test
 import modules.common.CommonAndroidHelperModule
+import modules.log.LogModule
 
 plugins {
     id(ModulePlugins.androidLibrary)
@@ -7,7 +9,7 @@ plugins {
 }
 
 android {
-    namespace = CommonAndroidHelperModule.nameSpace
+    namespace = CommonAndroidHelperModule.NAME_SPACE
     compileSdk = AndroidConfiguration.compileSdk
 
     defaultConfig {
@@ -30,16 +32,26 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = KotlinConfiguration.sourceCompatibility
         targetCompatibility = KotlinConfiguration.targetCompatibility
     }
+
     kotlinOptions {
         jvmTarget = KotlinConfiguration.jvmTarget
+    }
+
+    buildFeatures {
+        buildConfig = CommonAndroidHelperModule.BUILD_CONFIG
     }
 }
 
 dependencies {
+    implementation(project(LogModule.PROJECT_NAME))
+
+    implementation(DataStoreDependencies.DATA_STORE)
+    implementation(DataStoreDependencies.PROTO_DATA_STORE)
 
     test()
 }

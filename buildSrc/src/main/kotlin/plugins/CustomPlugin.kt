@@ -6,10 +6,10 @@ import modules.common.CommonAndroidHelperModule
 import modules.common.CommonComposeModule
 import modules.common.CommonDataHelperModule
 import modules.common.CommonLogModule
+import modules.data.NoteDataModule
+import modules.features.NoteFeatureModule
 import modules.network.NetworkBaseModule
 import modules.network.NetworkImplModule
-import modules.note.NoteDataModule
-import modules.note.NoteFeatureModule
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
@@ -35,13 +35,13 @@ abstract class CustomPlugin : Plugin<Project> {
 
             // configuration phase
             dependsOn("${AppModule.projectName}:clean")
-            dependsOn("${BaseAndroidModule.projectName}:clean")
-            dependsOn("${CommonAndroidHelperModule.projectName}:clean")
+            dependsOn("${BaseAndroidModule.PROJECT_NAME}:clean")
+            dependsOn("${CommonAndroidHelperModule.PROJECT_NAME}:clean")
             dependsOn("${CommonDataHelperModule.projectName}:clean")
-            dependsOn("${CommonComposeModule.projectName}:clean")
-            dependsOn("${CommonLogModule.projectName}:clean")
-            dependsOn("${NetworkBaseModule.projectName}:clean")
-            dependsOn("${NetworkImplModule.projectName}:clean")
+            dependsOn("${CommonComposeModule.PROJECT_NAME}:clean")
+            dependsOn("${CommonLogModule.PROJECT_NAME}:clean")
+            dependsOn("${NetworkBaseModule.PROJECT_NAME}:clean")
+            dependsOn("${NetworkImplModule.PROJECT_NAME}:clean")
             dependsOn("${NoteDataModule.projectName}:clean")
             dependsOn("${NoteFeatureModule.projectName}:clean")
 

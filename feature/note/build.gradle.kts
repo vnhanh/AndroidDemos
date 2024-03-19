@@ -2,7 +2,7 @@ import dependencies.basicAndroidComponent
 import dependencies.test
 import modules.common.CommonComposeModule
 import modules.common.CommonLogModule
-import modules.note.NoteFeatureModule
+import modules.features.NoteFeatureModule
 
 plugins {
     id(ModulePlugins.androidLibrary)
@@ -46,8 +46,8 @@ android {
 }
 
 dependencies {
-    implementation(project(CommonComposeModule.projectName))
-    implementation(project(CommonLogModule.projectName))
+    implementation(project(CommonComposeModule.PROJECT_NAME))
+    implementation(project(CommonLogModule.PROJECT_NAME))
 
     basicAndroidComponent()
 

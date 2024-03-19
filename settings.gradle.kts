@@ -40,4 +40,6 @@ include (
     ":common:log",
     ":data:note",
     ":feature:note",
+    ":data:user",
+    ":feature:authentication",
 )

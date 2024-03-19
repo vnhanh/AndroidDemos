@@ -1,11 +1,12 @@
 package dependencies
 
+import TestDependencies
 import org.gradle.api.artifacts.dsl.DependencyHandler
 
 fun DependencyHandler.room() {
     implementation(RoomDependencies.roomRuntime)
     implementation(RoomDependencies.roomKtx)
-    kapt(RoomDependencies.kspRoomCompiler)
+    ksp(RoomDependencies.kspRoomCompiler)
     annotationProcessor(RoomDependencies.annotationProcessorRoomCompiler)
 }
 
@@ -31,8 +32,12 @@ fun DependencyHandler.basicAndroidComponent() {
     implementation(LifeCycleDependencies.lifecycleViewModelKtx)
 }
 
+fun DependencyHandler.dataModuleDependencies() {
+    implementation(GoogleDependencies.gson)
+}
+
 fun DependencyHandler.test() {
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    testImplementation(TestDependencies.jUnit)
+    androidTestImplementation(TestDependencies.jUnitExt)
+    androidTestImplementation(TestDependencies.espressoCore)
 }

@@ -2,13 +2,14 @@ package com.alanvo.androiddemo
 
 import android.app.Application
 import com.alanvo.androiddemo.di.appModules
-import com.vnhanh.common.log.AppDebugTree
+import com.vnhanh.common.androidhelper.localData.LocalDb
+import com.vnhanh.common.log.AppLog
+import com.vnhanh.demo.feature.authentication.di.injectAuthKoinModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidFileProperties
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
-import timber.log.Timber
 
 class DemoApplication : Application() {
     override fun onCreate() {
@@ -20,9 +21,10 @@ class DemoApplication : Application() {
             androidFileProperties()
             modules(appModules)
         }
+        injectAuthKoinModule()
 
-        if (BuildConfig.DEBUG) {
-            Timber.plant(AppDebugTree())
-        }
+        AppLog.plantLogTree()
+        // must init local db after log configuration
+        LocalDb.init(this)
     }
 }

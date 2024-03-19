@@ -8,6 +8,7 @@ object BuildTypeConfiguration {
         const val isDebuggable = true
         const val isMinifyEnabled = false
         const val isShrinkResources = false
+        const val crashlytics = "false"
     }
 
     object Release {
@@ -17,6 +18,7 @@ object BuildTypeConfiguration {
         const val isShrinkResources = true
         const val proguardAndroidOptimize = "proguard-android-optimize.txt"
         const val proguardRules = "proguard-rules.pro"
+        const val crashlytics = "true"
     }
 
     fun getFileBuildName(

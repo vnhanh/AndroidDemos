@@ -1,3 +1,4 @@
+import com.android.build.gradle.internal.api.BaseVariantOutputImpl
 import dependencies.AndroidXDependencies
 import dependencies.ComposeConfiguration
 import dependencies.GoogleDependencies
@@ -6,11 +7,16 @@ import dependencies.basicAndroidComponent
 import dependencies.implementation
 import dependencies.koin
 import dependencies.test
+import flavors.BuildConfigField
+import flavors.FireBaseConfigField
 import modules.app.AppModule
+import modules.base.BaseAndroidModule
 import modules.common.CommonAndroidHelperModule
 import modules.common.CommonComposeModule
 import modules.common.CommonDataHelperModule
 import modules.common.CommonLogModule
+import modules.features.AuthenticationFeatureModule
+import modules.network.NetworkBaseModule
 import modules.network.NetworkImplModule
 
 plugins {
@@ -18,6 +24,8 @@ plugins {
     id(ModulePlugins.kotlinAndroid)
     id(ModulePlugins.ksp)
 }
+
+// https://pranaypatel.medium.com/using-lint-pre-commit-hook-in-android-project-31e2b9baff5d
 
 android {
     namespace = AppModule.nameSpace
@@ -38,12 +46,17 @@ android {
         debug {
             isDebuggable = BuildTypeConfiguration.Debug.isDebuggable
             isMinifyEnabled = BuildTypeConfiguration.Debug.isMinifyEnabled
+            manifestPlaceholders[FireBaseConfigField.crashlyticsCollectionEnabled] =
+                BuildTypeConfiguration.Debug.crashlytics
+
         }
 
         release {
             isDebuggable = BuildTypeConfiguration.Release.isDebuggable
             isMinifyEnabled = BuildTypeConfiguration.Release.isMinifyEnabled
             isShrinkResources = BuildTypeConfiguration.Release.isShrinkResources
+            manifestPlaceholders[FireBaseConfigField.crashlyticsCollectionEnabled] =
+                BuildTypeConfiguration.Release.crashlytics
             proguardFiles(
                 getDefaultProguardFile(AppModule.Release.proguardAndroidOptimize),
                 AppModule.Release.proguardRules
@@ -74,13 +87,94 @@ android {
         buildConfig = AppModule.buildConfig
     }
 
-//    applicationVariants.all { variant ->
-//
-//        variant.sourceSets.forEach {
-//            it.kotlinDirectories.forEach { kotlinDir ->
-//            }
-//        }
-//    }
+    applicationVariants.all {
+        val outputFileName = BuildTypeConfiguration.getFileBuildName(
+            buildTypeName = this.buildType.name,
+            flavor = this.productFlavors[0].name,
+            versionName = this.versionName,
+        )
+
+        outputs.all {
+            val output = this as? BaseVariantOutputImpl
+            output?.outputFileName = outputFileName
+        }
+    }
+
+    flavorDimensions += AppModule.Flavors.dimension
+
+    productFlavors {
+        create(AppModule.Flavors.Dev.name) {
+            applicationId = AppModule.Flavors.Dev.applicationId
+            versionCode = AppModule.Flavors.Dev.versionCode
+            versionName = AppModule.Flavors.Dev.versionName
+            dimension = AppModule.Flavors.dimension
+
+            buildConfigField(
+                BuildConfigField.typeString,
+                BuildConfigField.fieldNameBaseUrl,
+                AppModule.Flavors.Dev.fieldValueBaseUrl
+            )
+            buildConfigField(
+                BuildConfigField.typeString,
+                BuildConfigField.fieldNameApiVersion,
+                AppModule.Flavors.Dev.fieldValueApiVersion
+            )
+        }
+
+        create(AppModule.Flavors.QC.name) {
+            applicationId = AppModule.Flavors.QC.applicationId
+            versionCode = AppModule.Flavors.QC.versionCode
+            versionName = AppModule.Flavors.QC.versionName
+            dimension = AppModule.Flavors.dimension
+
+            buildConfigField(
+                BuildConfigField.typeString,
+                BuildConfigField.fieldNameBaseUrl,
+                AppModule.Flavors.QC.fieldValueBaseUrl
+            )
+            buildConfigField(
+                BuildConfigField.typeString,
+                BuildConfigField.fieldNameApiVersion,
+                AppModule.Flavors.QC.fieldValueApiVersion
+            )
+        }
+
+        create(AppModule.Flavors.Staging.name) {
+            applicationId = AppModule.Flavors.Staging.applicationId
+            versionCode = AppModule.Flavors.Staging.versionCode
+            versionName = AppModule.Flavors.Staging.versionName
+            dimension = AppModule.Flavors.dimension
+
+            buildConfigField(
+                BuildConfigField.typeString,
+                BuildConfigField.fieldNameBaseUrl,
+                AppModule.Flavors.Staging.fieldValueBaseUrl
+            )
+            buildConfigField(
+                BuildConfigField.typeString,
+                BuildConfigField.fieldNameApiVersion,
+                AppModule.Flavors.Staging.fieldValueApiVersion
+            )
+        }
+
+        create(AppModule.Flavors.Production.name) {
+            applicationId = AppModule.Flavors.Production.applicationId
+            versionCode = AppModule.Flavors.Production.versionCode
+            versionName = AppModule.Flavors.Production.versionName
+            dimension = AppModule.Flavors.dimension
+
+            buildConfigField(
+                BuildConfigField.typeString,
+                BuildConfigField.fieldNameBaseUrl,
+                AppModule.Flavors.Production.fieldValueBaseUrl
+            )
+            buildConfigField(
+                BuildConfigField.typeString,
+                BuildConfigField.fieldNameApiVersion,
+                AppModule.Flavors.Production.fieldValueApiVersion
+            )
+        }
+    }
 }
 
 kotlin {
@@ -95,11 +189,14 @@ dependencies {
     /**
      * Implement modules
      */
-    implementation(project(NetworkImplModule.projectName))
-    implementation(project(CommonAndroidHelperModule.projectName))
-    implementation(project(CommonComposeModule.projectName))
+    implementation(project(NetworkBaseModule.PROJECT_NAME))
+    implementation(project(NetworkImplModule.PROJECT_NAME))
+    implementation(project(CommonAndroidHelperModule.PROJECT_NAME))
+    implementation(project(CommonComposeModule.PROJECT_NAME))
     implementation(project(CommonDataHelperModule.projectName))
-    implementation(project(CommonLogModule.projectName))
+    implementation(project(CommonLogModule.PROJECT_NAME))
+    implementation(project(BaseAndroidModule.PROJECT_NAME))
+    implementation(project(AuthenticationFeatureModule.projectName))
 
     /**
      * Android dependencies
@@ -111,6 +208,8 @@ dependencies {
     implementation(AndroidXDependencies.navigationFragmentKtx)
     implementation(AndroidXDependencies.navigationUiKtx)
     implementation(AndroidXDependencies.constraintLayout)
+    implementation(AndroidXDependencies.dataStorePreferences)
+    implementation(AndroidXDependencies.dataStoreProto)
     implementation(GoogleDependencies.material)
 
     // Kotlin

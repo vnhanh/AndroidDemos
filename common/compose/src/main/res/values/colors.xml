@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="toast_title">#00100C</color>
+    <color name="toast_message">#002019</color>
+    <color name="toast_bg">#d2d1d7</color>
+    <color name="toast_right_icon">#00100C</color>
+</resources>

@@ -3,7 +3,7 @@ package modules.common
 object CommonLogModule {
     const val nameSpace = "com.vnhanh.common.log"
 
-    const val projectName = ":common:log"
+    const val PROJECT_NAME = ":common:log"
 
     const val testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     const val consumerProguardFiles = "consumer-rules.pro"
